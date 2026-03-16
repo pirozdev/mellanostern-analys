@@ -137,12 +137,75 @@
   .timeline-date { font-size: 0.82em; color: var(--accent); font-weight: 600; }
   .timeline-text { font-size: 0.93em; margin-top: 4px; }
 
+
+  /* === HIGHLIGHT: Scenario & Expert Teaser Cards === */
+  .highlight-strip {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .highlight-card {
+    border-radius: 14px;
+    padding: 22px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .highlight-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 14px;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+  }
+  .highlight-card:hover::before { opacity: 1; }
+  .highlight-card:hover { transform: translateY(-2px); }
+  .highlight-card.scenario-card { background: linear-gradient(135deg, #1a0e1e, #1a1d27); }
+  .highlight-card.expert-card { background: linear-gradient(135deg, #0e1a1e, #1a1d27); }
+  .highlight-card .hl-label { font-size: 0.72em; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 8px; }
+  .highlight-card .hl-title { font-size: 1.15em; font-weight: 700; margin-bottom: 10px; }
+  .scenario-card .hl-title { color: var(--accent2); }
+  .expert-card .hl-title { color: #9b59b6; }
+  .highlight-card .hl-body { font-size: 0.88em; color: var(--text-muted); line-height: 1.5; }
+  .highlight-card .hl-cta { display: inline-block; margin-top: 12px; font-size: 0.82em; font-weight: 600; padding: 5px 14px; border-radius: 6px; transition: all 0.2s; }
+  .scenario-card .hl-cta { color: var(--accent2); border: 1px solid var(--accent2); }
+  .scenario-card .hl-cta:hover { background: var(--accent2); color: #fff; }
+  .expert-card .hl-cta { color: #9b59b6; border: 1px solid #9b59b6; }
+  .expert-card .hl-cta:hover { background: #9b59b6; color: #fff; }
+  .mini-prob-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin: 10px 0 4px; }
+  .mini-prob-bar > div { transition: width 0.5s ease; }
+  .mini-prob-labels { display: flex; justify-content: space-between; font-size: 0.72em; color: var(--text-muted); }
+  .mini-prob-labels .lbl-red { color: var(--red); font-weight: 600; }
+  .mini-prob-labels .lbl-orange { color: var(--orange); }
+  .mini-prob-labels .lbl-green { color: var(--green); }
+  .divergence-badge { display: inline-block; background: rgba(255,71,87,0.15); border: 1px solid rgba(255,71,87,0.3); color: var(--red); font-size: 0.75em; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-left: 6px; }
+  .nav-tab.tab-highlight { border-color: var(--accent2); color: var(--accent2); position: relative; font-weight: 600; }
+  .nav-tab.tab-highlight-expert { border-color: #9b59b6; color: #9b59b6; position: relative; font-weight: 600; }
+  .nav-tab.tab-highlight::after, .nav-tab.tab-highlight-expert::after { content: ''; position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; animation: pulse-dot 2s infinite; }
+  .nav-tab.tab-highlight::after { background: var(--accent2); }
+  .nav-tab.tab-highlight-expert::after { background: #9b59b6; }
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.5); } }
+  .nav-tab.tab-highlight:hover, .nav-tab.tab-highlight.active { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+  .nav-tab.tab-highlight-expert:hover, .nav-tab.tab-highlight-expert.active { background: #9b59b6; color: #fff; border-color: #9b59b6; }
+
   /* Responsive */
   @media (max-width: 768px) {
     .hero h1 { font-size: 1.6em; }
     .matrix-table { font-size: 0.78em; }
     .nav-tabs { gap: 4px; }
     .nav-tab { padding: 6px 12px; font-size: 0.8em; }
+    .highlight-strip { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -210,12 +273,47 @@
   </div>
 </div>
 
+<!-- HIGHLIGHT STRIP: Scenario & Expert Teasers -->
+<div class="highlight-strip">
+  <div class="highlight-card scenario-card" onclick="activateTab('scenarios')">
+    <div class="hl-label">Scenarioanalys</div>
+    <div class="hl-title">Tre scenarion med sannolikheter</div>
+    <div class="mini-prob-bar">
+      <div class="prob-escalation" style="width:50%"></div>
+      <div class="prob-status" style="width:32%"></div>
+      <div class="prob-deescalation" style="width:18%"></div>
+    </div>
+    <div class="mini-prob-labels">
+      <span class="lbl-red">Eskalering 50%</span>
+      <span class="lbl-orange">Utdraget 32%</span>
+      <span class="lbl-green">De-esk. 18%</span>
+    </div>
+    <div class="hl-body" style="margin-top:10px;">
+      Blind dubbelvalidering: Västerländsk vs regional analys visar <strong style="color:var(--red);">35pp divergens</strong> i eskaleringsbedömning.<span class="divergence-badge">HÖG DIVERGENS</span>
+    </div>
+    <span class="hl-cta">Visa fullständig scenarioanalys →</span>
+  </div>
+  <div class="highlight-card expert-card" onclick="activateTab('experts')">
+    <div class="hl-label">Expertvalidering</div>
+    <div class="hl-title">Politisk + Militär korsvalidering</div>
+    <div class="hl-body">
+      <div style="display:flex; gap:12px; margin-bottom:8px;">
+        <span style="font-size:0.85em; padding:3px 8px; border-radius:4px; background:rgba(155,89,182,0.15); color:#9b59b6; border:1px solid rgba(155,89,182,0.3);">Politisk expert</span>
+        <span style="font-size:0.85em; padding:3px 8px; border-radius:4px; background:rgba(231,76,60,0.15); color:#e74c3c; border:1px solid rgba(231,76,60,0.3);">Militärexpert</span>
+      </div>
+      <strong style="color:var(--text);">Konsensus:</strong> Regimen överlever — men utan exit-strategi eskalerar allt.<br>
+      <strong style="color:var(--text);">Divergens:</strong> Tidshorisonten — veckor vs årtionden.
+    </div>
+    <span class="hl-cta">Visa expertbedömningar →</span>
+  </div>
+</div>
+
 <nav class="nav-tabs" id="nav">
   <div class="nav-tab active" data-section="overview">Översikt</div>
   <div class="nav-tab" data-section="narrative">Narrativanalys</div>
   <div class="nav-tab" data-section="twitter">OSINT & Twitter/X</div>
-  <div class="nav-tab" data-section="experts">Expertvalidering</div>
-  <div class="nav-tab" data-section="scenarios">Scenarion</div>
+  <div class="nav-tab tab-highlight-expert" data-section="experts">Expertvalidering</div>
+  <div class="nav-tab tab-highlight" data-section="scenarios">Scenarion</div>
   <div class="nav-tab" data-section="warnings">Tidig varning</div>
   <div class="nav-tab" data-section="sources">Källor</div>
 </nav>
@@ -1042,14 +1140,18 @@
 const tabs = document.querySelectorAll('.nav-tab');
 const sections = document.querySelectorAll('.section');
 
+function activateTab(sectionId) {
+  tabs.forEach(t => t.classList.remove('active'));
+  sections.forEach(s => s.classList.remove('active'));
+  const targetTab = document.querySelector('.nav-tab[data-section="' + sectionId + '"]');
+  if (targetTab) targetTab.classList.add('active');
+  document.getElementById(sectionId).classList.add('active');
+  window.scrollTo({ top: document.getElementById(sectionId).offsetTop - 80, behavior: 'smooth' });
+}
+
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
-    const target = tab.dataset.section;
-    tabs.forEach(t => t.classList.remove('active'));
-    sections.forEach(s => s.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(target).classList.add('active');
-    window.scrollTo({ top: document.getElementById(target).offsetTop - 80, behavior: 'smooth' });
+    activateTab(tab.dataset.section);
   });
 });
 </script>
