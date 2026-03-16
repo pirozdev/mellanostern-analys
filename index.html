@@ -298,6 +298,11 @@
     /* Divergens-badge */
     .divergence-badge { font-size: 0.7em; padding: 1px 6px; }
 
+    /* Iranskt medielandskap — 2-kolumns grid till 1 kolumn */
+    div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+
     /* Regimskifte stat-rad */
     .regime-stat-row {
       flex-direction: column !important;
@@ -598,6 +603,68 @@
       </tr>
     </tbody>
   </table>
+  </div>
+
+  <!-- === IRANSKT MEDIELANDSKAP === -->
+  <div class="card" style="margin-top: 30px; border-left: 4px solid var(--iran);">
+    <h3 style="color:var(--iran);">🇮🇷 Iranskt medielandskap — Pro-regim vs Opposition/Diaspora</h3>
+    <p style="margin-bottom:14px; color:var(--text-muted); font-size:0.9em;">Irans medielandskap är djupt polariserat. Statskontrollerade medier — under IRIB, IRGC och Ledarens kontor — driver ett narrativ om folklig enhet och militär styrka. Diasporan och oppositionsmedier, som sänder från London, Washington och Paris, rapporterar om interna sprickor, protestmobilisering och regimkritik. Under kriget har internet-blackouten (17:e dagen, ~1% kapacitet) gjort oberoende verifiering nästan omöjlig. <em>Källa: <a href="https://www.niemanlab.org/2026/03/irans-divided-media-landscape-makes-getting-information-during-wartime-even-harder/" target="_blank">Nieman Journalism Lab, 9 mars 2026</a>.</em></p>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:16px;">
+
+      <!-- PRO-REGIM -->
+      <div style="background:var(--bg); border-radius:10px; padding:16px; border:1px solid rgba(142,68,173,0.3);">
+        <h4 style="color:var(--iran); margin-bottom:10px; font-size:0.95em;">🏛️ Pro-regim / Statskontrollerad</h4>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">Press TV</strong> <span style="color:var(--text-muted);">(IRIB — engelskspråkig)</span><br>
+        Huvudnarrativ: "cynisk aggression" av USA/Israel. Civilt lidande i centrum. Framställer Operation True Promise-4 som framgångsrik vedergällning — 46 missilanfallsvågor mot 27 amerikanska baser. Rapporterar dagliga "segrar" trots sinande missilarsenal.</p>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">IRNA</strong> <span style="color:var(--text-muted);">(Statlig nyhetsbyrå)</span><br>
+        Officiell linje: kärnvapenprogrammet var fredligt, kriget är oprovocerat. Fokuserar på diplomatisk legitimitet — FN-kravet, folkrättsbrott. Mindre aggressiv ton än Press TV men samma grundnarrativ.</p>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">Tasnim News</strong> <span style="color:var(--text-muted);">(IRGC-nära)</span><br>
+        IRGC:s de facto officiella röst. Publicerade Mojtaba Khameneis första uttalande. Ramar successionen som "strategiskt nederlag för fienden" — att mordet på Khamenei Sr. misslyckades med att utlösa systemkollaps. Mest militaristisk ton av alla iranska medier.</p>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">Fars News</strong> <span style="color:var(--text-muted);">(IRGC-anknuten)</span><br>
+        Halvofficiell, nära Revolutionsgardet sedan 2003. Rapporterade att Iran avfyrat 500+ ballistiska missiler och 2000 drönare sedan 28 feb. Publicerar inflationerade siffror om fiendeförluster — "hundratals amerikaner dödade eller skadade".</p>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">Kayhan</strong> <span style="color:var(--text-muted);">(Direkt under Ledarens kontor)</span><br>
+        Irans hårdaste linje. Ramar Mojtaba som "krigsledare". Kräver att Hormuz förblir stängt. Aggressiv retorik som döljer intern sårbarhet — efter kriget har tonen skiftat mot "den som talar med fienden begår förräderi". Har krävt avrättning av IAEA-chefen Grossi.</p>
+
+        <p style="font-size:0.85em;"><strong style="color:var(--text);">IRIB (Radio & TV)</strong> <span style="color:var(--text-muted);">(Statlig radio/TV)</span><br>
+        Monopol på inrikes-TV. Rapporterar uteslutande om civila offer och militära "segrar". Mojtaba Khameneis tal lästes upp av nyhetsankare — han visades aldrig live. BBC:s genomgång: staten centrerar all rapportering kring civilt lidande, lojalitetsupprop och vedergällning.</p>
+      </div>
+
+      <!-- OPPOSITION / DIASPORA -->
+      <div style="background:var(--bg); border-radius:10px; padding:16px; border:1px solid rgba(46,213,115,0.3);">
+        <h4 style="color:var(--green); margin-bottom:10px; font-size:0.95em;">📡 Opposition / Diaspora</h4>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">Iran International</strong> <span style="color:var(--text-muted);">(London — saudianklagad, persiskspråkig)</span><br>
+        Största diaspora-kanalen (57% av iranier utomlands följer den). Rapporterar om IRGC-sprickor, deserteringar, och att Mojtaba är "troligen vanställd". Förklarades "legitimt mål" av regimen 6 mars. Kritisk mot regimen men anklagad av vissa för saudisk finansiering.</p>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">BBC Persian</strong> <span style="color:var(--text-muted);">(London — BBC)</span><br>
+        Mer balanserad linje. 26% av iranier utomlands följer. Förbjudna inuti Iran men når in via VPN och satellit. Rapporterar om civila offer OCH regimkritik. Analysen är mer nyanserad — täcker rally-around-the-flag-effekten men också folklig ilska.</p>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">Manoto</strong> <span style="color:var(--text-muted);">(London — persiskspråkig)</span><br>
+        30% av iraniers medieintag utomlands. Stoppade sin London-sändning 23 feb efter terrorhot. Mer underhållningsprofilerad men har ökat nyhetsbevakningen under kriget. Kontroversiell pga kopplingar till monarkistisk rörelse.</p>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">NCRI / Mojahedin (MEK)</strong> <span style="color:var(--text-muted);">(Paris — organiserad opposition)</span><br>
+        Maryam Rajavi utropat provisorisk regering. Rapporterar dagliga "Iran News in Brief" med fokus på intern motståndsrörelse, fångar i fara, och banderollkampanjer i Teheran. Hävdar att regimen bara kan fällas inifrån — inte av bomber. Kontroversiell organisation men mest organiserade exiloppositionen.</p>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">IranWire</strong> <span style="color:var(--text-muted);">(London — oberoende journalistik)</span><br>
+        Grundat av Maziar Bahari. Nätverkar med journalister inuti Iran som rapporterar under stor personlig risk. Fokuserar på mänskliga rättigheter, fängelseförhållanden och vardagslivet under bombningarna. Mer journalistisk, mindre aktivistisk.</p>
+
+        <p style="font-size:0.85em; margin-bottom:8px;"><strong style="color:var(--text);">VOA Persian</strong> <span style="color:var(--text-muted);">(Washington — USA-finansierad)</span><br>
+        20% av iranier utomlands. Mer pro-amerikanskt perspektiv men med journalistisk standard. Under kriget: rapporterar om USA:s militära operationer med mer detalj än andra persiska kanaler.</p>
+
+        <p style="font-size:0.85em;"><strong style="color:var(--text);">Reza Pahlavi / monarkistisk rörelse</strong> <span style="color:var(--text-muted);">(Washington — politisk aktivism)</span><br>
+        Exilprinsen har ökat sin synlighet under kriget. Diasporademonstrationer med Shir-o-Khorshid-flaggan i stora världsstäder. Saknar dock Khomeinis 1979-karisma eller organiserad bas inuti Iran. Sammandrabbningar i New York mellan monarkister och regimanhängare.</p>
+      </div>
+    </div>
+
+    <div style="background:var(--bg); border-radius:8px; padding:14px; font-size:0.88em;">
+      <p><strong>🔑 Nyckelinsikt:</strong> Alla iranska källor — oavsett sida — har agenda. Statsmedier driver ett narrativ om enighet och seger som inte kan verifieras under internet-blackouten. Diaspora-medier driver ett narrativ om regimens sårbarhet som kan vara överoptimistiskt. <strong>Sanningen finns troligen mittemellan</strong>: regimen håller ihop för att den måste, men sprickor finns under ytan som kriget antingen döljer eller fördjupar. Den mest pålitliga informationen kommer från korsvalidering mellan diaspora-rapporter, satellitbilder (OSINT), och de fragment av intern rapportering som läcker ut via Telegram-kanaler.</p>
+    </div>
   </div>
 
   <div class="card" style="margin-top: 30px;">
@@ -1216,15 +1283,44 @@
   </div>
 
   <div class="card">
-    <h3><span class="sphere sphere-ir">Iranska källor</span></h3>
+    <h3><span class="sphere sphere-ir">🏛️ Iranska källor — Pro-regim / Statskontrollerad</span></h3>
     <ul class="sources-list">
       <li><a href="https://www.presstv.ir/Detail/2026/03/09/765162/ten-days-war-prove-us-israeli-regime-change-goal-iran-costly-unachievable-fantasy" target="_blank">Press TV — Ten days of war prove 'regime change' is a costly, unachievable fantasy</a></li>
+      <li><a href="https://www.presstv.ir/Detail/2026/03/13/765348/Iran-Israel-United-States-war-Qalibaf" target="_blank">Press TV — Iran views US, Israel as equally criminal; war to continue</a></li>
+      <li><a href="https://www.presstv.ir/Detail/2026/03/12/765300/New-Iranian-Leader%E2%80%99s-first-message-calls-for-strong-national-unity" target="_blank">Press TV — New Leader's first message calls for strong national unity</a></li>
+      <li><a href="https://www.presstv.ir/Detail/2026/03/11/765253/us-faces-logistical-crisis-allies-reject-trump-pleas-help-iran-war-source" target="_blank">Press TV — US faces mounting logistical crisis as allies reject Trump's pleas</a></li>
+      <li><a href="https://www.presstv.ir/Detail/2026/03/09/765181/true-promise4-iran-resistance-axis-ops-against-us-israeli-assets-mar-9" target="_blank">Press TV — True Promise 4: Iran and resistance axis operations (9 mars)</a></li>
       <li><a href="https://www.presstv.ir/Detail/2026/03/07/765071/Iran-to-those-silent-on-anti-Iran-war-History-will-judge-you" target="_blank">Press TV — Iran to those silent on anti-Iran war: History will judge you</a></li>
-      <li><a href="https://www.presstv.ir/Detail/2026/03/06/765052/Iran-Israel-United-States-warning-Kurdistan-Region-war" target="_blank">Press TV — Iran Armed Forces warn Iraqi Kurdistan against cooperation with US, Israel</a></li>
-      <li><a href="https://www.hrw.org/news/2026/03/07/us/israel-investigate-iran-school-attack-as-a-war-crime" target="_blank">HRW — Investigate Iran School Attack as a War Crime (korroborerar iranska rapporter)</a></li>
+      <li><a href="https://en.irna.ir/" target="_blank">IRNA — Islamic Republic News Agency (engelska)</a></li>
+      <li><a href="https://tasnimnews.ir/en" target="_blank">Tasnim News — IRGC-nära nyhetsbyrå (engelska)</a></li>
+      <li><a href="https://kayhan.ir/en/news/148746/leader-people-have-showed-their-greatness" target="_blank">Kayhan — Leader: People Have Showed Their Greatness</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--green);">📡 Iranska källor — Opposition / Diaspora</h3>
+    <ul class="sources-list">
+      <li><a href="https://www.iranintl.com/en/202603166219" target="_blank">Iran International — Iran does not seek ceasefire but war must end, FM says</a></li>
+      <li><a href="https://www.iranintl.com/en/202603125349" target="_blank">Iran International — Iran's unseen new leader issues first message in writing</a></li>
+      <li><a href="https://www.iranintl.com/en/202603127596" target="_blank">Iran International — Desertions, shortages and army-IRGC rift strain Iran's military</a></li>
+      <li><a href="https://www.iranintl.com/en/202603138813" target="_blank">Iran International — IRGC threatens harsher crackdown if protests return</a></li>
+      <li><a href="https://www.ncr-iran.org/en/news/iran-news-in-brief-news/iran-news-in-brief-march-16-2026/" target="_blank">NCRI — Iran News in Brief, 16 mars 2026</a></li>
+      <li><a href="https://www.ncr-iran.org/en/news/iran-resistance/iranian-opposition-rallies-in-hamburg-and-stockholm-endorse-ncri-provisional-government/" target="_blank">NCRI — Oppositionsrallys i Hamburg och Stockholm stödjer provisorisk regering</a></li>
+      <li><a href="https://www.visiontimes.com/2026/03/13/iranian-dissident-regime-can-only-be-toppled-by-popular-uprising-not-airstrikes.html" target="_blank">Vision Times — Iranian dissident: Regime only toppled by popular uprising, not airstrikes</a></li>
+      <li><a href="https://www.niemanlab.org/2026/03/irans-divided-media-landscape-makes-getting-information-during-wartime-even-harder/" target="_blank">Nieman Lab — Iran's divided media landscape during wartime</a></li>
+      <li><a href="https://www.newarab.com/analysis/media-monarchists-and-new-battle-irans-narrative" target="_blank">The New Arab — Media, monarchists, and the new battle for Iran's narrative</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🔍 Oberoende verifiering av iranska uppgifter</h3>
+    <ul class="sources-list">
+      <li><a href="https://www.hrw.org/news/2026/03/07/us/israel-investigate-iran-school-attack-as-a-war-crime" target="_blank">HRW — Investigate Iran School Attack as a War Crime (korroborerar iranska civila dödstal)</a></li>
       <li><a href="https://www.cnn.com/2026/03/06/middleeast/iran-minab-elementary-school-investigation-us-strike-intl" target="_blank">CNN — Analysis suggests US responsible for deadly school strike in Minab</a></li>
       <li><a href="https://time.com/7382536/iran-civilians-killed-girls-school/" target="_blank">TIME — More than 1,000 Civilians Killed in US-Israeli Bombing</a></li>
       <li><a href="https://www.aljazeera.com/news/2026/3/11/iran-reports-hospitals-civilians-affected-during-war-with-us-israel" target="_blank">Al Jazeera — Iran reports hospitals, civilians affected during war</a></li>
+      <li><a href="https://www.npr.org/2026/03/14/nx-s1-5746623/iran-war-cost-deaths" target="_blank">NPR — Casualties and cost of the war in Iran, 2 weeks in</a></li>
+      <li><a href="https://theconversation.com/irans-divided-media-landscape-makes-getting-information-during-wartime-even-harder-277321" target="_blank">The Conversation — Iran's divided media landscape</a></li>
     </ul>
   </div>
 
