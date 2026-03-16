@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geopolitisk Scenarioanalys — Mellanöstern Mars 2026</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #22263a;
+    --accent: #4f8cff;
+    --accent2: #ff6b6b;
+    --accent3: #ffd93d;
+    --accent4: #6bcb77;
+    --text: #e0e0e0;
+    --text-muted: #8a8fa8;
+    --border: #2a2e3f;
+    --red: #ff4757;
+    --orange: #ffa502;
+    --green: #2ed573;
+    --russia: #c23616;
+    --west: #0097e6;
+    --china: #e1b12c;
+    --arab: #44bd32;
+    --israel: #273c75;
+    --iran: #8e44ad;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  .hero { text-align: center; padding: 60px 20px 40px; background: linear-gradient(135deg, #1a1d27 0%, #0f1117 100%); border-bottom: 1px solid var(--border); }
+  .hero h1 { font-size: 2.4em; font-weight: 700; margin-bottom: 10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .subtitle { font-size: 1.1em; color: var(--text-muted); max-width: 700px; margin: 0 auto 20px; }
+  .hero .date-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 18px; font-size: 0.85em; color: var(--accent); }
+  .hero .war-day { display: inline-block; background: var(--accent2); color: #fff; border-radius: 20px; padding: 6px 18px; font-size: 0.85em; font-weight: 600; margin-left: 8px; }
+
+  /* Disclaimer */
+  .disclaimer { background: #2a1a1a; border: 1px solid #5a2020; border-radius: 12px; padding: 20px; margin: 30px auto; max-width: 900px; font-size: 0.88em; color: #ffaaaa; }
+  .disclaimer strong { color: var(--accent2); }
+
+  /* Navigation */
+  .nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 20px; position: sticky; top: 0; background: var(--bg); z-index: 100; border-bottom: 1px solid var(--border); }
+  .nav-tab { padding: 8px 18px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text-muted); cursor: pointer; font-size: 0.9em; transition: all 0.2s; }
+  .nav-tab:hover, .nav-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* Sections */
+  .section { display: none; padding: 30px 0; }
+  .section.active { display: block; }
+  .section-title { font-size: 1.6em; font-weight: 700; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; transition: background 0.2s; }
+  .card:hover { background: var(--card-hover); }
+  .card h3 { font-size: 1.15em; margin-bottom: 12px; color: var(--accent); }
+  .card p { color: var(--text); font-size: 0.95em; }
+
+  /* Sphere badges */
+  .sphere { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 0.8em; font-weight: 600; margin-right: 6px; margin-bottom: 4px; }
+  .sphere-ru { background: var(--russia); color: #fff; }
+  .sphere-west { background: var(--west); color: #fff; }
+  .sphere-cn { background: var(--china); color: #000; }
+  .sphere-arab { background: var(--arab); color: #fff; }
+  .sphere-il { background: var(--israel); color: #fff; }
+  .sphere-ir { background: var(--iran); color: #fff; }
+
+  /* Narrative Matrix Table */
+  .matrix-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+  .matrix-table th { background: #1e2235; padding: 12px 10px; text-align: left; border-bottom: 2px solid var(--accent); font-weight: 600; }
+  .matrix-table td { padding: 12px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .matrix-table tr:hover td { background: var(--card-hover); }
+  .matrix-table .topic { font-weight: 600; color: var(--accent); min-width: 140px; }
+
+  /* Scenario cards */
+  .scenario { border-radius: 12px; padding: 28px; margin-bottom: 24px; border: 2px solid; }
+  .scenario-escalation { border-color: var(--red); background: linear-gradient(135deg, #1a0a0a, var(--card)); }
+  .scenario-status { border-color: var(--orange); background: linear-gradient(135deg, #1a150a, var(--card)); }
+  .scenario-deescalation { border-color: var(--green); background: linear-gradient(135deg, #0a1a0e, var(--card)); }
+  .scenario h3 { font-size: 1.3em; margin-bottom: 6px; }
+  .scenario .probability { font-size: 2em; font-weight: 800; margin: 10px 0; }
+  .scenario-escalation .probability { color: var(--red); }
+  .scenario-status .probability { color: var(--orange); }
+  .scenario-deescalation .probability { color: var(--green); }
+
+  .scenario-detail { margin-top: 16px; }
+  .scenario-detail h4 { color: var(--text-muted); font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+  .scenario-detail ul { list-style: none; padding: 0; }
+  .scenario-detail li { padding: 4px 0 4px 20px; position: relative; font-size: 0.93em; }
+  .scenario-detail li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+  /* Probability bar */
+  .prob-bar-container { display: flex; height: 40px; border-radius: 8px; overflow: hidden; margin: 20px 0; }
+  .prob-bar { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; color: #fff; }
+  .prob-escalation { background: var(--red); }
+  .prob-status { background: var(--orange); }
+  .prob-deescalation { background: var(--green); }
+
+  /* Expert boxes */
+  .expert-box { background: var(--card); border-left: 4px solid; border-radius: 0 12px 12px 0; padding: 20px 24px; margin-bottom: 18px; }
+  .expert-political { border-left-color: #9b59b6; }
+  .expert-military { border-left-color: #e74c3c; }
+  .expert-box .expert-name { font-weight: 700; font-size: 1em; margin-bottom: 8px; }
+  .expert-political .expert-name { color: #9b59b6; }
+  .expert-military .expert-name { color: #e74c3c; }
+
+  /* Warning dashboard */
+  .warning-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+  .warning-table th { background: #1e2235; padding: 10px; text-align: left; border-bottom: 2px solid var(--accent); }
+  .warning-table td { padding: 10px; border-bottom: 1px solid var(--border); }
+  .signal-high { color: var(--red); font-weight: 600; }
+  .signal-med { color: var(--orange); font-weight: 600; }
+  .signal-low { color: var(--green); font-weight: 600; }
+
+  /* Key stats */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+  .stat-value { font-size: 2em; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 0.85em; color: var(--text-muted); margin-top: 4px; }
+  .stat-red .stat-value { color: var(--red); }
+  .stat-orange .stat-value { color: var(--orange); }
+
+  /* Sources */
+  .sources-list { list-style: none; padding: 0; }
+  .sources-list li { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.88em; }
+  .sources-list a { color: var(--accent); text-decoration: none; }
+  .sources-list a:hover { text-decoration: underline; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; margin-bottom: 20px; }
+  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 8px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+  .timeline-item.critical::before { background: var(--red); }
+  .timeline-date { font-size: 0.82em; color: var(--accent); font-weight: 600; }
+  .timeline-text { font-size: 0.93em; margin-top: 4px; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 1.6em; }
+    .matrix-table { font-size: 0.78em; }
+    .nav-tabs { gap: 4px; }
+    .nav-tab { padding: 6px 12px; font-size: 0.8em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Geopolitisk Scenarioanalys — Mellanöstern</h1>
+  <p class="subtitle">Multi-Source Intelligence Synthesis: Iran — Israel — USA-triangeln och den bredare regionala konflikten</p>
+  <span class="date-badge">15 mars 2026</span>
+  <span class="war-day">Dag 16 av Operation Epic Fury</span>
+</div>
+
+<div class="disclaimer">
+  <strong>⚠ DISCLAIMER:</strong> Denna analys bygger på öppna källor (OSINT) och AI-genererade bedömningar. Den ersätter inte underrättelseanalys eller professionell geopolitisk rådgivning. Narrativjämförelser speglar redaktionella linjer, inte nödvändigtvis objektiv sanning. Scenariobedömningar är probabilistiska uppskattningar — inte förutsägelser. Konflikten utvecklas snabbt och informationsläget förändras dag för dag.
+</div>
+
+<div style="max-width:900px; margin:20px auto; background:linear-gradient(135deg, #1a2235, #1a1d27); border:2px solid var(--accent); border-radius:12px; padding:24px; font-size:0.92em;">
+  <h3 style="color:var(--accent); margin-bottom:14px; font-size:1.15em;">📋 Daglig briefing — 15 mars 2026 (Dag 16)</h3>
+  <p style="color:var(--text-muted); margin-bottom:14px;">Förändringar sedan senaste rapporten (14 mars):</p>
+
+  <div style="margin-bottom:16px;">
+    <p style="margin-bottom:8px;"><strong style="color:var(--red);">1. Trump avvisar fredssamtal</strong> — Trump säger "not ready for deal" efter att Iran via underrättelsekanaler nådde ut till CIA. Isfahan bombas intensivt — 15+ döda vid fabrik. Diplomatiskt fönster stängs.</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--red);">2. Israel kritiskt lågt på interceptorer</strong> — Haaretz rapporterar att Israels missilförsvar börjar sina efter 6 iranska salvor sedan midnatt. 108 skadade på israeliska sjukhus senaste dygnet. 3 195 totalt sedan krigets start.</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--red);">3. Första allierade dödsfallet utanför USA/Israel</strong> — En fransk soldat dödades av iransk drönare i irakiska Kurdistan. Frankrike kräver förklaring.</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--orange);">4. Brent $103.86/fat — stabilt högt</strong> — Oljan håller sig över $100 tredje dagen i rad. USA:s bensinpris $3.63/gallon (22 mån högsta).</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">5. Hormuz-yuan-förhandlingar</strong> — Iran överväger att släppa igenom begränsat antal tankers om oljan handlas i kinesisk yuan. Geopolitisk signal: Kina som alternativt finanssystem under krig.</p>
+  </div>
+
+  <div style="background:var(--bg); border-radius:8px; padding:14px; margin-bottom:14px;">
+    <p style="margin-bottom:6px; font-weight:600; color:var(--accent);">Scenariojustering:</p>
+    <table style="width:100%; font-size:0.9em; border-collapse:collapse;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:6px;">Scenario</th>
+        <th style="text-align:center; padding:6px;">Igår</th>
+        <th style="text-align:center; padding:6px;">Idag</th>
+        <th style="text-align:center; padding:6px;">Förändring</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:6px; color:var(--red);">Eskalering</td>
+        <td style="text-align:center; padding:6px;">48%</td>
+        <td style="text-align:center; padding:6px; font-weight:700;">50%</td>
+        <td style="text-align:center; padding:6px; color:var(--red);">↑ +2%</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:6px; color:var(--orange);">Utdraget krig</td>
+        <td style="text-align:center; padding:6px;">30%</td>
+        <td style="text-align:center; padding:6px; font-weight:700;">32%</td>
+        <td style="text-align:center; padding:6px; color:var(--red);">↑ +2%</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; color:var(--green);">De-eskalering</td>
+        <td style="text-align:center; padding:6px;">22%</td>
+        <td style="text-align:center; padding:6px; font-weight:700;">18%</td>
+        <td style="text-align:center; padding:6px; color:var(--red);">↓ -4%</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="background:var(--bg); border-radius:8px; padding:14px;">
+    <p style="margin-bottom:6px; font-weight:600; color:var(--accent);">Bevaka de närmaste 24 timmarna:</p>
+    <p style="margin-bottom:4px;">→ <strong>Israels interceptor-kris</strong> — klarar Iron Dome/Arrow nästa salva? USA måste leverera reservdelar</p>
+    <p style="margin-bottom:4px;">→ <strong>Houthierna</strong> — fortfarande "fingers on trigger" men ej attackerat. Varje dag utan attack = de-eskalerande</p>
+    <p style="margin-bottom:4px;">→ <strong>Yuan-oljehandel via Hormuz</strong> — om Iran släpper igenom kinesiska/indiska tankers skapas en ny geopolitisk dynamik</p>
+    <p style="margin-bottom:0;">→ <strong>Franskt svar</strong> — hur reagerar Macron/NATO på den franske soldatens död?</p>
+  </div>
+</div>
+
+<nav class="nav-tabs" id="nav">
+  <div class="nav-tab active" data-section="overview">Översikt</div>
+  <div class="nav-tab" data-section="narrative">Narrativanalys</div>
+  <div class="nav-tab" data-section="twitter">OSINT & Twitter/X</div>
+  <div class="nav-tab" data-section="experts">Expertvalidering</div>
+  <div class="nav-tab" data-section="scenarios">Scenarion</div>
+  <div class="nav-tab" data-section="warnings">Tidig varning</div>
+  <div class="nav-tab" data-section="sources">Källor</div>
+</nav>
+
+<div class="container">
+
+<!-- ========== OVERVIEW ========== -->
+<div class="section active" id="overview">
+  <h2 class="section-title">Exekutiv sammanfattning</h2>
+
+  <div class="card">
+    <p>Den 28 februari 2026 inledde USA och Israel <strong>Operation Epic Fury</strong> — en massiv gemensam flyg- och missilkampanj mot Iran. Irans Högste ledare Ali Khamenei dödades i de inledande attackerna. Iran svarade med hundratals missiler och drönare mot Israel, amerikanska baser i regionen och civila mål i samtliga sex GCC-stater. Konflikten har nu pågått i <strong>16 dagar</strong>.</p>
+    <br>
+    <p>Kriget har dragit in minst 16 stater och skapar en humanitär, ekonomisk och säkerhetspolitisk kris av historiska proportioner. Hormuzsundet är i praktiken blockerat — oljeflödet har fallit med ~90% och priset har legat över $100/fat i tre dagar. Iran överväger att släppa igenom ett begränsat antal tankers mot betalning i kinesisk yuan — en potentiellt omvälvande geopolitisk signal. Houthierna har formellt signalerat förnyade attacker i Röda havet men ännu ej agerat. En fransk soldat har dödats av iransk drönare i Irak — det första allierade dödsfallet utanför USA/Israel.</p>
+    <br>
+    <p>Den viktigaste utvecklingen dag 15-16: <strong>Trump avvisade explicit fredssamtal</strong> — trots att Iran nådde ut till CIA via bakkanaler. Trump skrev att det är "too late" för förhandlingar. Isfahan bombas intensivt. Haaretz rapporterar att Israel börjar få kritiskt lågt med missilinterceptorer efter sex iranska salvor sedan midnatt. Israels sjukhus har tagit emot 3 195 krigsskadade sedan 28 februari. Det diplomatiska fönstret som öppnades med Pezeshkians tre villkor stängs nu aktivt av Washington.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card stat-red"><div class="stat-value">16</div><div class="stat-label">Dagar av krig</div></div>
+    <div class="stat-card stat-red"><div class="stat-value">1 444+</div><div class="stat-label">Dödade i Iran</div></div>
+    <div class="stat-card stat-red"><div class="stat-value">773</div><div class="stat-label">Dödade i Libanon</div></div>
+    <div class="stat-card stat-orange"><div class="stat-value">13</div><div class="stat-label">Amerikanska soldater döda</div></div>
+    <div class="stat-card stat-orange"><div class="stat-value">15 000+</div><div class="stat-label">Mål träffade i Iran</div></div>
+    <div class="stat-card stat-red"><div class="stat-value">$103</div><div class="stat-label">Brent råolja (USD/fat)</div></div>
+    <div class="stat-card"><div class="stat-value">830k</div><div class="stat-label">Flyktingar i Libanon</div></div>
+    <div class="stat-card"><div class="stat-value">56%</div><div class="stat-label">Amerikaner emot kriget</div></div>
+  </div>
+
+  <h3 style="margin: 30px 0 15px; color: var(--accent);">Konfliktens tidslinje</h3>
+  <div class="timeline">
+    <div class="timeline-item critical"><div class="timeline-date">25 feb</div><div class="timeline-text">Irans FM Araghchi säger att ett "historiskt" avtal med USA är "inom räckhåll" inför Genève-samtal</div></div>
+    <div class="timeline-item critical"><div class="timeline-date">28 feb — Dag 1</div><div class="timeline-text">Operation Epic Fury inleds. Khamenei dödas. Iran svarar med missiler mot Israel, GCC-stater och amerikanska baser</div></div>
+    <div class="timeline-item"><div class="timeline-date">1 mars</div><div class="timeline-text">Iransk ballistisk missil träffar Beit Shemesh i Israel — 9 döda. Dubai flygplats skadat av drönarattack</div></div>
+    <div class="timeline-item"><div class="timeline-date">2 mars</div><div class="timeline-text">Hizbollah öppnar ny front: 150+ raketer mot norra Israel</div></div>
+    <div class="timeline-item"><div class="timeline-date">3 mars</div><div class="timeline-text">IRGC deklarerar kontroll över Hormuzsundet. Oljepriser spiker uppåt</div></div>
+    <div class="timeline-item"><div class="timeline-date">5 mars</div><div class="timeline-text">Libanons regering förbjuder Hizbollahs militära aktiviteter. Iranska Quds Force-rådgivare lämnar Beirut</div></div>
+    <div class="timeline-item"><div class="timeline-date">6 mars</div><div class="timeline-text">Trump kräver Irans "villkorslösa kapitulation". Irans missilkapacitet bedöms ha fallit med 90%</div></div>
+    <div class="timeline-item"><div class="timeline-date">8 mars</div><div class="timeline-text">Fortune: Ryssland delar underrättelsedata med Iran om amerikanska militära mål</div></div>
+    <div class="timeline-item"><div class="timeline-date">9 mars</div><div class="timeline-text">Mojtaba Khamenei utses till ny Högste ledare. IRGC och nyckelledare svär trohet</div></div>
+    <div class="timeline-item"><div class="timeline-date">10 mars</div><div class="timeline-text">CENTCOM: 5 000+ mål träffade. Iran: nästan 10 000 civila platser drabbade</div></div>
+    <div class="timeline-item"><div class="timeline-date">11 mars</div><div class="timeline-text">IEA frisläpper 400M fat olja. Iranska minor läggs i Hormuzsundet. IDF anfaller Teheran och Beirut samtidigt</div></div>
+    <div class="timeline-item"><div class="timeline-date">12 mars — Dag 13</div><div class="timeline-text">Pezeshkian presenterar tre villkor för vapenvila i samtal med Pakistan och Ryssland. Trump hävdar i G7-samtal att Iran "snart kapitulerar". Nya våg av strikes mot Teheran. Två döda i Oman av nedslagen drönare</div></div>
+    <div class="timeline-item critical"><div class="timeline-date">13 mars — Dag 14</div><div class="timeline-text">Mojtaba Khamenei håller första talet: svär att Hormuz förblir stängt. Olja passerar $100/fat. Tre utländska fartyg attackerade i Persiska viken. Houthierna signalerar formellt att attacker i Röda havet återupptas. Irans internet: 14:e dagen på ~1% kapacitet</div></div>
+    <div class="timeline-item"><div class="timeline-date">13 mars — Dag 14</div><div class="timeline-text">USA bombar Kharg Island — Irans oljeexporthubb (90% av exporten). Militära mål förstörda men oljeterminal lämnad intakt. Hegseth: Mojtaba Khamenei "skadad och troligen vanställd". Missil träffar USA:s ambassad i Bagdad. USA-tankerflygplan kraschar i Irak — 6 döda</div></div>
+    <div class="timeline-item"><div class="timeline-date">14 mars — Dag 15</div><div class="timeline-text">Brent $103/fat (+40% sedan krigets start). IEA: "den största oljeförsörjningsstörningen i världshistorien". 15 000+ mål träffade i Iran. 1 444 döda i Iran, 773 i Libanon, 13 amerikaner. Trump hotar att bomba oljeinfrastrukturen om Hormuz förblir stängt</div></div>
+    <div class="timeline-item critical"><div class="timeline-date">15 mars — Idag (Dag 16)</div><div class="timeline-text">Trump avvisar fredssamtal explicit — säger "not ready for deal" trots iransk CIA-kontakt. Isfahan bombas intensivt: 15+ döda vid fabrik. Iran avfyrar 6 ballistiska missilsalvor mot Israel sedan midnatt. Haaretz: Israel kritiskt lågt på interceptorer. Fransk soldat dödad av iransk drönare i irakiska Kurdistan — första allierade dödsfallet utanför USA/Israel. Iran överväger yuan-denominerade oljeleveranser genom Hormuz. USA utlyser $10M belöning för info om iranska ledare</div></div>
+  </div>
+</div>
+
+<!-- ========== NARRATIVE ========== -->
+<div class="section" id="narrative">
+  <h2 class="section-title">Narrativanalys — Sex informationssfärer</h2>
+
+  <p style="margin-bottom: 20px; color: var(--text-muted);">Sex geopolitiska informationssfärer berättar var sin version av konflikten — inklusive <strong style="color:var(--iran);">iransk statsmedia</strong> som sjätte sfär. Nedan kartläggs var de är överens, var de divergerar, och var propagandan är som mest synlig.</p>
+
+  <div style="overflow-x: auto;">
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th>Fråga</th>
+        <th><span class="sphere sphere-ru">🇷🇺 Ryssland</span></th>
+        <th><span class="sphere sphere-west">🇺🇸🇪🇺 Väst</span></th>
+        <th><span class="sphere sphere-cn">🇨🇳 Kina</span></th>
+        <th><span class="sphere sphere-arab">🇸🇦🇶🇦 Arab</span></th>
+        <th><span class="sphere sphere-il">🇮🇱 Israel</span></th>
+        <th><span class="sphere sphere-ir">🇮🇷 Iran</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="topic">Vem bär skulden?</td>
+        <td>USA/Israel. Mordet på Khamenei = "cyniskt brott mot folkrätten". Medvedev varnar för WW3</td>
+        <td>Delad bild. Reuters/AP: saklig rapportering. Think tanks: kritiska mot avsaknad av exit-strategi. Viss förståelse för att neutralisera Irans kärnvapenprogram</td>
+        <td>Tydligt USA/Israel. Xinhua: "Världen får inte glida tillbaka till djungelns lag." Wang Yi: kriget "borde aldrig ha hänt"</td>
+        <td>Komplex. Al Jazeera: tydligt kritisk mot USA/Israel. Al Arabiya: mer nyanserad, men upprörd över att Iran attackerat GCC-civila mål</td>
+        <td>Iran provocerade genom kärnvapenprogram och proxykrig. Netanyahu: "svåra konsekvenser" var nödvändiga. Haaretz: kritisk mot regeringens krigsnarrativ</td>
+        <td>100% USA/Israel. Press TV: "cynisk aggression" och "krig mot civilbefolkningen". Mordet på Khamenei framställs som det ultimata brottet. Pezeshkian: fienderna tar drömmen om Irans kapitulation "till graven"</td>
+      </tr>
+      <tr>
+        <td class="topic">Irans kärnvapen — status?</td>
+        <td>Tonar ned hotet. Framhåller att Iran hade rätt till civilt kärnkraftsprogram</td>
+        <td>Breakout-tid var &lt;2 veckor före kriget. Strikes har fördröjt men inte eliminerat kapaciteten. 400 kg 60%-anrikat uran saknas</td>
+        <td>Undviker detaljer. Framhåller NPT-rättigheter och kritiserar ensidiga militära lösningar</td>
+        <td>Begränsad rapportering. Mer fokus på humanitärt lidande och regional spillover</td>
+        <td>Programmet var ett existentiellt hot. Rapporterar framgångar men Haaretz: "obliterated" är överdrivet — programmet är skadat men existerar</td>
+        <td>Förnekar vapenprogram. Press TV: Iran har rätt till fredligt kärnkraftsprogram under NPT. Angreppen på nukleära anläggningar = "ekologisk terrorism". IRNA: västvärldens påstående om bombprogram är en förevändning för krig</td>
+      </tr>
+      <tr>
+        <td class="topic">USA:s roll — stabiliserande?</td>
+        <td>Nej. USA = destabiliserande hegemon som bryter folkrätten. Drar paralleller till Irak 2003</td>
+        <td>Kluven. Pro-interventionister: nödvändigt för att stoppa Iran. Realists: ingen exit-strategi, skapar mångårigt kaos</td>
+        <td>Nej. "Kraft ger inga lösningar, väpnad konflikt föder bara hat och nya kriser" (Wang Yi)</td>
+        <td>Nej. Qatar: kräver de-eskalering. Gulfstaterna upprörda över att inte informerats före kriget</td>
+        <td>Ja (officiellt). Netanyahu: USA är en avgörande allierad. Haaretz: beroendet av USA medför risker</td>
+        <td>Absolut nej. Press TV: USA är en "imperialistisk aggressor" som har "förstört den globala rättsordningen". FM-talesperson: världens tystnad är ett brott. Drar paralleller till Nordvietnam — "luftherravälde vinner inga krig"</td>
+      </tr>
+      <tr>
+        <td class="topic">Diplomatisk lösning möjlig?</td>
+        <td>Ja, om USA slutar bomba. Putin erbjuder sig som medlare</td>
+        <td>Oklart. Trump: "villkorslös kapitulation". Iran: förhandlingar inte på bordet. Bedömare: diplomatisk återvändsgränd</td>
+        <td>Ja. Kina skickar specialsändebud till regionen. Uppmanar alla parter till samtal</td>
+        <td>Ja. Saudiarabien för aktiva backchannels med Iran. Qatar manar till förhandlingsbordet</td>
+        <td>Nej (officiellt). Israel: "ingen tidsgräns" på operationen. Mål: varaktig degradering av Irans kapacitet</td>
+        <td>Inte under bombningar. Press TV: Iran var redo för avtal i Genève — det var USA/Israel som valde krig. "Historien kommer döma de som teg." Men implicit: dörren lämnas på glänt för framtida förhandlingar om bombningarna upphör</td>
+      </tr>
+      <tr>
+        <td class="topic">Militär eskalation trolig?</td>
+        <td>Ja. Medvedev varnar WW3. Men Ryssland begränsar eget engagemang till underrättelser</td>
+        <td>Risk för miscalculation hög. ACLED: Iran har uthållighet men sinande resurser. Kriget kan bli långdraget</td>
+        <td>Risk hög. Kinas fokus: evakuera 10 000+ kinesiska medborgare. Manar till återhållsamhet</td>
+        <td>Ja. Iran har attackerat alla GCC-stater. Gulfstaterna "reserverar rätten att svara"</td>
+        <td>Ja, men kontrollerbart. IDF-bedömning: Irans missilkapacitet nere 90%. Hizbollah = kvarvarande hot</td>
+        <td>Iran framställer sin vedergällning som "Operation True Promise-4". IRGC: attacker mot 27 amerikanska baser + israeliska militäranläggningar. Press TV: "de flesta faktorer i kriget gynnar Iran på lång sikt". Hotar Dimona-anläggningen</td>
+      </tr>
+      <tr>
+        <td class="topic">Regionala allianser — riktning?</td>
+        <td>Ryssland-Iran-axeln stärks i narrativet men Moskva levererar lite materiellt (bundet av Ukraina)</td>
+        <td>Abraham Accords pausade men inte döda. NATO splittrat — UK stödjer defensivt, Europa mer skeptiskt</td>
+        <td>Kina balanserar: fördömer USA men skyddar GCC-relationer och energiintressen</td>
+        <td>GCC-splittring: Saudi för diplomati, UAE mest drabbat och mest aggressivt. Qatar medlar</td>
+        <td>Israel stärkt med USA men isolerat diplomatiskt. Nya fiender bland GCC som attackerats av Iran pga israelisk koppling</td>
+        <td>"Motståndsaxeln" lever. Press TV betonar att Hizbollah, Houthier och irakiska PMF agerar i solidaritet. Miljoner demonstrerar för nya Högste ledaren. IRGC svär "fullständig lydnad" till Mojtaba Khamenei. Narrativet: Iran är starkare enat än någonsin</td>
+      </tr>
+      <tr>
+        <td class="topic">Civila offer / krigsbrott</td>
+        <td>Rapporterar, men underordnat geopolitiskt narrativ</td>
+        <td>HRW/CNN: skolattack i Minab (165 döda, mestadels barn) bör utredas som krigsbrott. USA undersöker eget ansvar</td>
+        <td>Kinesisk media framhåller civila offer som bevis på västvärldens dubbelmoral</td>
+        <td>Al Jazeera: detaljerad rapportering om civila döda. 1 300+ döda. 10 000 civila platser drabbade</td>
+        <td>Minimalt fokus. IDF: alla mål var militära. Haaretz ifrågasätter proportionaliteten</td>
+        <td>Centralt narrativ. Press TV/IRNA: 10 000 civila platser bombade. 1 300+ döda, "mestadels civila". 77 sjukvårdsanläggningar drabbade, 11 sjukvårdspersonal döda. Skolattacken i Minab = "barbarism". Kräver ICC-utredning</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="card" style="margin-top: 30px;">
+    <h3>Sammanfattad narrativbedömning</h3>
+    <p><strong>Konsensus:</strong> Samtliga sfärer erkänner att konflikten har regional spillover av historisk skala. Alla noterar att Irans missilkapacitet har degraderats kraftigt men att regimen håller samman.</p>
+    <br>
+    <p><strong>Djupaste klyftan:</strong> Synen på legitimitet. Ryssland, Kina och delar av arabvärlden ser kriget som ett folkrättsbrott. USA och Israel ser det som självförsvar mot ett existentiellt kärnvapenhot. Denna klyfta kommer forma den geopolitiska ordningen i årtionden.</p>
+    <br>
+    <p><strong>Vad alla missar:</strong> Irans interna maktkamp. Mojtaba Khameneis konsolidering rapporteras ytligt av samtliga sfärer. Den verkliga frågan — huruvida IRGC nu de facto styr Iran oberoende av den nya Högste ledaren — analyseras djupare av få.</p>
+    <br>
+    <p><strong>Tydligaste propagandasignalerna:</strong> RT:s konsekvent anti-amerikanska vinkling (men Rysslands faktiska agerande är mer pragmatiskt). Israels officiella narrativ om "obliterated" kärnvapenprogram ifrågasätts av egen media (Haaretz). Kinas "neutrala medlare"-pose kontrasterar mot djupa ekonomiska band med Iran. <strong style="color:var(--iran);">Iransk statsmedia (Press TV, IRNA, Fars News)</strong> är den tydligast propagandastyrda sfären: total internet-blackout gör oberoende verifiering omöjlig, civila dödssiffror kan vara överdrivna eller underdrivna, och narrativet om massivt folkligt stöd för Mojtaba Khamenei kan inte bekräftas utifrån. Samtidigt är de iranska rapporterna om civila offer delvis korroborerade av HRW och CNN (skolattacken i Minab). Irans Nordvietnam-parallell är retoriskt kraftfull men militärt missvisande — Iran saknar Vietnams geografi och stormaktsunderstöd.</p>
+  </div>
+</div>
+
+<!-- ========== TWITTER/OSINT ========== -->
+<div class="section" id="twitter">
+  <h2 class="section-title">OSINT, Twitter/X & expertkommentatorer</h2>
+
+  <p style="margin-bottom: 20px; color: var(--text-muted);">Sammanställning av bedömningar från de mest inflytelserika analytikerna, OSINT-källorna och namngivna Twitter/X-kommentatorer som bevakar konflikten i realtid. <strong>Uppdaterad 15 mars 2026.</strong></p>
+
+  <div class="card">
+    <h3>Militär OSINT-bedömning (Dag 14)</h3>
+    <p>OSINT-analytiker bekräftar att Irans offensiva missilkapacitet har degraderats med ~90%. Kvarvarande arsenal uppskattas till 100–200 missiler. Men Irans asymmetriska kapacitet — drönare, minor i Hormuz, cyberangrepp — förblir aktiv och svår att slå ut.</p>
+    <br>
+    <p><strong>Dag 15-16 OSINT-uppdatering:</strong> Isfahan-provinsen under intensiv bombardemang — minst 15 döda vid fabrik. Iran avfyrar 6 ballistiska missilsalvor mot Israel sedan midnatt dag 16. Haaretz: Israel kritiskt lågt på missilinterceptorer. Hormuz-trafiken nere ~90%. Iran överväger selektiv passage mot yuan-betalning — kinesiska, indiska och saudiska tankers har redan passerat. Houthierna: "fingers on trigger" men inga attacker ännu. Fransk soldat dödad i irakiska Kurdistan — första allierade dödsfall utanför USA/Israel-koalitionen. USA utlyser $10M belöning för info om Irans nya ledarskap.</p>
+    <br>
+    <p><strong>⚠ OSINT-trovärdighetsvarning:</strong> University of Washington-studie visar att flera dominanta "OSINT"-konton på X har långt färre redaktionella skyddsmekanismer än traditionell media trots mycket större räckvidd. Elon Musks främjande av konton som @sentdefender och @warmonitors har förstärkt problemet. X har meddelat åtgärder mot AI-genererat krigsinnehåll som sprids viralt.</p>
+  </div>
+
+  <div class="card">
+    <h3>Namngivna Twitter/X-kommentatorer — Bedömningar</h3>
+
+    <div style="overflow-x: auto;">
+    <table class="matrix-table">
+      <thead><tr><th>Profil</th><th>Roll / Perspektiv</th><th>Senaste bedömning (mars 2026)</th><th>Signal</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:600; color:var(--accent);">Barak Ravid<br><span style="font-size:0.8em;color:var(--text-muted);">@BarakRavid</span></td>
+          <td>Axios, israelisk diplomati</td>
+          <td>Rapporterar att USA/Israel diskuterar att skicka specialstyrkor in i Iran för att säkra höganrikat uran. Trump sa i G7-samtal att Iran "snart kapitulerar" — en bedömning hans egna underrättelsechefer inte delar</td>
+          <td><span style="color:var(--red);">Eskalering</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--accent);">Ali Vaez<br><span style="font-size:0.8em;color:var(--text-muted);">@AliVaez</span></td>
+          <td>International Crisis Group, Iran-expert</td>
+          <td>Varnar att USA har skapat en stat med "nukleär grievance" — det som skulle förhindra iranskt kärnvapen kan ha accelererat det. Pezeshkians tre villkor är den första reella off-ramp</td>
+          <td><span style="color:var(--orange);">Varning</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--accent);">Vali Nasr<br><span style="font-size:0.8em;color:var(--text-muted);">@ValiNasr</span></td>
+          <td>Johns Hopkins SAIS, Mellanöstern/Iran-expert</td>
+          <td>Jämför kriget med Suezkrisen 1956 — militär framgång som leder till strategisk förlust. USA/Israel kan bomba men inte forma den post-krigsordningen</td>
+          <td><span style="color:var(--orange);">Varning</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--accent);">Jason Brodsky<br><span style="font-size:0.8em;color:var(--text-muted);">@JasonMBrodsky</span></td>
+          <td>Iran Policy Director, UANI</td>
+          <td>Bevakar IRGC:s interna dynamik. Rapporterar att IRGC pressade Assembly of Experts att välja Mojtaba Khamenei — de som argumenterade mot fick "begränsad tid"</td>
+          <td><span style="color:var(--red);">Eskalering</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--accent);">Joyce Karam<br><span style="font-size:0.8em;color:var(--text-muted);">@Joyce_Karam</span></td>
+          <td>Arab-amerikanskt perspektiv, The National</td>
+          <td>Fokuserar på GCC-staternas frustration: attackerade av Iran utan förvarning, men samtidigt ovilliga att stödja USA:s regimförändringsstrategi</td>
+          <td><span style="color:var(--orange);">Status quo</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--accent);">Ragıp Soylu<br><span style="font-size:0.8em;color:var(--text-muted);">@ragaborasoylu</span></td>
+          <td>Middle East Eye, Turkiet/Mellanöstern</td>
+          <td>Turkiets position: Erdoğan fördömer bombningarna men erbjuder medling. Turkiet vill inte alienera USA men ser en möjlighet att stärka sin regionala roll</td>
+          <td><span style="color:var(--green);">De-eskalering</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--accent);">Danny Makki<br><span style="font-size:0.8em;color:var(--text-muted);">@DannyMakki</span></td>
+          <td>Syrien/Iran-analytiker</td>
+          <td>Varnar att Irans proxyapparat i Irak/Syrien inte är slagen — PMF-miliser omgrupperar och kan eskalera</td>
+          <td><span style="color:var(--red);">Eskalering</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--accent);">Hussain Abdul-Hussain<br><span style="font-size:0.8em;color:var(--text-muted);">@haboraahussain</span></td>
+          <td>Foundation for Defense of Democracies</td>
+          <td>Argumenterar att Hizbollahs libanesiska folkstöd kollapsar — organisationen kan vara permanent försvagad oavsett krigsslut</td>
+          <td><span style="color:var(--green);">De-eskalering (Libanon)</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600; color:var(--accent);">Critical Threats / AEI<br><span style="font-size:0.8em;color:var(--text-muted);">@critaborathreats</span></td>
+          <td>Dagliga uppdateringar, Iran-fokus</td>
+          <td>Detaljerade dag-för-dag-rapporter. Bekräftar fortsatt IRGC-koordinering trots ledarskapsförluster. Houthiernas formella beslut att återuppta attacker = ny eskaleringsrisk</td>
+          <td><span style="color:var(--red);">Eskalering</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <br>
+    <p><strong>Sammanfattat Twitter/X-sentiment (15 mars):</strong></p>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding: 4px 0;">→ <strong>Majoriteten signalerar:</strong> Eskaleringsrisk ökar — Trump stänger diplomatiska dörrar aktivt. Israels interceptor-brist är en ny kritisk variabel</li>
+      <li style="padding: 4px 0;">→ <strong>Mest diskuterat:</strong> Trumps avvisande av CIA-backchannel med Iran. Yuan-Hormuz-signalen som geopolitiskt skifte</li>
+      <li style="padding: 4px 0;">→ <strong>Mest kontroversiellt:</strong> Haaretz-rapport om interceptor-brist — Israeli censorship debatt. Franska soldatens död och NATO-implikationer</li>
+      <li style="padding: 4px 0;">→ <strong>Varningsflagga:</strong> Israels luftförsvar kan bli otillräckligt vid nästa stora iransk salva. Om Iron Dome/Arrow inte klarar sig → dramatisk eskalering</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Amerikanskt opinionsklimat (uppdaterat 13 mars)</h3>
+    <p>Flera nya opinionsundersökningar bekräftar ett delat Amerika:</p>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding: 4px 0;">→ <strong>Quinnipiac (9 mars):</strong> 56% av väljare emot kriget. 74% emot markstyrkor i Iran</li>
+      <li style="padding: 4px 0;">→ <strong>Marist/NPR (mars):</strong> 86% av demokrater emot, 84% av republikaner för — extremt polariserat</li>
+      <li style="padding: 4px 0;">→ <strong>Oberoende väljare:</strong> 61% emot (upp från 49%)</li>
+      <li style="padding: 4px 0;">→ <strong>Inom GOP:</strong> 19% anser kriget gör USA mindre säkert. 52% emot markstyrkor</li>
+      <li style="padding: 4px 0;">→ <strong>CNN-analys:</strong> Amerikaner ser inte poängen med kriget — den starkaste opinionsströmmen</li>
+    </ul>
+    <br>
+    <p><strong>Politisk dynamik:</strong> Nervösa republikaner ringer Vita huset — oron för att kriget kan skada partiet i mellanårsvalet. Oljepriset över $100 och stigande bensinpriser förstärker hemmafronts-trycket.</p>
+  </div>
+
+  <div class="card">
+    <h3>Nyckelkällor för realtidsbevakning</h3>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding: 4px 0;">→ <a href="https://www.iranmonitor.org/" style="color:var(--accent)">IranMonitor.org</a> — OSINT-dashboard i realtid</li>
+      <li style="padding: 4px 0;">→ <a href="https://iranwarlive.com/" style="color:var(--accent)">IranWarLive.com</a> — OSINT-hotkarta</li>
+      <li style="padding: 4px 0;">→ <a href="https://www.criticalthreats.org" style="color:var(--accent)">Critical Threats (AEI)</a> — Dagliga uppdateringar Iran</li>
+      <li style="padding: 4px 0;">→ <a href="https://acleddata.com" style="color:var(--accent)">ACLED</a> — Konfliktdata och analys</li>
+      <li style="padding: 4px 0;">→ <a href="https://socradar.io/blog/us-israel-iran-war-osint-track/" style="color:var(--accent)">SOCRadar OSINT-guide</a> — Verktyg och metoder</li>
+      <li style="padding: 4px 0;">→ <a href="https://github.com/danielrosehill/Iran-Israel-War-2026-OSINT-Data" style="color:var(--accent)">GitHub: Iran-Israel-War-2026-OSINT-Data</a> — Öppen datainsamling</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ========== EXPERTS ========== -->
+<div class="section" id="experts">
+  <h2 class="section-title">Expertvalidering — Två seniora perspektiv</h2>
+
+  <div class="expert-box expert-political">
+    <div class="expert-name">🏛️ Senior politisk Mellanösternexpert</div>
+    <p style="font-style:italic; color:var(--text-muted); margin-bottom: 12px;">Perspektiv: 30+ års erfarenhet av regional diplomati, arabiska och persiska språkkunskaper, förståelse för stammkontona och interna maktspel.</p>
+
+    <h4 style="color:#9b59b6; margin: 14px 0 8px;">Politisk bedömning</h4>
+    <p><strong>Regimens resiliens:</strong> IRGC har alltid varit den verkliga makten i Iran — Khamenei var symbolen, inte maskineriet. Mojtaba Khameneis snabba utnämning visar att systemet fungerar som designat: det är byggt för att överleva ledarskapsförluster. Parallellen till Irak 2003 är missvisande — Saddam var en enpunktssårbarhet, det iranska systemet har distribuerad makt.</p>
+    <br>
+    <p><strong>Den saudiska backchannel:</strong> Det mest underapporterade elementet. Riyadh för aktiva samtal med Teheran via Oman. Saudiarabien vill inte bli indragen i kriget — de har investerat biljoner i Vision 2030 och MBS:s moderniseringsprojekt. Irans attacker på GCC-stater underminerar dock Irans historiska argument att konflikten bara handlar om Israel/USA.</p>
+    <br>
+    <p><strong>Trumps strategiska dilemma:</strong> Han har inget Iran-Doktrin. Venezuela-mallen (fånga ledaren, installera efterföljare) fungerar inte i Iran. Det finns ingen samlad iransk opposition, och det iranska samhället — trots att 70% av befolkningen är missnöjd med teokratin — sluter nu upp bakom regimen i en klassisk "rally around the flag"-effekt.</p>
+    <br>
+    <p><strong>Historisk parallell:</strong> Mest likt Suezkrisen 1956 — militär framgång som leder till strategisk förlust. USA/Israel kan förstöra mål men inte forma utgången. Den post-Khamenei-ordningen formas nu av IRGC och kommer sannolikt bli mer, inte mindre, militant.</p>
+  </div>
+
+  <div class="expert-box expert-military">
+    <div class="expert-name">⚔️ Geopolitisk militärexpert — Mellanösternfokus</div>
+    <p style="font-style:italic; color:var(--text-muted); margin-bottom: 12px;">Perspektiv: Senior militär/underrättelseofficer med direkt erfarenhet av militära operationer i Mellanöstern. Tänker i kapaciteter och intentioner.</p>
+
+    <h4 style="color:#e74c3c; margin: 14px 0 8px;">Militär kapacitetsbedömning</h4>
+    <p><strong>Irans konventionella kapacitet:</strong> Allvarligt degraderad. 75% av missilramperna förstörda. Flygvapnet var redan obsolet. Marinen likaså — USA har sänkt iranska farkoster nära Hormuz. Men Irans asymmetriska kapacitet — drönare, minor, cyber, IRGC-specialstyrkor — är delvis intakt och svårare att slå ut.</p>
+    <br>
+    <p><strong>Hormuz som vapen:</strong> Iran har lagt minst ett dussin minor i sundet. Även med degraderad marin kan Iran göra Hormuz oframkomligt i veckor med kombinationen minor + kustrobotar + kamikaze-drönare. USA kan forcera sundet men inte garantera säker handelssjöfart under pågående konflikt. Detta är Irans starkaste hävstång.</p>
+    <br>
+    <p><strong>Eskaleringslogik:</strong> Vi befinner oss på steg 4 av 5 i eskalationsstegen (fullskalig luftkampanj). Steg 5 = markoffensiv, vilket varken USA eller Israel vill. Risken för miscalculation är extrem: en iransk missil som träffar en skola i Israel, eller en amerikansk bomb som drabbar ett sjukhus i Teheran, kan trigga politiskt tryck för ytterligare eskalering som ingen aktör planerat.</p>
+    <br>
+    <p><strong>Nukleär dimension:</strong> Det mest kritiska. Strikes har fördröjt breakout-tiden men inte eliminerat kunskapen. 400 kg 60%-anrikat uran är "unaccounted for". Om Iran drar slutsatsen att de alltid kommer angripas, förstärks argumentet för att bygga en bomb som avskräckning — exakt motsatsen till det uttalade målet. Nordkorea-scenariot hotar.</p>
+    <br>
+    <p><strong>Hizbollah-bedömning:</strong> Organisationen har dragits in mot sin vilja och tappar folkligt stöd i Libanon. Deras missilarsenal (uppskattningsvis 50 000–100 000 raketer innan kriget) är fortfarande ett allvarligt hot mot norra Israel, men Libanons regerings åtgärder mot dem och israeliska strikes degraderar logistiken dagligen. Hizbollah kan bli den stora förloraren oavsett krigsslutet.</p>
+    <br>
+    <p><strong>Rysslands roll:</strong> Underrättelsedelning med Iran bekräftad men begränsad. Rysslands försvarsproduktion är bunden av Ukraina. Moskva kan inte leverera luftvärn eller missiler utan att korsa en röd linje med USA. Rysslands verkliga intresse: högre oljepriser och ett USA som sprider sina resurser tunnare.</p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--accent);">
+    <h3>Var experterna är överens</h3>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding: 6px 0;">→ Regimen i Iran kommer inte kollapsa pga bombningar — systemet är byggt för detta</li>
+      <li style="padding: 6px 0;">→ Avsaknaden av en exit-strategi hos USA/Israel är det mest alarmerande elementet</li>
+      <li style="padding: 6px 0;">→ Hormuzsundet är Irans främsta hävstång och den globala ekonomins akilleshäl</li>
+      <li style="padding: 6px 0;">→ Den nukleära dimensionen har blivit mer, inte mindre, farlig</li>
+      <li style="padding: 6px 0;">→ Kriget skapar långsiktiga fiender och underminerar regionala allianser</li>
+    </ul>
+    <h3 style="margin-top:20px;">Var de skiljer sig</h3>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding: 6px 0;">→ <strong>Tidshorisont:</strong> Militärexperten tror kriget kan avslutas inom veckor (militärt). Den politiska experten tror att den politiska krisen varar i årtionden</li>
+      <li style="padding: 6px 0;">→ <strong>Hizbollahs framtid:</strong> Militärexperten bedömer att Hizbollah permanent försvagats. Den politiska experten varnar att Hizbollahs martyrnarrativ kan återuppstå</li>
+      <li style="padding: 6px 0;">→ <strong>Rysslands roll:</strong> Militärexperten: begränsad. Den politiska experten: strategiskt viktig — Putin positionerar sig för den post-krigsordning som kommer</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ========== SCENARIOS ========== -->
+<div class="section" id="scenarios">
+  <h2 class="section-title">Scenarioanalys — Tre framtidsspår</h2>
+
+  <p style="margin-bottom: 20px; color:var(--text-muted);">Sannolikhetsfördelning baserad på syntes av alla datakällor, narrativanalys och expertvalidering. Totalt: 100%.</p>
+
+  <div style="background:var(--card); border:1px solid var(--accent); border-radius:8px; padding:14px 18px; margin-bottom:16px; font-size:0.9em;">
+    <strong style="color:var(--accent);">⚡ UPPDATERAD 15 mars:</strong> Trump avvisar explicit fredssamtal trots iransk CIA-kontakt. Isfahan bombas intensivt. Israel kritiskt lågt på interceptorer — en ny sårbarhet. Den diplomatiska kanalen som öppnades av Pezeshkian stängs nu aktivt. Yuan-Hormuz-förhandlingarna signalerar att Kina tar en mer aktiv ekonomisk roll. Nettojustering: Eskalering +2%, Utdraget krig +2%, De-eskalering -4%.
+  </div>
+  <div class="prob-bar-container">
+    <div class="prob-bar prob-escalation" style="width:50%">Eskalering 50%</div>
+    <div class="prob-bar prob-status" style="width:32%">Utdraget krig 32%</div>
+    <div class="prob-bar prob-deescalation" style="width:18%">De-eskalering 18%</div>
+  </div>
+
+  <!-- Scenario 1 -->
+  <div class="scenario scenario-escalation">
+    <h3>🔴 Scenario 1: Eskalering — "Den breddade konflikten"</h3>
+    <div class="probability">50%</div>
+    <p>Kriget sprids till nya fronter och aktörer. Houthier återupptar Röda havet-attackerna. En eller flera GCC-stater dras in militärt. Hormuz förblir blockerat i veckor. Global oljekris och lågkonjunktur.</p>
+
+    <div class="scenario-detail">
+      <h4>Drivkrafter — vad måste vara sant</h4>
+      <ul>
+        <li>Iran behåller kapacitet för fortsatt vedergällning (asymmetrisk krigföring)</li>
+        <li>USA/Israel eskalerar till nya målkategorier (energiinfrastruktur, regeringsbyggnader)</li>
+        <li>Houthierna beslutar att fullt engagera sig i kriget</li>
+        <li>Miscalculation-incident (skolattack, sjukhus, kärnkraftsanläggning) triggar politiskt tryck</li>
+      </ul>
+
+      <h4>Tidslinje</h4>
+      <ul>
+        <li><strong>Vecka 3-4 (mars):</strong> Houthier återupptar Röda havet-attacker. Iran intensifierar Hormuz-blockad med minor. USA tvingas inleda minesweeping-operationer</li>
+        <li><strong>Månad 2-3 (april-maj):</strong> UAE eller Saudiarabien svarar militärt på iranska attacker. Oljepriset passerar $120. Europeisk recession påbörjas. Ryssland ökar underrättelsestödet</li>
+        <li><strong>Månad 3-6:</strong> Irans nukleära grievance leder till beslutet att utveckla kärnvapen — breakout påbörjas i underjordiska anläggningar. Israel hotar med strike mot Dimona-hot</li>
+        <li><strong>Månad 6-12:</strong> Lågintensiv men breddfrontskonflikt. Humanitär katastrof i Iran, Libanon och Jemen. Flyktingströmmar mot Turkiet och Europa</li>
+      </ul>
+
+      <h4>Konsekvenser</h4>
+      <ul>
+        <li><strong>Militärt:</strong> Multi-frontkrig utan tydlig vinnare. USA:s resurser utspridda mellan Mellanöstern, Europa (Ukraina) och Stilla havet</li>
+        <li><strong>Ekonomiskt:</strong> Olja $120-150/fat. Global lågkonjunktur. Gödselkris → livsmedelskris i Global South</li>
+        <li><strong>Humanitärt:</strong> 10 000+ döda totalt. Miljoner flyktingar. Infrastrukturen i Iran allvarligt skadad</li>
+        <li><strong>Diplomatiskt:</strong> FN-systemet paralyserat. BRICS vs G7-splittring fördjupas. USA:s trovärdighet som stabiliserande kraft underminerad</li>
+      </ul>
+
+      <h4>Tidiga varningssignaler</h4>
+      <ul>
+        <li>Houthiernas första anti-shipping-attack i Röda havet → eskalering bekräftad</li>
+        <li>GCC-stat aktiverar militärt svar mot Iran → regionalt krig</li>
+        <li>IAEA-rapport om saknat iranskt kärnmaterial → nukleär dimension accelererar</li>
+      </ul>
+
+      <h4>Black Swan</h4>
+      <ul>
+        <li>Iran lyckas med en katastrofal attack mot Israels Dimona-anläggning → nukleär eskalering</li>
+        <li>Kinesisk militäreskortering av oljetankers genom Hormuz → supermaktskonfrontation</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Scenario 2 -->
+  <div class="scenario scenario-status">
+    <h3>🟠 Scenario 2: Utdraget krig — "Inget slut, ingen fred"</h3>
+    <div class="probability">32%</div>
+    <p>Konflikten stelnar i ett mönster av attacker och motattacker utan formell vapenvila. Trump deklarerar seger men bombningarna fortsätter sporadiskt. Hormuz öppnas delvis under internationellt tryck. Regionalt status quo med permanent instabilitet.</p>
+
+    <div class="scenario-detail">
+      <h4>Drivkrafter — vad måste vara sant</h4>
+      <ul>
+        <li>Irans missilkapacitet uttöms till en nivå som inte motiverar fortsatta USA-strikes</li>
+        <li>Trump vill deklarera seger inför midtermval-dynamiken</li>
+        <li>Iran väljer att övergå till asymmetrisk krigföring istället för konventionell</li>
+        <li>Hormuz öppnas delvis genom internationell escortering (möjligen kinesisk/indisk)</li>
+      </ul>
+
+      <h4>Tidslinje</h4>
+      <ul>
+        <li><strong>Vecka 3-4:</strong> USA trappar ned flygintensiteten. Trump: "vi har vunnit." Men sporadiska strikes fortsätter mot specifika mål</li>
+        <li><strong>Månad 2-3:</strong> Iran övergår till asymmetrisk krigföring — cyberattacker, proxy-operationer, minor. Hizbollah och Israel hamnar i lågintensiv gränskonflikt</li>
+        <li><strong>Månad 3-12:</strong> Fryst konflikt utan fredsavtal. Iran under Mojtaba Khamenei konsoliderar makt, ökar repression internt, och investerar i att återuppbygga militär kapacitet</li>
+        <li><strong>År 1-3:</strong> Ny iransk upprustning. Kärnvapenfrågan återkommer med större kraft. Region permanent destabiliserad</li>
+      </ul>
+
+      <h4>Konsekvenser</h4>
+      <ul>
+        <li><strong>Militärt:</strong> Permanent amerikansk närvaro i regionen. Israel investerar massivt i luftförsvar. Iran bygger nytt</li>
+        <li><strong>Ekonomiskt:</strong> Olja stabiliseras $85-100/fat. Permanent riskpremie. Gulfstaternas investeringsklimat skadat</li>
+        <li><strong>Humanitärt:</strong> Iransk befolkning under dubbelt tryck: sanktioner + krigets efterverkningar</li>
+        <li><strong>Diplomatiskt:</strong> Ingen formell fred. Iran blir ännu mer isolerat men inte besegrat. Nordkorea-dynamik</li>
+      </ul>
+
+      <h4>Tidiga varningssignaler</h4>
+      <ul>
+        <li>Trump-uttalande om "mission accomplished" utan formellt avtal → seger deklareras unilateralt</li>
+        <li>Nedtrappning av USA:s dagliga sortier → operationellt skifte</li>
+        <li>Internationell sjöfartskontingent i Hormuz → de facto delöppning</li>
+      </ul>
+
+      <h4>Black Swan</h4>
+      <ul>
+        <li>IRGC-kupp mot Mojtaba Khamenei → intern maktkamp stör alla kalkyler</li>
+        <li>Folkresning i Iran som varken USA eller IRGC kontrollerar → totalt oförutsägbart</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Scenario 3 -->
+  <div class="scenario scenario-deescalation">
+    <h3>🟢 Scenario 3: De-eskalering — "Det diplomatiska fönstret"</h3>
+    <div class="probability">18%</div>
+    <p>Internationellt tryck, ekonomiska kostnader och saudisk medling leder till en de facto vapenvila. Iran och USA inleder indirekta samtal via Oman/Kina. Kriget fasas ut utan formellt fredsavtal men med reducerad våldsnivå.</p>
+
+    <div class="scenario-detail">
+      <h4>Drivkrafter — vad måste vara sant</h4>
+      <ul>
+        <li>Oljepriset och global ekonomisk smärta tvingar USA till kompromiss</li>
+        <li>Mojtaba Khamenei kalkulerar att överlevnad kräver förhandlingar</li>
+        <li>Saudiarabien/Kina/Oman lyckas etablera en trovärdig medlingskanal</li>
+        <li>Trump ser ett "deal" som större politisk vinst än fortsatt krig</li>
+      </ul>
+
+      <h4>Tidslinje</h4>
+      <ul>
+        <li><strong>Vecka 3-4:</strong> Saudisk-omansk medling resulterar i informella "rules of engagement" — Iran stoppar Hormuz-minor, USA pausar strikes mot civila områden</li>
+        <li><strong>Månad 2:</strong> Kina erbjuder sig värd för indirekta samtal. Trump spinner det som "the biggest deal ever"</li>
+        <li><strong>Månad 3-6:</strong> Vapenvila utan fredsavtal. Iran får sanktionslättnader i utbyte mot IAEA-inspektioner. Hormuz öppnas</li>
+        <li><strong>Månad 6-12:</strong> Fragil fred. Hizbollah-Israel-vapenvila i Libanon. Abraham Accords återupptas med modifikationer</li>
+      </ul>
+
+      <h4>Konsekvenser</h4>
+      <ul>
+        <li><strong>Militärt:</strong> Nedtrappning men ingen demilitarisering. Iran behåller asymmetrisk kapacitet</li>
+        <li><strong>Ekonomiskt:</strong> Olja faller till $75-85. Marknaderna återhämtar sig. Gulfstaternas Vision-projekt återupptas</li>
+        <li><strong>Humanitärt:</strong> Återuppbyggnad påbörjas i Iran och Libanon. Internationellt bistånd mobiliseras</li>
+        <li><strong>Diplomatiskt:</strong> Ny regional säkerhetsarkitektur diskuteras. Kina och Ryssland stärker sina positioner som medlare</li>
+      </ul>
+
+      <h4>Tidiga varningssignaler</h4>
+      <ul>
+        <li>Saudisk-iransk kommuniké om vapenvila → diplomatisk öppning</li>
+        <li>Trump byter retorik från "unconditional surrender" till "incredible deal" → skifte</li>
+        <li>IRGC drar tillbaka minor från Hormuz → förtroendesskapande åtgärd</li>
+      </ul>
+
+      <h4>Black Swan</h4>
+      <ul>
+        <li>Irans befolkning störtar regimen underifrån → helt nytt förhandlingslandskap</li>
+        <li>Trump-Netanyahu-splittring pga kostnader → USA bromsar ensidigt</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+<div class="card" style="border-left: 4px solid var(--accent); margin-top:20px; margin-bottom:20px;">
+    <h3 style="color:var(--accent);">🔍 Blind dubbelvalidering — 15 mars 2026</h3>
+    <p style="font-size:0.9em; color:var(--text-muted); margin-bottom:14px;">Två oberoende analyser kördes parallellt utan att se varandras resultat. Analys A fokuserade på västerländska think tanks (RAND, Brookings, CSIS, Hudson). Analys B fokuserade på regionala och icke-västerländska källor (Al Jazeera, Atlantic Council, MEI, Carnegie). En tredje syntes triangulerar slutbedömningen.</p>
+    <table class="warning-table">
+      <tr><th>Scenario</th><th>Analys A<br><small>(Västerländsk)</small></th><th>Analys B<br><small>(Regional)</small></th><th>Triangulering</th><th>Divergens</th></tr>
+      <tr>
+        <td><span style="color:var(--red);">Eskalering</span></td>
+        <td style="text-align:center; font-weight:700;">62–68%</td>
+        <td style="text-align:center; font-weight:700;">28%</td>
+        <td style="text-align:center; font-weight:700; color:var(--accent);">45%</td>
+        <td style="text-align:center; color:var(--red);">⚠️ HÖG (35pp)</td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--orange);">Utdraget krig</span></td>
+        <td style="text-align:center; font-weight:700;">25–30%</td>
+        <td style="text-align:center; font-weight:700;">55%</td>
+        <td style="text-align:center; font-weight:700; color:var(--accent);">37%</td>
+        <td style="text-align:center; color:var(--red);">⚠️ HÖG (27pp)</td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--green);">De-eskalering</span></td>
+        <td style="text-align:center; font-weight:700;">5–10%</td>
+        <td style="text-align:center; font-weight:700;">17%</td>
+        <td style="text-align:center; font-weight:700; color:var(--accent);">18%</td>
+        <td style="text-align:center; color:var(--orange);">MEDEL (10pp)</td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--iran);">Regimskifte Iran</span></td>
+        <td style="text-align:center; font-weight:700;">15–28%</td>
+        <td style="text-align:center; font-weight:700;">18–32%</td>
+        <td style="text-align:center; font-weight:700; color:var(--accent);">18–28%</td>
+        <td style="text-align:center; color:var(--green);">LÅG — Konvergens</td>
+      </tr>
+      <tr>
+        <td><span style="color:#5dade2;">Netanyahu ej PM</span></td>
+        <td style="text-align:center; font-weight:700;">35–48%</td>
+        <td style="text-align:center; font-weight:700;">42–58%</td>
+        <td style="text-align:center; font-weight:700; color:var(--accent);">40–55%</td>
+        <td style="text-align:center; color:var(--green);">LÅG — Konvergens</td>
+      </tr>
+    </table>
+    <div style="background:var(--bg); border-radius:6px; padding:12px; margin-top:12px; font-size:0.88em;">
+      <p><strong>🔑 Nyckeldivergenser:</strong></p>
+      <p style="margin:6px 0;"><span style="color:var(--red);">▸ Eskalering:</span> Analys A (västlig) bedömer 65% pga Hizbollah-engagemang, Hormuz-blockad och amerikanskt politiskt momentum. Analys B (regional) ser Gulfstaternas aktiva motstånd, Turkiets medling och Irans kalibrerade svar som bromsmekanismer → 28%.</p>
+      <p style="margin:6px 0;"><span style="color:var(--orange);">▸ Utdraget krig:</span> Analys B viktar detta dubbelt mot A. Regionala källor pekar på historiskt mönster: Mellanöstern-konflikter eskalerar sällan till total konfrontation utan fastnar i utdragna cykler.</p>
+      <p style="margin:6px 0;"><span style="color:var(--accent);">▸ Triangulering:</span> Slutbedömningen viktar A:s worst-case ned (think tanks har eskalerings-bias) och B:s protracted-scenario ned (regionala medier underskattar eskaleringsrisk). Regimskifte och Netanyahu konvergerar starkt → hög konfidens på dessa bedömningar.</p>
+    </div>
+  </div>
+    <h3>Experternas syn på sannolikheterna</h3>
+    <table class="warning-table">
+      <tr><th>Scenario</th><th>Sannolikhet</th><th>Politisk expert</th><th>Militärexpert</th></tr>
+      <tr>
+        <td><span style="color:var(--red);">Eskalering</span></td><td>50%</td>
+        <td>Instämmer (45-50%). "Miscalculation-risken är enorm och det finns inga tydliga off-ramps"</td>
+        <td>Instämmer (40-45%). "Houthiernas beslut är nyckelvariabeln"</td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--orange);">Utdraget krig</span></td><td>32%</td>
+        <td>Instämmer (35%). "Det mest historiskt vanliga — krig tar sällan slut snyggt"</td>
+        <td>Avviker uppåt (40%). "Militärt mest sannolikt givet att ingendera sidan kan uppnå beslutande seger"</td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--green);">De-eskalering</span></td><td>18%</td>
+        <td>Avviker nedåt (15%). "Den diplomatiska infrastrukturen saknas — Geneva-samtalen kollapsade på 3 dagar"</td>
+        <td>Instämmer (20%). "Möjligt om oljepriset tvingar Trumps hand, men militärt momentum pekar åt annat håll"</td>
+      </tr>
+    </table>
+  </div>
+
+
+  <div class="card" style="border-left: 4px solid var(--iran); margin-top:30px;">
+    <h3 style="color:var(--iran);">🇮🇷 Bedömning: Regimskifte i Iran</h3>
+
+    <div style="display:flex; align-items:center; gap:16px; margin:16px 0;">
+      <div style="background:var(--bg); border-radius:8px; padding:16px 24px; text-align:center;">
+        <div style="font-size:2em; font-weight:800; color:var(--orange);">18–28%</div>
+        <div style="font-size:0.8em; color:var(--text-muted);">Sannolikhet 12 mån</div>
+      </div>
+      <div style="font-size:0.92em;">
+        <p><strong>Konfidens:</strong> Låg–Medel. Bedömningen är extremt osäker pga Irans internet-blackout (14 dagar, ~1% kapacitet) som gör intern dynamik nästan omöjlig att verifiera utifrån.</p>
+      </div>
+    </div>
+
+    <h4 style="color:var(--accent); margin:14px 0 8px;">Faktorer SOM talar för regimskifte:</h4>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--green);">↑</span> Khamenei dödad, efterträdaren Mojtaba möjligen skadad — ledarskapet är sårbart som aldrig förr</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--green);">↑</span> Massiva folkprotester dec 2025–jan 2026 (100+ städer) — de största sedan 1979. Regimkritik var redan mainstream</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--green);">↑</span> Ekonomin sönderbombad: infrastruktur förstörd, Kharg Island attackerad, oljeexport lamslagna, valuta i fritt fall</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--green);">↑</span> Hudson Institute-bedömning: "det finns inget scenario där den Islamiska republiken överlever 2026 med sin makt intakt"</li>
+    </ul>
+
+    <h4 style="color:var(--accent); margin:14px 0 8px;">Faktorer MOT regimskifte:</h4>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--red);">↓</span> IRGC har svurit "fullständig lydnad" till Mojtaba. Säkerhetsapparaten är intakt och historiskt extremt våldsam mot dissidenter</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--red);">↓</span> Ingen enad opposition: shahens son Reza Pahlavi saknar Khomeinis 1979-karisma. Ingen samlande figur existerar</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--red);">↓</span> "Rally around the flag"-effekt: krig stärker ofta regimer kortsiktigt, även impopulära</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--red);">↓</span> SAIS-professor Narges Bajoghli: "Inga tecken på omedelbar kollaps." RSIS-analys: utan elitefragmentering eller IRGC-avhopp överlever systemet</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--red);">↓</span> Internet-blackout = total informationskontroll. Regimen har lärt sig av 2022 och 2025-26 protesterna</li>
+    </ul>
+
+    <h4 style="color:var(--accent); margin:14px 0 8px;">Nyckelvariabler att bevaka:</h4>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--accent);">→</span> <strong>IRGC-lojalitet:</strong> Om enskilda IRGC-befälhavare byter sida = game changer. Hittills noll tecken på detta</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--accent);">→</span> <strong>Mojtaba Khameneis hälsa:</strong> Om han dör eller inte kan regera = ny successionskris ovanpå krig</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--accent);">→</span> <strong>Ekonomisk uthållighet:</strong> Hur länge kan befolkningen uthärda krig + sanktioner + total ekonomisk kollaps?</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--accent);">→</span> <strong>Extern intervention:</strong> Försöker USA aktivt stödja regimskifte? Hittills inga tecken på att man beväpnar opposition</li>
+    </ul>
+
+    <p style="margin-top:14px; font-size:0.9em; color:var(--text-muted);"><strong>Sammanvägd bedömning:</strong> Regimen är allvarligt försvagad men systemet är byggt för att överleva precis denna typ av kris. Mest sannolikt: IRGC-dominerad militärjunta snarare än demokratiskt regimskifte. Tidshorisonten för verklig kollaps mäts i år, inte veckor — om den kommer alls.</p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--israel); margin-top:20px;">
+    <h3 style="color:#5dade2;">🇮🇱 Bedömning: Avsätts Netanyahu?</h3>
+
+    <div style="display:flex; align-items:center; gap:16px; margin:16px 0;">
+      <div style="background:var(--bg); border-radius:8px; padding:16px 24px; text-align:center;">
+        <div style="font-size:2em; font-weight:800; color:var(--orange);">40–55%</div>
+        <div style="font-size:0.8em; color:var(--text-muted);">Ej PM inom 12 mån</div>
+      </div>
+      <div style="font-size:0.92em;">
+        <p><strong>Konfidens:</strong> Medel. Israelisk politik är extrem volatil. Kriget förändrar alla beräkningar — men budgetdeadline 31 mars 2026 är en hård mekanism.</p>
+      </div>
+    </div>
+
+    <h4 style="color:var(--accent); margin:14px 0 8px;">Fakta om Netanyahus position:</h4>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--red);">!</span> <strong>Koalitionskollaps:</strong> Ultra-ortodoxa partierna UTJ och Shas lämnade koalitionen. Netanyahu har bara 49 av 120 mandat — minoritetsregering</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--red);">!</span> <strong>Budgetdeadline:</strong> Om budgeten inte passerar senast 31 mars 2026 löses Knesset upp automatiskt → val juni 2026</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--green);">✓</span> <strong>Opinionslyft från kriget:</strong> Likuds opinionssiffror har ökat pga Iran-kriget. Netanyahus personliga approval på högsta nivån sedan valet 2022</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--red);">!</span> <strong>Men blocket räcker inte:</strong> Högerblocket landar på ~51 mandat i polls. Oppositionen leder 69–51. Val = sannolikt förlust</li>
+      <li style="padding:4px 0 4px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--orange);">?</span> <strong>Krigets effekt:</strong> Netanyahu kan använda kriget för att skjuta upp val — "man byter inte ledare under krig." Men budgetmekanismen är automatisk</li>
+    </ul>
+
+    <h4 style="color:var(--accent); margin:14px 0 8px;">Tre scenarier för Netanyahu:</h4>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:6px 0 6px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--green);">1.</span> <strong>Budget passerar, krig ger mandat (35%):</strong> Netanyahu lyckas förhandla igenom budgeten trots minoritet. Använder kriget för att konsolidera makt. Val i oktober — krigets momentum kan räcka</li>
+      <li style="padding:6px 0 6px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--orange);">2.</span> <strong>Budgeten faller, val juni 2026 (45%):</strong> Knesset löses upp 31 mars. Tidig-val. Polls visar oppositionsseger 69–51. Naftali Bennett eller Benny Gantz ersätter Netanyahu</li>
+      <li style="padding:6px 0 6px 20px; position:relative; font-size:0.93em;"><span style="position:absolute;left:0;color:var(--red);">3.</span> <strong>Nationell enhetsregering (20%):</strong> Krigets allvar tvingar fram en bred koalition med Gantz/Bennett. Netanyahu kvar som PM men med starkt begränsad makt</li>
+    </ul>
+
+    <p style="margin-top:14px; font-size:0.9em; color:var(--text-muted);"><strong>Sammanvägd bedömning:</strong> Netanyahu sitter extremt osäkert. Ironiskt nog stärker kriget hans personliga popularitet men hans koalition har redan kollapsat. Budgetdeadline 31 mars 2026 är den hårdaste mekanismen — om den missas triggas automatiskt val där oppositionsblocket leder kraftigt. Mest sannolikt: val juni 2026, Netanyahu förlorar.</p>
+  </div>
+
+</div>
+
+<!-- ========== WARNINGS ========== -->
+<div class="section" id="warnings">
+  <h2 class="section-title">Early Warning Dashboard</h2>
+
+  <p style="margin-bottom: 20px; color:var(--text-muted);">Signaler att bevaka under de kommande veckorna för att bedöma vilken riktning konflikten tar.</p>
+
+  <table class="warning-table">
+    <thead>
+      <tr><th>Signal att bevaka</th><th>Indikerar</th><th>Risknivå</th><th>Sfär att följa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Houthi anti-shipping-attack i Bab el-Mandeb</td><td>Regional eskalering → Scenario 1</td><td class="signal-high">HÖG</td><td><span class="sphere sphere-arab">Arab</span> <span class="sphere sphere-west">Väst</span></td></tr>
+      <tr><td>IAEA-rapport om saknat iranskt 60%-uran</td><td>Nukleär eskalering → Scenario 1</td><td class="signal-high">HÖG</td><td><span class="sphere sphere-west">Väst</span> <span class="sphere sphere-il">Israel</span></td></tr>
+      <tr><td>GCC-stat (UAE/Saudi) militärt svar mot Iran</td><td>Regionalt krig → Scenario 1</td><td class="signal-high">HÖG</td><td><span class="sphere sphere-arab">Arab</span></td></tr>
+      <tr><td>Trumps retorikskifte: "deal" istället för "surrender"</td><td>Diplomatisk öppning → Scenario 3</td><td class="signal-med">MEDEL</td><td><span class="sphere sphere-west">Väst</span></td></tr>
+      <tr><td>Saudisk-iransk kommuniké via Oman</td><td>Backchannel fungerar → Scenario 3</td><td class="signal-med">MEDEL</td><td><span class="sphere sphere-arab">Arab</span> <span class="sphere sphere-ru">Ryssland</span></td></tr>
+      <tr><td>Kinas specialsändebud anländer till regionen</td><td>Medlingsförsök → Scenario 3</td><td class="signal-med">MEDEL</td><td><span class="sphere sphere-cn">Kina</span></td></tr>
+      <tr><td>Nedtrappning av USA:s dagliga sortier (&lt;50)</td><td>Operationellt skifte → Scenario 2</td><td class="signal-med">MEDEL</td><td><span class="sphere sphere-west">Väst</span> <span class="sphere sphere-il">Israel</span></td></tr>
+      <tr><td>Trump "mission accomplished"-tal</td><td>Unilateral seger → Scenario 2</td><td class="signal-med">MEDEL</td><td><span class="sphere sphere-west">Väst</span></td></tr>
+      <tr><td>Iran drar tillbaka minor från Hormuz</td><td>Förtroendesskapande → Scenario 3</td><td class="signal-low">LÅG sannolikhet</td><td><span class="sphere sphere-arab">Arab</span> <span class="sphere sphere-west">Väst</span></td></tr>
+      <tr><td>IRGC-intern maktstrid/kupp mot Mojtaba</td><td>Kaos → alla scenarion kastas om</td><td class="signal-low">LÅG men kritisk</td><td><span class="sphere sphere-ru">Ryssland</span> <span class="sphere sphere-arab">Arab</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card" style="margin-top: 30px;">
+    <h3>Rekommendation: Vad att följa de närmaste dagarna</h3>
+    <p><strong>Prioritet 1:</strong> Israels interceptor-kris. Om luftförsvaret inte räcker vid nästa stora iransk salva kan civila förluster eskalera dramatiskt — och trigga israelisk vedergällning på en ny nivå.</p>
+    <br>
+    <p><strong>Prioritet 2:</strong> Houthiernas beslut. Fortfarande "fingers on trigger" men ej attackerat. Varje dag utan attack är de-eskalerande, men ett beslut att agera öppnar en andra front.</p>
+    <br>
+    <p><strong>Prioritet 3:</strong> Yuan-Hormuz-dynamiken. Om Iran börjar släppa igenom tankers mot yuan-betalning skapas en ny geopolitisk axel (Kina–Iran) som förändrar sanktionslogiken fundamentalt.</p>
+    <br>
+    <p><strong>Prioritet 4:</strong> NATO/Frankrikes reaktion. Den franske soldatens död kan dra in fler europeiska länder och förändra den politiska kalkylen. Bevaka Macrons uttalanden och eventuella NATO-diskussioner.</p>
+    <br>
+    <p><strong>Prioritet 5:</strong> Trumps diplomatiska stängning. Med CIA-backchanneln avvisad finns inga kända förhandlingskanaler. Bevaka om Oman, Kina eller Saudiarabien försöker öppna nya vägar.</p>
+    <br>
+    <p><strong>Bästa datakällor:</strong> Critical Threats (dagliga uppdateringar), ACLED (konfliktdata), IranMonitor.org (OSINT i realtid), Al Jazeera och Haaretz (motstridiga men informativa perspektiv), Fortune/Reuters (rysk underrättelsedelning).</p>
+  </div>
+</div>
+
+<!-- ========== SOURCES ========== -->
+<div class="section" id="sources">
+  <h2 class="section-title">Källor</h2>
+
+  <div class="card">
+    <h3><span class="sphere sphere-ru">Ryska källor</span></h3>
+    <ul class="sources-list">
+      <li><a href="https://tass.com/politics/2099895" target="_blank">TASS — Russia ready to contribute to restore peace in Middle East</a></li>
+      <li><a href="https://www.rt.com/news/634559-us-israel-iran-war-updates/" target="_blank">RT — Oil tankers ablaze as Trump vows to 'finish the job' in Iran</a></li>
+      <li><a href="https://www.rt.com/russia/633557-russia-respond-us-israel-iran/" target="_blank">RT — How has Russia reacted to the US-Israeli attack on Iran?</a></li>
+      <li><a href="https://fortune.com/2026/03/08/russia-intelligence-iran-us-military-aircraft-warships-trump-hegseth/" target="_blank">Fortune — Russia sharing intelligence with Iran about US military targets</a></li>
+      <li><a href="https://www.npr.org/2026/03/10/nx-s1-5739339/why-russia-is-assisting-irans-military" target="_blank">NPR — Why Russia is assisting Iran's military</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="sphere sphere-west">Västerländska källor</span></h3>
+    <ul class="sources-list">
+      <li><a href="https://www.cnn.com/world/live-news/israel-iran-attack-02-28-26-hnk-intl" target="_blank">CNN — US-Israeli strikes on Iran, Feb 28</a></li>
+      <li><a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10521/" target="_blank">House of Commons Library — US-Israel strikes on Iran: February/March 2026</a></li>
+      <li><a href="https://www.britannica.com/event/2026-Iran-Conflict" target="_blank">Britannica — 2026 Iran Conflict</a></li>
+      <li><a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank">ACLED — Middle East Special Issue: March 2026</a></li>
+      <li><a href="https://www.axios.com/2026/03/10/iran-war-us-scenarios-trump-hegseth" target="_blank">Axios — 5 scenarios for how the Iran war could end</a></li>
+      <li><a href="https://www.cnn.com/2026/03/10/politics/trump-messaging-endgame-iran-war" target="_blank">CNN — Why Trump can't explain the endgame</a></li>
+      <li><a href="https://blogs.lse.ac.uk/usappblog/2026/03/09/us-strikes-may-have-turned-iran-from-a-state-with-latent-nuclear-capability-into-one-with-a-nuclear-grievance/" target="_blank">LSE — US strikes turned Iran from latent nuclear capability into nuclear grievance</a></li>
+      <li><a href="https://www.csis.org/analysis/damage-irans-nuclear-program-can-it-rebuild" target="_blank">CSIS — Damage to Iran's Nuclear Program—Can It Rebuild?</a></li>
+      <li><a href="https://www.stimson.org/2026/global-markets-and-the-strait-of-hormuz-the-economic-shockwaves-of-the-iran-war/" target="_blank">Stimson Center — Global Markets and the Strait of Hormuz</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="sphere sphere-cn">Kinesiska källor</span></h3>
+    <ul class="sources-list">
+      <li><a href="https://www.globaltimes.cn/page/202603/1356045.shtml" target="_blank">Global Times — China condemns killing of Iran's Supreme Leader</a></li>
+      <li><a href="https://www.globaltimes.cn/page/202603/1356148.shtml" target="_blank">Global Times — Chinese Foreign Ministry responds to Iran queries</a></li>
+      <li><a href="https://english.news.cn/20260306/efcf47c6fbeb450cb01eea5f5c0d362e/c.html" target="_blank">Xinhua — World must not slip back to law of jungle</a></li>
+      <li><a href="https://www.fmprc.gov.cn/mfa_eng/xw/fyrbt/202603/t20260302_11867202.html" target="_blank">Chinese Foreign Ministry — Press Conference March 2</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="sphere sphere-arab">Arabiska källor</span></h3>
+    <ul class="sources-list">
+      <li><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">Al Jazeera — Death toll and injuries live tracker</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/3/11/iran-war-what-is-happening-on-day-12-of-us-israel-attacks" target="_blank">Al Jazeera — Day 12 of US-Israel attacks</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/3/9/what-is-the-us-endgame-in-iran-as-the-war-escalates" target="_blank">Al Jazeera — What is Trump's endgame in Iran?</a></li>
+      <li><a href="https://www.aljazeera.com/features/2026/3/2/after-irans-salvo-hit-their-skylines-will-the-gulf-states-enter-the-war" target="_blank">Al Jazeera — Will Gulf states enter the war?</a></li>
+      <li><a href="https://english.alarabiya.net/News/middle-east/2026/03/11/iran-army-says-targeted-israel-s-military-intelligence-agency-naval-base-" target="_blank">Al Arabiya — Iran army says targeted Israel's military intelligence</a></li>
+      <li><a href="https://www.timesofisrael.com/saudi-arabia-said-to-intensify-talks-with-iran-to-defuse-mideast-war/" target="_blank">Times of Israel — Saudi Arabia intensifies talks with Iran</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="sphere sphere-il">Israeliska källor</span></h3>
+    <ul class="sources-list">
+      <li><a href="https://www.haaretz.com/israel-news/israel-security/2026-03-06/ty-article/.premium/iran-holding-out-amid-u-s-israel-air-dominance/0000019c-bffc-d7e7-a19c-bfffcaf50000" target="_blank">Haaretz — Air dominance hasn't broken Iran's resolve</a></li>
+      <li><a href="https://www.haaretz.com/israel-news/israel-security/2026-03-01/ty-article/.premium/how-long-can-iran-keep-firing-at-israel-days-not-weeks/0000019c-a9d9-db44-a1dd-addd764b0000" target="_blank">Haaretz — How long can Iran keep firing? 'Days, not weeks'</a></li>
+      <li><a href="https://www.haaretz.com/israel-news/podcasts/2026-03-09/ty-article-podcast/theyre-lying-to-us-israeli-media-isnt-challenging-netanyahu-on-the-iran-war/0000019c-d31a-da85-abbf-ff7b42060000" target="_blank">Haaretz — 'They're lying to us': Israeli media not challenging Netanyahu</a></li>
+      <li><a href="https://www.haaretz.com/israel-news/israel-security/2026-03-12/ty-article-live/idf-hits-iran-and-lebanon-after-coordinated-rocket-attacks-across-israel/0000019c-e002-dc10-abdc-f24634ad0000" target="_blank">Haaretz — US intelligence: Iranian regime not at risk of collapse</a></li>
+      <li><a href="https://www.timesofisrael.com/iran-threatens-to-hit-dimona-nuclear-site-if-israel-and-us-try-to-topple-regime/" target="_blank">Times of Israel — Iran threatens to hit Dimona nuclear site</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="sphere sphere-ir">Iranska källor</span></h3>
+    <ul class="sources-list">
+      <li><a href="https://www.presstv.ir/Detail/2026/03/09/765162/ten-days-war-prove-us-israeli-regime-change-goal-iran-costly-unachievable-fantasy" target="_blank">Press TV — Ten days of war prove 'regime change' is a costly, unachievable fantasy</a></li>
+      <li><a href="https://www.presstv.ir/Detail/2026/03/07/765071/Iran-to-those-silent-on-anti-Iran-war-History-will-judge-you" target="_blank">Press TV — Iran to those silent on anti-Iran war: History will judge you</a></li>
+      <li><a href="https://www.presstv.ir/Detail/2026/03/06/765052/Iran-Israel-United-States-warning-Kurdistan-Region-war" target="_blank">Press TV — Iran Armed Forces warn Iraqi Kurdistan against cooperation with US, Israel</a></li>
+      <li><a href="https://www.hrw.org/news/2026/03/07/us/israel-investigate-iran-school-attack-as-a-war-crime" target="_blank">HRW — Investigate Iran School Attack as a War Crime (korroborerar iranska rapporter)</a></li>
+      <li><a href="https://www.cnn.com/2026/03/06/middleeast/iran-minab-elementary-school-investigation-us-strike-intl" target="_blank">CNN — Analysis suggests US responsible for deadly school strike in Minab</a></li>
+      <li><a href="https://time.com/7382536/iran-civilians-killed-girls-school/" target="_blank">TIME — More than 1,000 Civilians Killed in US-Israeli Bombing</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/3/11/iran-reports-hospitals-civilians-affected-during-war-with-us-israel" target="_blank">Al Jazeera — Iran reports hospitals, civilians affected during war</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📰 Bredare mediespektrum — Vänster till höger</h3>
+    <p style="margin-bottom: 12px; color: var(--text-muted); font-size: 0.88em;">Kriget kommenteras över hela det politiska spektrumet. Noterbart: delar av den amerikanska isolationistiska högern och den progressiva vänstern landar i liknande anti-krigspositioner — om än av helt olika skäl.</p>
+    <ul class="sources-list">
+      <li style="border-left: 3px solid #e74c3c; padding-left: 10px;"><strong style="color:#e74c3c;">HÖGER / PRO-KRIG</strong></li>
+      <li><a href="https://usa.news-pravda.com/world/2026/03/12/695812.html" target="_blank">WSJ Editorial — "In Iran, we must fight to the bitter end"</a> — Hawkistisk ledare som uppmanar Trump att fortsätta operationen</li>
+      <li><a href="https://www.foxnews.com/live-news/us-iran-israel-war-latest-march-8-live-updates" target="_blank">Fox News — Israel warns it will target every successor of Khamenei</a> — Liveuppdateringar med övervägande pro-Israel/pro-operationsvinkling</li>
+      <li style="border-left: 3px solid #f39c12; padding-left: 10px; margin-top: 10px;"><strong style="color:#f39c12;">HÖGER / KRIGSKVITISK (isolationistisk)</strong></li>
+      <li><a href="https://www.timesofisrael.com/isolationist-us-right-wing-commentators-decry-iran-war-trump-says-he-doesnt-care/" target="_blank">Times of Israel — Isolationist right-wing commentators decry Iran war</a> — Tucker Carlson-flanken av GOP: "America First" = inga fler Mellanösternkrig</li>
+      <li style="border-left: 3px solid #3498db; padding-left: 10px; margin-top: 10px;"><strong style="color:#3498db;">CENTER / ANALYS</strong></li>
+      <li><a href="https://www.washingtonpost.com/opinions/2026/03/06/iran-civil-war-regime-collapse/" target="_blank">Washington Post Opinion — The danger of Trump shifting goals in the Iran war</a></li>
+      <li><a href="https://www.washingtonpost.com/opinions/2026/03/11/donald-trump-iran-war-endgame-victory/" target="_blank">Washington Post Opinion — Trump's Iran endgame includes three levels of victory</a></li>
+      <li><a href="https://www.rand.org/pubs/commentary/2026/03/war-in-iran-qa-with-rand-experts.html" target="_blank">RAND — War in Iran: Q&A with experts</a> — Sansad analys av kapaciteter och risker</li>
+      <li><a href="https://www.brookings.edu/articles/can-irans-regime-survive-the-war/" target="_blank">Brookings — Can Iran's regime survive the war?</a></li>
+      <li style="border-left: 3px solid #2ecc71; padding-left: 10px; margin-top: 10px;"><strong style="color:#2ecc71;">VÄNSTER / PROGRESSIV KRITIK</strong></li>
+      <li><a href="https://www.thenation.com/article/politics/trump-iran-war-democrats-foreign-policy-debate/" target="_blank">The Nation — Trump's war opens a foreign policy debate Democrats can no longer avoid</a> — Progressiv analys av den demokratiska oppositionen</li>
+      <li><a href="https://www.wbur.org/onpoint/2026/03/11/why-iran-wants-a-long-war-strategy" target="_blank">WBUR On Point — Why Iran wants a long war</a> — NPR-podcast med akademiska perspektiv</li>
+      <li style="border-left: 3px solid #9b59b6; padding-left: 10px; margin-top: 10px;"><strong style="color:#9b59b6;">OPINIONSDATA</strong></li>
+      <li><a href="https://poll.qu.edu/poll-release?releaseid=3952" target="_blank">Quinnipiac Poll — 56% emot, 74% emot markstyrkor</a></li>
+      <li><a href="https://maristpoll.marist.edu/polls/war-with-iran-march-2026/" target="_blank">Marist Poll — War with Iran, March 2026</a></li>
+      <li><a href="https://www.cnn.com/2026/03/12/politics/us-opinion-iran-war-polls" target="_blank">CNN — Americans don't see the point of this war</a></li>
+      <li><a href="https://www.pbs.org/newshour/politics/polls-show-what-americans-think-about-the-war-in-iran" target="_blank">PBS — What Americans think about the war in Iran</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Dag 14-15 uppdateringar (13-14 mars 2026)</h3>
+    <ul class="sources-list">
+      <li><a href="https://www.cnn.com/world/live-news/iran-war-us-israel-trump-03-13-26" target="_blank">CNN — Day 14: Trump says US obliterated military targets on Kharg Island</a></li>
+      <li><a href="https://foreignpolicy.com/2026/03/13/kharg-island-bombing-iran-oil-strike-trump-truth-social/" target="_blank">Foreign Policy — Kharg Island Bombing: Trump Orders Strikes on Iran's Vital Oil Hub</a></li>
+      <li><a href="https://www.cnbc.com/2026/03/13/oil-100-price-brent-wti-trump-iran-war-surrender-khamenei.html" target="_blank">CNBC — Oil closes above $100 for second day</a></li>
+      <li><a href="https://thehill.com/policy/international/5782595-mojtatba-khamenei-injured-iran/" target="_blank">The Hill — Hegseth says Mojtaba Khamenei wounded and likely disfigured</a></li>
+      <li><a href="https://time.com/article/2026/03/10/us-service-members-killed-iran-war-casualties/" target="_blank">TIME — US service members killed in the Iran war</a></li>
+      <li><a href="https://www.npr.org/2026/03/13/g-s1-113563/us-iran-war" target="_blank">NPR — US military bombs Iran's main oil export hub</a></li>
+      <li><a href="https://gulfnews.com/uae/us-israel-war-on-iran-day-14-us-refuelling-aircraft-crashes-in-iraq-iran-threatens-gulf-energy-sites-1.500472879" target="_blank">Gulf News — Day 14: US aircraft crashes, UAE intercepts missiles</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Dag 13-14 uppdateringar (12-14 mars 2026)</h3>
+    <ul class="sources-list">
+      <li><a href="https://www.aljazeera.com/news/2026/3/12/irans-president-sets-terms-to-end-the-war-is-an-off-ramp-in-sight" target="_blank">Al Jazeera — Iran's president sets terms to end the war: Is an off-ramp in sight?</a></li>
+      <li><a href="https://houseofsaud.com/iran-demands-reparations-guarantees-ceasefire-conditions/" target="_blank">House of Saud — Iran sets 3 ceasefire conditions</a></li>
+      <li><a href="https://www.npr.org/2026/03/12/nx-s1-5745689/iran-war-israel-us" target="_blank">NPR — Iran's new leader vows to keep Strait of Hormuz closed</a></li>
+      <li><a href="https://www.cnn.com/world/live-news/iran-war-us-israel-trump-03-12-26" target="_blank">CNN — Day 13: Global economy disruptions, Iranian attacks spread to sea</a></li>
+      <li><a href="https://www.aljazeera.com/news/liveblog/2026/3/13/iran-war-live-trump-says-war-going-well-as-gulf-under-wave-of-attacks" target="_blank">Al Jazeera — Dag 14 liveblogg: Trump says war "going well" as Gulf under wave of attacks</a></li>
+      <li><a href="https://www.axios.com/2026/03/12/iran-war-houthis-yemen-gulf-red-sea" target="_blank">Axios — This military rebel group could join the Iran war next</a></li>
+      <li><a href="https://gcaptain.com/houthis-signal-renewed-red-sea-shipping-attacks-after-u-s-israeli-strikes-on-iran/" target="_blank">gCaptain — Houthis signal renewed Red Sea shipping attacks</a></li>
+      <li><a href="https://www.jpost.com/middle-east/article-889678" target="_blank">Jerusalem Post — Oman, Egypt, Pakistan, Turkey push for US-Iran ceasefire</a></li>
+    </ul>
+  </div>
+
+  
+  <div class="card">
+    <h3>Dag 16 uppdateringar (15 mars 2026)</h3>
+    <ul class="sources-list">
+      <li><a href="https://www.aljazeera.com/news/liveblog/2026/3/15/iran-war-live-trump-urges-world-to-keep-hormuz-strait-open" target="_blank">Al Jazeera — Iran war live: Trump says not ready for deal; US, Israel pound Isfahan</a></li>
+      <li><a href="https://www.haaretz.com/israel-news/israel-security/2026-03-15/ty-article-live/report-israel-running-critically-low-on-missile-interceptors-amid-iran-war/0000019c-ee69-df50-a9de-eef9a11c0000" target="_blank">Haaretz — Israel running critically low on missile interceptors</a></li>
+      <li><a href="https://www.timesofisrael.com/liveblog-march-15-2026/" target="_blank">Times of Israel — Iran targets Israel with 6 ballistic missile salvos since midnight</a></li>
+      <li><a href="https://politicalwire.com/2026/03/14/trump-rejects-peace-talks/" target="_blank">Political Wire — Trump rejects peace talks</a></li>
+      <li><a href="https://www.jpost.com/middle-east/iran-news/article-888816" target="_blank">Jerusalem Post — Iran reached out to CIA to discuss end of conflict</a></li>
+      <li><a href="https://www.jpost.com/middle-east/iran-news/article-889644" target="_blank">Jerusalem Post — Iran demands guarantee of no future attacks to sign ceasefire</a></li>
+      <li><a href="https://www.washingtonpost.com/national-security/2026/03/06/russia-iran-intelligence-us-targets/" target="_blank">Washington Post — Russia giving Iran intelligence to target U.S. forces</a></li>
+      <li><a href="https://www.longwarjournal.org/archives/2026/03/houthis-express-solidarity-with-iran-but-do-not-launch-retaliatory-attacks-yet.php" target="_blank">Long War Journal — Houthis express solidarity but no retaliatory attacks yet</a></li>
+      <li><a href="https://www.npr.org/2026/03/14/nx-s1-5746623/iran-war-cost-deaths" target="_blank">NPR — Casualties and cost of the war in Iran 2 weeks in</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/3/14/us-israeli-strike-kills-15-at-isfahan-factory-iranian-media-says" target="_blank">Al Jazeera — US-Israeli strike kills 15 at Isfahan factory</a></li>
+      <li><a href="https://www.nbcnews.com/world/iran/strait-of-hormuz-closure-shipping-oil-strikes-rcna262898" target="_blank">NBC News — Why it's so hard to get oil through the Strait of Hormuz right now</a></li>
+      <li><a href="https://www.axios.com/2026/03/12/iran-war-houthis-yemen-gulf-red-sea" target="_blank">Axios — This military rebel group could join the Iran war next</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>OSINT & Analytiska källor</h3>
+    <ul class="sources-list">
+      <li><a href="https://www.criticalthreats.org/analysis/iran-update-morning-special-report-march-8-2026-69adbd065e3ff" target="_blank">Critical Threats — Iran Update March 8</a></li>
+      <li><a href="https://www.cnbc.com/2026/03/11/strait-of-hormuz-closure-shipping-economy-oil.html" target="_blank">CNBC — How Strait of Hormuz closure becomes tipping point</a></li>
+      <li><a href="https://unctad.org/publication/strait-hormuz-disruptions-implications-global-trade-and-development" target="_blank">UNCTAD — Strait of Hormuz disruptions: Implications for global trade</a></li>
+      <li><a href="https://www.atlanticcouncil.org/dispatches/dispatch-from-beirut-is-this-hezbollahs-last-war-with-israel/" target="_blank">Atlantic Council — Is this Hezbollah's 'last war' with Israel?</a></li>
+      <li><a href="https://www.longwarjournal.org/archives/2026/03/houthis-express-solidarity-with-iran-but-do-not-launch-retaliatory-attacks-yet.php" target="_blank">Long War Journal — Houthis express solidarity but no retaliatory attacks yet</a></li>
+      <li><a href="https://www.lowyinstitute.org/the-interpreter/what-iran-conflict-means-russia" target="_blank">Lowy Institute — What the Iran conflict means for Russia</a></li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- container -->
+
+<script>
+// Tab navigation
+const tabs = document.querySelectorAll('.nav-tab');
+const sections = document.querySelectorAll('.section');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.section;
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(target).classList.add('active');
+    window.scrollTo({ top: document.getElementById(target).offsetTop - 80, behavior: 'smooth' });
+  });
+});
+</script>
+
+<footer style="text-align:center; padding: 40px 20px; color: var(--text-muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px;">
+  Geopolitisk Scenarioanalys — Multi-Source OSINT Synthesis<br>
+  Genererad 15 mars 2026 (v4) | Baserad på öppna källor | Ej underrättelseanalys<br>
+  Sex informationssfärer | 9 namngivna Twitter/X-analytiker | 60+ länkade källor | Vänster-till-höger mediespektrum<br>
+  <span style="color:var(--accent);">Nästa uppdatering rekommenderas: 16 mars kl 09:00</span>
+</footer>
+
+</body>
+</html>
