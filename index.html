@@ -177,13 +177,153 @@
   .expert-intelligence { border-left-color: #2ecc71; }
   .expert-intelligence .expert-name { color: #2ecc71; }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .hero h1 { font-size: 1.6em; }
-    .matrix-table { font-size: 0.78em; }
-    .nav-tabs { gap: 4px; }
-    .nav-tab { padding: 6px 12px; font-size: 0.8em; }
-    .highlight-strip { grid-template-columns: 1fr; }
+  /* ============================================
+     RESPONSIVE — MOBILE-FIRST UX REDESIGN
+     UX-principer:
+     - Touch targets min 44px
+     - Horisontell tab-scroll istf. wrap
+     - Tabeller scrollbara istf. overflow
+     - Kompakt typografi med läsbar hierarki
+     - Reducerad padding för mer content
+     ============================================ */
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .highlight-strip { grid-template-columns: 1fr 1fr; }
+    .highlight-card:last-child { grid-column: 1 / -1; }
+    .stats-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    /* Hero — kompakt men tydlig */
+    .hero { padding: 32px 16px 24px; }
+    .hero h1 { font-size: 1.25em; line-height: 1.3; }
+    .hero .subtitle { font-size: 0.85em; margin-bottom: 14px; }
+    .hero .date-badge, .hero .war-day { font-size: 0.78em; padding: 5px 14px; }
+    .hero .war-day { margin-left: 4px; margin-top: 6px; display: inline-block; }
+
+    /* Disclaimer — tightare */
+    .disclaimer { margin: 16px 12px; padding: 14px; font-size: 0.82em; border-radius: 10px; }
+
+    /* Navigation — horisontell scroll, ej wrap */
+    .nav-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 6px;
+      padding: 12px 12px;
+      justify-content: flex-start;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tab {
+      flex-shrink: 0;
+      padding: 10px 16px;
+      font-size: 0.82em;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Container — mindre padding */
+    .container { padding: 12px; }
+
+    /* Highlight strip — en kolumn */
+    .highlight-strip { grid-template-columns: 1fr; padding: 0 12px; gap: 10px; }
+    .highlight-card { padding: 16px; }
+    .highlight-card .hl-title { font-size: 1em; }
+    .highlight-card .hl-body { font-size: 0.82em; }
+
+    /* Section titles */
+    .section-title { font-size: 1.25em; margin-bottom: 16px; }
+
+    /* Cards — reducerad padding */
+    .card { padding: 16px; margin-bottom: 14px; border-radius: 10px; }
+    .card h3 { font-size: 1.05em; margin-bottom: 8px; }
+    .card p { font-size: 0.88em; }
+
+    /* Stats grid — 2 kolumner på mobil */
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 14px 0; }
+    .stat-card { padding: 14px 10px; border-radius: 8px; }
+    .stat-value { font-size: 1.5em; }
+    .stat-label { font-size: 0.75em; }
+
+    /* Tabeller — horisontellt scrollbar wrapper */
+    .matrix-table, .warning-table { font-size: 0.78em; min-width: 500px; }
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -12px;
+      padding: 0 12px;
+    }
+    .matrix-table th, .matrix-table td { padding: 8px 6px; }
+    .matrix-table .topic { min-width: 100px; }
+    .warning-table th, .warning-table td { padding: 8px 6px; }
+
+    /* Scenario kort */
+    .scenario { padding: 18px; margin-bottom: 16px; }
+    .scenario h3 { font-size: 1.1em; }
+    .scenario .probability { font-size: 1.6em; }
+    .scenario-detail li { font-size: 0.85em; }
+
+    /* Expert boxar */
+    .expert-box { padding: 14px 16px; margin-bottom: 12px; }
+    .expert-box .expert-name { font-size: 0.92em; }
+
+    /* Probability bar */
+    .prob-bar-container { height: 32px; }
+    .prob-bar { font-size: 0.75em; }
+
+    /* Timeline — kompaktare */
+    .timeline { padding-left: 24px; }
+    .timeline-item { margin-bottom: 14px; }
+    .timeline-date { font-size: 0.78em; }
+    .timeline-text { font-size: 0.85em; }
+
+    /* Källista */
+    .sources-list li { font-size: 0.82em; padding: 5px 0; }
+
+    /* Daglig briefing (inline-styled) — override med !important */
+    div[style*="max-width:900px"] {
+      margin: 14px 12px !important;
+      padding: 16px !important;
+      font-size: 0.86em !important;
+    }
+    div[style*="max-width:900px"] h3 { font-size: 1.05em !important; }
+    div[style*="max-width:900px"] table { font-size: 0.82em !important; }
+    div[style*="max-width:900px"] td,
+    div[style*="max-width:900px"] th { padding: 5px 4px !important; }
+
+    /* Divergens-badge */
+    .divergence-badge { font-size: 0.7em; padding: 1px 6px; }
+
+    /* Regimskifte stat-rad */
+    .regime-stat-row {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 10px !important;
+    }
+    .regime-stat-row > div:first-child {
+      padding: 12px !important;
+    }
+    .regime-stat-row > div:first-child > div:first-child {
+      font-size: 1.6em !important;
+    }
+
+    /* Inline flex-layouts i warning-sektionen */
+    div[style*="display:flex"][style*="gap:16px"] {
+      flex-direction: column !important;
+      gap: 8px !important;
+    }
+  }
+
+  /* Extra small phones (SE, etc) */
+  @media (max-width: 375px) {
+    .hero h1 { font-size: 1.1em; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-value { font-size: 1.3em; }
+    .nav-tab { padding: 8px 12px; font-size: 0.78em; }
   }
 </style>
 </head>
@@ -815,6 +955,7 @@
 <div class="card" style="border-left: 4px solid var(--accent); margin-top:20px; margin-bottom:20px;">
     <h3 style="color:var(--accent);">🔍 Trippel blindvalidering — 16 mars 2026</h3>
     <p style="font-size:0.9em; color:var(--text-muted); margin-bottom:14px;">Tre oberoende analyser kördes parallellt utan att se varandras resultat. Analys A: västerländska think tanks (RAND, Brookings, CSIS, Hudson). Analys B: regionala/icke-västerländska (Al Jazeera, MEI, Carnegie, Atlantic Council, Arab Center DC). Analys C: OSINT/militär underrättelseanalys (Critical Threats, ISW, Bellingcat, open-source satellite imagery). En fjärde syntes triangulerar slutbedömningen.</p>
+    <div style="overflow-x:auto;">
     <table class="warning-table">
       <tr><th>Scenario</th><th>Analys A<br><small>(Västerländsk)</small></th><th>Analys B<br><small>(Regional)</small></th><th>Analys C<br><small>(OSINT/Militär)</small></th><th>Triangulering</th><th>Divergens</th></tr>
       <tr>
@@ -858,6 +999,7 @@
         <td style="text-align:center; color:var(--green);">LÅG — Konvergens</td>
       </tr>
     </table>
+    </div>
     <div style="background:var(--bg); border-radius:6px; padding:12px; margin-top:12px; font-size:0.88em;">
       <p><strong>🔑 Trippelblind nyckeldivergenser:</strong></p>
       <p style="margin:6px 0;"><span style="color:var(--red);">▸ Eskalering:</span> Analys A (västlig, 65%) och C (OSINT, 58%) ser hög eskaleringsrisk pga Israels interceptor-brist, Libanon-markoffensiv och avsaknad av diplomatiska kanaler. Analys B (regional, 28%) ser Gulfstaternas aktiva medling, Turkiets roll och historiskt mönster av att konflikter inte eskalerar till total konfrontation som bromsmekanismer.</p>
@@ -867,6 +1009,7 @@
     </div>
   </div>
     <h3>Experternas syn på sannolikheterna</h3>
+    <div style="overflow-x:auto;">
     <table class="warning-table">
       <tr><th>Scenario</th><th>Sannolikhet</th><th>Politisk expert</th><th>Militärexpert</th><th>Underrättelseanalytiker</th></tr>
       <tr>
@@ -888,14 +1031,15 @@
         <td>Instämmer (15-20%). "Backchannel-signaler svaga men inte noll"</td>
       </tr>
     </table>
+    </div>
   </div>
 
 
   <div class="card" style="border-left: 4px solid var(--iran); margin-top:30px;">
     <h3 style="color:var(--iran);">🇮🇷 Bedömning: Regimskifte i Iran</h3>
 
-    <div style="display:flex; align-items:center; gap:16px; margin:16px 0;">
-      <div style="background:var(--bg); border-radius:8px; padding:16px 24px; text-align:center;">
+    <div class="regime-stat-row" style="display:flex; align-items:center; gap:16px; margin:16px 0;">
+      <div style="background:var(--bg); border-radius:8px; padding:16px 24px; text-align:center; flex-shrink:0;">
         <div style="font-size:2em; font-weight:800; color:var(--orange);">18–28%</div>
         <div style="font-size:0.8em; color:var(--text-muted);">Sannolikhet 12 mån</div>
       </div>
@@ -935,8 +1079,8 @@
   <div class="card" style="border-left: 4px solid var(--israel); margin-top:20px;">
     <h3 style="color:#5dade2;">🇮🇱 Bedömning: Avsätts Netanyahu?</h3>
 
-    <div style="display:flex; align-items:center; gap:16px; margin:16px 0;">
-      <div style="background:var(--bg); border-radius:8px; padding:16px 24px; text-align:center;">
+    <div class="regime-stat-row" style="display:flex; align-items:center; gap:16px; margin:16px 0;">
+      <div style="background:var(--bg); border-radius:8px; padding:16px 24px; text-align:center; flex-shrink:0;">
         <div style="font-size:2em; font-weight:800; color:var(--orange);">40–55%</div>
         <div style="font-size:0.8em; color:var(--text-muted);">Ej PM inom 12 mån</div>
       </div>
@@ -972,6 +1116,7 @@
 
   <p style="margin-bottom: 20px; color:var(--text-muted);">Signaler att bevaka under de kommande veckorna för att bedöma vilken riktning konflikten tar.</p>
 
+  <div style="overflow-x:auto;">
   <table class="warning-table">
     <thead>
       <tr><th>Signal att bevaka</th><th>Indikerar</th><th>Risknivå</th><th>Sfär att följa</th></tr>
@@ -989,6 +1134,7 @@
       <tr><td>IRGC-intern maktstrid/kupp mot Mojtaba</td><td>Kaos → alla scenarion kastas om</td><td class="signal-low">LÅG men kritisk</td><td><span class="sphere sphere-ru">Ryssland</span> <span class="sphere sphere-arab">Arab</span></td></tr>
     </tbody>
   </table>
+  </div>
 
   <div class="card" style="margin-top: 30px;">
     <h3>Rekommendation: Vad att följa de närmaste dagarna</h3>
