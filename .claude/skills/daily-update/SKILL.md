@@ -1,9 +1,19 @@
 ---
 name: daily-update
-description: Kör daglig Mellanöstern-analys och REGENERERAR index.html från grunden (appenderar aldrig). Trippel-blind validering (Analyst + Devil's Advocate + Judge) innan HTML-genereringen. Hämtar ny data, bygger rapporten med v36-mallen, commit:ar och pushar. Triggas av "daily update", "uppdatera rapporten", "/daily-update".
+description: Manuellt fullt flöde av Mellanöstern-rapporten — research + triplet + publicering i ett enda steg. För automatiserad daglig körning, använd istället /daily-update-draft (cloud, schemalagd) + /daily-update-publish (laptop, manuell granskning). Denna kvarvarande full-flow-skill är för felsökning, helger eller när cloud-routinen inte kört. Triggas av "daily update full", "kör hela rapporten manuellt", "/daily-update".
 ---
 
-# Daily Update — Regenerating Mideast Report
+# Daily Update — Manuellt full flow (legacy)
+
+> **Notera:** Detta är det ursprungliga ett-steg-flödet som körs lokalt på din laptop. För daglig schemaläggning är det uppdelat i två faser:
+>
+> - **`/daily-update-draft`** — schemaläggs via cloud routine (kör 09:00 dagligen), producerar draft i `drafts/YYYY-MM-DD/` + judge notes, pushar till draft-branch
+> - **`/daily-update-publish`** — du kör manuellt på laptop ~10:00, granskar judge-flaggor, sveper draft till `index.html` och pushar `main`
+>
+> Använd denna `/daily-update`-skill om:
+> - Cloud-routinen kraschade och du vill köra om hela flödet manuellt
+> - Du är inte vid datorn på morgonen och vill köra hela på en söndag
+> - Du felsöker triplet- eller HTML-genereringssteget
 
 ## Huvudregel
 
