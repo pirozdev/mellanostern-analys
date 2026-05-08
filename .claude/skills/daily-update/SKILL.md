@@ -1,6 +1,6 @@
 ---
 name: daily-update
-description: Kör daglig Mellanöstern-analys och REGENERERAR index.html från grunden (appenderar aldrig). Hämtar ny data, bygger rapporten med v36-mallen, commit:ar och pushar. Triggas av "daily update", "uppdatera rapporten", "/daily-update".
+description: Kör daglig Mellanöstern-analys och REGENERERAR index.html från grunden (appenderar aldrig). Trippel-blind validering (Analyst + Devil's Advocate + Judge) innan HTML-genereringen. Hämtar ny data, bygger rapporten med v36-mallen, commit:ar och pushar. Triggas av "daily update", "uppdatera rapporten", "/daily-update".
 ---
 
 # Daily Update — Regenerating Mideast Report
@@ -43,20 +43,80 @@ Läs `index.html`. Identifiera:
 
 Spara dessa som "template" i minnet. ALLT annat (faktiska händelser, citat, siffror, expertbedömningar, källor) ska kastas och regenereras.
 
-### Steg 3: Kör analysen
+### Steg 3: Trippel-blind analys
 
-Invoke `anthropic-skills:geopolitical-mideast-analyst` via Skill-verktyget.
+Tre subagents körs i sekvens: två producerar parallella analyser blindt, en tredje dömer mellan dem. Ingen agent får se de andras output.
 
-Ge den följande direktiv som arg:
-> Producera dagens analys för {DATUM}. Fokus: senaste 24-48h händelser. Inkludera historiska ankare ENDAST om de refereras direkt i dagens scenarier. Format: strukturerad data, inte HTML — jag gör HTML-genereringen separat.
+#### Steg 3a: Agent A (Analyst) — blind
 
-Spara outputen som `analysis_today`.
+Spawna subagent (`general-purpose` med web-access). Ge standardbriefing.
+
+> Du är dagens Analyst. Producera strukturerad analys för {DATUM}. Använd WebSearch/WebFetch aggressivt. Fokus: senaste 24-48h händelser. Inkludera historiska ankare ENDAST om de refereras direkt i dagens scenarier. Format: strukturerad textdata med taggade sektioner (`[HERO]`, `[DAILY_BRIEFING]`, `[SCENARIO_PROBS]`, `[REGIME_CHANGE]`, `[WATCH_NEXT_48H]`, `[EXECUTIVE_SUMMARY]`, `[TWITTER_OSINT]`, `[EXPERTS_3]`, `[SCENARIOS_3]`, `[EARLY_WARNING_10]`, `[SOURCES_15]`, `[INSIDE_IRAN]`) — INTE HTML. Producera ditt bästa konsensus-bedömning med sannolikheter och källcitat.
+
+Spara som `analyst_output`.
+
+#### Steg 3b: Agent B (Devil's Advocate) — blind
+
+Spawna SEPARAT subagent (samma typ + web-access). Får INTE se `analyst_output`. Får samma datum och samma output-format.
+
+> Du är dagens Devil's Advocate. Producera strukturerad analys för {DATUM} med ADVERSARIELL framing. Använd WebSearch/WebFetch aggressivt. Samma format som standardanalysen (taggade sektioner, INTE HTML).
+>
+> **Adversariell uppgift:**
+> 1. Där konsensus skulle säga X% upptrappning — fråga: vad om det egentligen är X+20% eller X-20%? Argumentera för det mer extrema värdet.
+> 2. Identifiera scenarier som default-analys missar (svart svan, dolda eskalationsvektorer, plötsliga fredsutbrott).
+> 3. Vilka källor överviktas av konsensus? Vilka namngivna experter under-citeras eftersom de avviker från huvudbilden?
+> 4. Vilka deadlines/förväntningar har passerat utan att materialiseras (motsäger headline-narrativet)?
+> 5. Var är consensus probabilities anchored på gårdagens siffror snarare än ny data?
+>
+> Producera fullständig analys, inte bara invändningar. Probabilities ska vara DINA — argumentera för dem som om du var huvudanalytikern. Hitta minst två sannolikheter där du landar >10 procentenheter ifrån vad konsensus förmodligen skulle säga.
+
+Spara som `devils_output`.
+
+**Steg 3a och 3b spawnas i parallell** (samma user-message, två Agent-anrop) för att minska total körtid och garantera att de inte ser varandras output.
+
+#### Steg 3c: Agent C (Judge) — blind till identitet
+
+Spawna tredje subagent. Ge båda analyserna **utan att avslöja vilken som är vilken** (märk dem `Lista 1` och `Lista 2`, randomisera ordningen — t.ex. flippa baserat på t.ex. dagens datum-paritet).
+
+> Du är dagens Judge. Du får två oberoende analyser av samma situation. Båda har samma format. Din uppgift är att producera en **konsoliderad slutanalys** + en kort **Judge-not** som dokumenterar var och varför listorna avvek.
+>
+> **Beslutsregler per fält:**
+> - **Verifierbar fakta** (datum, namn, casualty-siffror, oljepriser): välj värdet med fler/bättre källcitat. Vid lika: välj det mer konservativa.
+> - **Probabilities**: om listorna ligger inom 10 procentenheter — ta medelvärdet, runda till närmsta 5%. Om de ligger >10 procentenheter ifrån varandra — välj den lista vars motivering är mest direkt kopplad till verifierbara händelser senaste 48h. Notera divergensen i Judge-noten.
+> - **Scenarier/expertbedömningar**: behåll båda om de inte direkt motsäger varandra. Vid motsägelse: välj listan vars argumentation refererar mer specifika källor.
+> - **Sources**: union (alla unika URLs från båda listorna, dedupliceras), max 15 — prioritera de som är från senaste 7 dagarna.
+> - **Vid tvivel**: notera i Judge-not för mänsklig granskning, fortsätt med den mer konservativa varianten.
+>
+> **Output-format:**
+> ```
+> [JUDGE_NOTES]
+> ## Divergenser mellan Lista 1 och Lista 2
+> ### D1: [fält, t.ex. "Escalation probability"]
+> Lista 1: [värde + 1-rads motivering]
+> Lista 2: [värde + 1-rads motivering]
+> Beslut: [valt värde + varför]
+> Konfidens: [hög / medel / låg]
+> ### D2: ...
+>
+> ## Konvergenser (där båda var överens)
+> - [kort lista, en rad per item — t.ex. "Brent $113.54 (5 sources both)"]
+>
+> ## Flaggade för mänsklig granskning
+> - [item där judge inte kunde avgöra, kräver beslut innan publicering]
+>
+> [FINAL_ANALYSIS]
+> [Hela den konsoliderade analysen i samma taggade format som agenterna fick — denna används av Step 4 för HTML-generering]
+> ```
+
+Spara som `judge_output`. Extrahera `[FINAL_ANALYSIS]`-sektionen som `analysis_today` (används i Step 4).
+
+**Om Judge flaggar item för mänsklig granskning:** stoppa flödet, visa flaggorna för användaren, vänta på beslut innan Step 4.
 
 ### Steg 4: Regenerera index.html
 
 Skapa ny `index.html` genom att:
 1. Börja med template-mallen från steg 2
-2. Fyll varje sektion med färskt innehåll från `analysis_today`:
+2. Fyll varje sektion med färskt innehåll från `analysis_today` (= Judge:s `[FINAL_ANALYSIS]`):
    - Hero: dagens datum, war-day (förra +1), version (förra +1)
    - Daily Briefing: dagens headline + 5 numrerade punkter
    - Scenario Adjustment-tabellen: dagens tre sannolikheter vs igår
@@ -98,15 +158,34 @@ print('structure OK')
 
 Om strukturen är bruten: FEL. Regenereringen lämnade orphan tags. Kasta och försök igen.
 
-### Steg 7: Arkivera gårdagens sources
+### Steg 7: Arkivera gårdagens rapport + dagens judge-not
 
 Innan du skriver över `index.html`:
 ```bash
-mkdir -p archive
-cp index.html archive/$(date -v-1d +%Y-%m-%d).html  # gårdagens
+mkdir -p archive archive/judge-notes
+cp index.html archive/$(date -v-1d +%Y-%m-%d).html  # gårdagens rapport
 ```
 
-Detta bevarar full historik utanför main-rapporten. Om någon vill se "vad sa rapporten för en vecka sen" → arkivet.
+Skriv Judge-noten från Steg 3c till `archive/judge-notes/YYYY-MM-DD.md`. Format:
+
+```markdown
+# Judge Notes — YYYY-MM-DD (v{N+1})
+
+**Modell:** trippel-blind (Analyst + Devil's Advocate + Judge)
+**Lista 1 = [Analyst|Devil's Advocate]** (avslöjas EFTER beslut, för transparens)
+**Lista 2 = [Analyst|Devil's Advocate]**
+
+## Divergenser
+[från Judge-output]
+
+## Konvergenser
+[från Judge-output]
+
+## Flaggade för mänsklig granskning
+[om några — annars "(inga)"]
+```
+
+Detta gör att man kan jämföra över tid: blev Devil's Advocate konsekvent övertrumfad av Analyst? Drev Devil's Advocate scenarier som senare materialiserades? Det är hur trippel-modellen kalibreras över veckor.
 
 ### Steg 8: Skriv + commit + push
 
@@ -134,8 +213,14 @@ LAST_VERSION=$(git log --format=%s -1 | grep -oE 'v[0-9]+' | head -1)
 
 Om rapporten börjar svälla igen trots denna skill:
 1. Kolla senaste commit — regenererades verkligen hela filen, eller appenderades det till existerande innehåll?
-2. Kolla Steg 3 — fick `geopolitical-mideast-analyst` rätt direktiv om format?
-3. Kolla Steg 4 — blandades gammal och ny text (partial regeneration är buggens källa)?
+2. Kolla Steg 3a/3b — fick Analyst och Devil's Advocate rätt direktiv om format?
+3. Kolla Steg 3c — extraherades `[FINAL_ANALYSIS]` korrekt eller blandades den med `[JUDGE_NOTES]`?
+4. Kolla Steg 4 — blandades gammal och ny text (partial regeneration är buggens källa)?
+
+Om probabilities ser rycktiga ut dag till dag:
+1. Läs senaste 7 `archive/judge-notes/*.md`. Fanns mönster där Devil's Advocate konsekvent föreslog +20% upptrappning som senare visade sig korrekt?
+2. Om ja — höj viktningen av Devil's Advocate i Step 3c (ändra "vid lika: välj mer konservativ" → "vid lika: välj Devil's Advocate-värde").
+3. Om Devil's Advocate aldrig får rätt — överväg att förenkla flödet tillbaka till bara Analyst (men spara judge-noterna som kalibreringsdata).
 
 ## Första körningen efter skill-installation
 
@@ -144,3 +229,4 @@ Kör en gång manuellt och granska diff:en innan du schemalägger. Förvänta di
 - War-day: inkrementerat med 1
 - Sources: endast dagens/gårdagens länkar
 - Inga hänvisningar till händelser från 2+ veckor sen om de inte är verkliga ankare
+- En judge-not i `archive/judge-notes/` som dokumenterar var Analyst och Devil's Advocate avvek
