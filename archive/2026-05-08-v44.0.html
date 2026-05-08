@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geopolitical Scenario Analysis — Middle East</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #22263a;
+    --accent: #4f8cff;
+    --accent2: #ff6b6b;
+    --accent3: #ffd93d;
+    --accent4: #6bcb77;
+    --text: #e0e0e0;
+    --text-muted: #8a8fa8;
+    --border: #2a2e3f;
+    --red: #ff4757;
+    --orange: #ffa502;
+    --green: #2ed573;
+    --russia: #c23616;
+    --west: #0097e6;
+    --china: #e1b12c;
+    --arab: #44bd32;
+    --israel: #273c75;
+    --iran: #8e44ad;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  .hero { text-align: center; padding: 60px 20px 40px; background: linear-gradient(135deg, #1a1d27 0%, #0f1117 100%); border-bottom: 1px solid var(--border); }
+  .hero h1 { font-size: 2.4em; font-weight: 700; margin-bottom: 10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .subtitle { font-size: 1.1em; color: var(--text-muted); max-width: 700px; margin: 0 auto 20px; }
+  .hero .date-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 18px; font-size: 0.85em; color: var(--accent); }
+  .hero .war-day { display: inline-block; background: var(--accent2); color: #fff; border-radius: 20px; padding: 6px 18px; font-size: 0.85em; font-weight: 600; margin-left: 8px; }
+
+  /* Disclaimer */
+  .disclaimer { background: #2a1a1a; border: 1px solid #5a2020; border-radius: 12px; padding: 20px; margin: 30px auto; max-width: 900px; font-size: 0.88em; color: #ffaaaa; }
+  .disclaimer strong { color: var(--accent2); }
+
+  /* Navigation */
+  .nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 20px; position: sticky; top: 0; background: var(--bg); z-index: 100; border-bottom: 1px solid var(--border); }
+  .nav-tab { padding: 8px 18px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text-muted); cursor: pointer; font-size: 0.9em; transition: all 0.2s; }
+  .nav-tab:hover, .nav-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* Sections */
+  .section { display: none; padding: 30px 0; }
+  .section.active { display: block; }
+  .section-title { font-size: 1.6em; font-weight: 700; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; transition: background 0.2s; }
+  .card:hover { background: var(--card-hover); }
+  .card h3 { font-size: 1.15em; margin-bottom: 12px; color: var(--accent); }
+  .card p { color: var(--text); font-size: 0.95em; }
+
+  /* Sphere badges */
+  .sphere { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 0.8em; font-weight: 600; margin-right: 6px; margin-bottom: 4px; }
+  .sphere-ru { background: var(--russia); color: #fff; }
+  .sphere-west { background: var(--west); color: #fff; }
+  .sphere-cn { background: var(--china); color: #000; }
+  .sphere-arab { background: var(--arab); color: #fff; }
+  .sphere-il { background: var(--israel); color: #fff; }
+  .sphere-ir { background: var(--iran); color: #fff; }
+
+  /* Narrative Matrix Table */
+  .matrix-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+  .matrix-table th { background: #1e2235; padding: 12px 10px; text-align: left; border-bottom: 2px solid var(--accent); font-weight: 600; }
+  .matrix-table td { padding: 12px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .matrix-table tr:hover td { background: var(--card-hover); }
+  .matrix-table .topic { font-weight: 600; color: var(--accent); min-width: 140px; }
+
+  /* Scenario cards */
+  .scenario { border-radius: 12px; padding: 28px; margin-bottom: 24px; border: 2px solid; }
+  .scenario-escalation { border-color: var(--red); background: linear-gradient(135deg, #1a0a0a, var(--card)); }
+  .scenario-status { border-color: var(--orange); background: linear-gradient(135deg, #1a150a, var(--card)); }
+  .scenario-deescalation { border-color: var(--green); background: linear-gradient(135deg, #0a1a0e, var(--card)); }
+  .scenario h3 { font-size: 1.3em; margin-bottom: 6px; }
+  .scenario .probability { font-size: 2em; font-weight: 800; margin: 10px 0; }
+  .scenario-escalation .probability { color: var(--red); }
+  .scenario-status .probability { color: var(--orange); }
+  .scenario-deescalation .probability { color: var(--green); }
+
+  .scenario-detail { margin-top: 16px; }
+  .scenario-detail h4 { color: var(--text-muted); font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+  .scenario-detail ul { list-style: none; padding: 0; }
+  .scenario-detail li { padding: 4px 0 4px 20px; position: relative; font-size: 0.93em; }
+  .scenario-detail li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+  /* Probability bar */
+  .prob-bar-container { display: flex; height: 40px; border-radius: 8px; overflow: hidden; margin: 20px 0; }
+  .prob-bar { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; color: #fff; }
+  .prob-escalation { background: var(--red); }
+  .prob-status { background: var(--orange); }
+  .prob-deescalation { background: var(--green); }
+
+  /* Expert boxes */
+  .expert-box { background: var(--card); border-left: 4px solid; border-radius: 0 12px 12px 0; padding: 20px 24px; margin-bottom: 18px; }
+  .expert-political { border-left-color: #9b59b6; }
+  .expert-military { border-left-color: #e74c3c; }
+  .expert-box .expert-name { font-weight: 700; font-size: 1em; margin-bottom: 8px; }
+  .expert-political .expert-name { color: #9b59b6; }
+  .expert-military .expert-name { color: #e74c3c; }
+
+  /* Warning dashboard */
+  .warning-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+  .warning-table th { background: #1e2235; padding: 10px; text-align: left; border-bottom: 2px solid var(--accent); }
+  .warning-table td { padding: 10px; border-bottom: 1px solid var(--border); }
+  .signal-high { color: var(--red); font-weight: 600; }
+  .signal-med { color: var(--orange); font-weight: 600; }
+  .signal-low { color: var(--green); font-weight: 600; }
+
+  /* Key stats */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+  .stat-value { font-size: 2em; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 0.85em; color: var(--text-muted); margin-top: 4px; }
+  .stat-red .stat-value { color: var(--red); }
+  .stat-orange .stat-value { color: var(--orange); }
+
+  /* Sources */
+  .sources-list { list-style: none; padding: 0; }
+  .sources-list li { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.88em; }
+  .sources-list a { color: var(--accent); text-decoration: none; }
+  .sources-list a:hover { text-decoration: underline; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; margin-bottom: 20px; }
+  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 8px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+  .timeline-item.critical::before { background: var(--red); }
+  .timeline-date { font-size: 0.82em; color: var(--accent); font-weight: 600; }
+  .timeline-text { font-size: 0.93em; margin-top: 4px; }
+
+  /* === HIGHLIGHT: Scenario & Expert & Regime Teaser Cards === */
+  .highlight-strip { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 6px; }
+  .highlight-card { border-radius: 14px; padding: 20px 22px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+  .highlight-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 14px; padding: 2px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0.6; transition: opacity 0.3s; }
+  .highlight-card:hover::before { opacity: 1; }
+  .highlight-card:hover { transform: translateY(-2px); }
+  .highlight-card.scenario-card { background: linear-gradient(135deg, #1a0e1e, #1a1d27); }
+  .highlight-card.expert-card { background: linear-gradient(135deg, #0e1a1e, #1a1d27); }
+  .highlight-card.regime-card { background: linear-gradient(135deg, #1e1a0e, #1a1d27); }
+  .highlight-card .hl-label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 6px; }
+  .highlight-card .hl-title { font-size: 1.1em; font-weight: 700; margin-bottom: 8px; }
+  .scenario-card .hl-title { color: var(--accent2); }
+  .expert-card .hl-title { color: #9b59b6; }
+  .regime-card .hl-title { color: var(--orange); }
+  .highlight-card .hl-body { font-size: 0.85em; color: var(--text-muted); line-height: 1.5; }
+  .highlight-card .hl-cta { display: inline-block; margin-top: 10px; font-size: 0.8em; font-weight: 600; padding: 4px 12px; border-radius: 6px; transition: all 0.2s; }
+  .scenario-card .hl-cta { color: var(--accent2); border: 1px solid var(--accent2); }
+  .scenario-card .hl-cta:hover { background: var(--accent2); color: #fff; }
+  .expert-card .hl-cta { color: #9b59b6; border: 1px solid #9b59b6; }
+  .expert-card .hl-cta:hover { background: #9b59b6; color: #fff; }
+  .regime-card .hl-cta { color: var(--orange); border: 1px solid var(--orange); }
+  .regime-card .hl-cta:hover { background: var(--orange); color: #fff; }
+  .mini-prob-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin: 8px 0 4px; }
+  .mini-prob-bar > div { transition: width 0.5s ease; }
+  .mini-prob-labels { display: flex; justify-content: space-between; font-size: 0.7em; color: var(--text-muted); }
+  .mini-prob-labels .lbl-red { color: var(--red); font-weight: 600; }
+  .mini-prob-labels .lbl-orange { color: var(--orange); }
+  .mini-prob-labels .lbl-green { color: var(--green); }
+  .divergence-badge { display: inline-block; background: rgba(255,71,87,0.15); border: 1px solid rgba(255,71,87,0.3); color: var(--red); font-size: 0.75em; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-left: 6px; }
+  .nav-tab.tab-highlight { border-color: var(--accent2); color: var(--accent2); position: relative; font-weight: 600; }
+  .nav-tab.tab-highlight-expert { border-color: #9b59b6; color: #9b59b6; position: relative; font-weight: 600; }
+  .nav-tab.tab-highlight::after, .nav-tab.tab-highlight-expert::after { content: ''; position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; animation: pulse-dot 2s infinite; }
+  .nav-tab.tab-highlight::after { background: var(--accent2); }
+  .nav-tab.tab-highlight-expert::after { background: #9b59b6; }
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.5); } }
+  .nav-tab.tab-highlight:hover, .nav-tab.tab-highlight.active { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+  .nav-tab.tab-highlight-expert:hover, .nav-tab.tab-highlight-expert.active { background: #9b59b6; color: #fff; border-color: #9b59b6; }
+  .expert-intelligence { border-left-color: #2ecc71; }
+  .expert-intelligence .expert-name { color: #2ecc71; }
+
+  /* ============================================
+     RESPONSIVE — MOBILE-FIRST UX REDESIGN
+     ============================================ */
+  @media (max-width: 900px) {
+    .highlight-strip { grid-template-columns: 1fr 1fr; }
+    .highlight-card:last-child { grid-column: 1 / -1; }
+    .stats-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  }
+  @media (max-width: 600px) {
+    .hero { padding: 32px 16px 24px; }
+    .hero h1 { font-size: 1.25em; line-height: 1.3; }
+    .hero .subtitle { font-size: 0.85em; margin-bottom: 14px; }
+    .hero .date-badge, .hero .war-day { font-size: 0.78em; padding: 5px 14px; }
+    .hero .war-day { margin-left: 4px; margin-top: 6px; display: inline-block; }
+    .disclaimer { margin: 16px 12px; padding: 14px; font-size: 0.82em; border-radius: 10px; }
+    .nav-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 6px; padding: 12px 12px; justify-content: flex-start; }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tab { flex-shrink: 0; padding: 10px 16px; font-size: 0.82em; min-height: 44px; display: flex; align-items: center; }
+    .container { padding: 12px; }
+    .highlight-strip { grid-template-columns: 1fr; padding: 0 12px; gap: 10px; }
+    .highlight-card { padding: 16px; }
+    .highlight-card .hl-title { font-size: 1em; }
+    .highlight-card .hl-body { font-size: 0.82em; }
+    .section-title { font-size: 1.25em; margin-bottom: 16px; }
+    .card { padding: 16px; margin-bottom: 14px; border-radius: 10px; }
+    .card h3 { font-size: 1.05em; margin-bottom: 8px; }
+    .card p { font-size: 0.88em; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 14px 0; }
+    .stat-card { padding: 14px 10px; border-radius: 8px; }
+    .stat-value { font-size: 1.5em; }
+    .stat-label { font-size: 0.75em; }
+    .matrix-table, .warning-table { font-size: 0.78em; min-width: 500px; }
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -12px; padding: 0 12px; }
+    .matrix-table th, .matrix-table td { padding: 8px 6px; }
+    .matrix-table .topic { min-width: 100px; }
+    .warning-table th, .warning-table td { padding: 8px 6px; }
+    .scenario { padding: 18px; margin-bottom: 16px; }
+    .scenario h3 { font-size: 1.1em; }
+    .scenario .probability { font-size: 1.6em; }
+    .scenario-detail li { font-size: 0.85em; }
+    .expert-box { padding: 14px 16px; margin-bottom: 12px; }
+    .expert-box .expert-name { font-size: 0.92em; }
+    .prob-bar-container { height: 32px; }
+    .prob-bar { font-size: 0.75em; }
+    .timeline { padding-left: 24px; }
+    .timeline-item { margin-bottom: 14px; }
+    .timeline-date { font-size: 0.78em; }
+    .timeline-text { font-size: 0.85em; }
+    .sources-list li { font-size: 0.82em; padding: 5px 0; }
+    div[style*="max-width:900px"] { margin: 14px 12px !important; padding: 16px !important; font-size: 0.86em !important; }
+    div[style*="max-width:900px"] h3 { font-size: 1.05em !important; }
+    div[style*="max-width:900px"] table { font-size: 0.82em !important; }
+    div[style*="max-width:900px"] td, div[style*="max-width:900px"] th { padding: 5px 4px !important; }
+    .divergence-badge { font-size: 0.7em; padding: 1px 6px; }
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    .regime-stat-row { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
+    .regime-stat-row > div:first-child { padding: 12px !important; }
+    .regime-stat-row > div:first-child > div:first-child { font-size: 1.6em !important; }
+    div[style*="display:flex"][style*="gap:16px"] { flex-direction: column !important; gap: 8px !important; }
+  }
+  @media (max-width: 375px) {
+    .hero h1 { font-size: 1.1em; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-value { font-size: 1.3em; }
+    .nav-tab { padding: 8px 12px; font-size: 0.78em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Geopolitical Scenario Analysis — Middle East</h1>
+  <p class="subtitle">Multi-Source Intelligence Synthesis: Iran — Israel — USA Triangle and the Broader Regional Conflict</p>
+  <span class="date-badge">May 8, 2026</span>
+  <span class="war-day">Day 70 of Operation Epic Fury</span>
+  <div style="margin-top:10px; font-size:0.75em; color:var(--text-muted);">Published: <span id="pub-ts">2026-05-08 09:30 CET</span> · Build <span id="build-id" style="font-family:monospace; opacity:0.6;">v44.0</span></div>
+</div>
+
+<div class="disclaimer">
+  <strong>⚠ DISCLAIMER:</strong> This analysis relies on open sources (OSINT) and AI-generated assessments. It does not replace professional intelligence analysis or geopolitical advisory. Narrative comparisons reflect editorial lines, not necessarily objective truth. Scenario assessments are probabilistic estimates — not predictions. The conflict evolves rapidly and the information landscape changes daily.
+</div>
+
+<div style="max-width:900px; margin:20px auto; background:linear-gradient(135deg, #1a2235, #1a1d27); border:2px solid var(--accent); border-radius:12px; padding:24px; font-size:0.92em;">
+  <h3 style="color:var(--accent); margin-bottom:14px; font-size:1.15em;">📋 Daily Briefing — Day 70 AM — RUBIO: "EPIC FURY IS OVER" — ONE-PAGE 14-POINT MEMO ON TRUMP'S DESK — SAUDI BASE-BAN COLLAPSED PROJECT FREEDOM IN 36 HOURS — UAE ABSORBED TWO DAYS OF IRANIAN STRIKES — BRENT $113.54 — MOJTABA STILL INVISIBLE (DAY 61)</h3>
+
+  <p style="color:var(--text-muted); margin-bottom:14px;">Seventeen days have transformed the Islamabad Accords from a fragile two-week pause into something close to a managed terminal phase. Trump quietly extended the ceasefire on April 22 at PM Sharif's request after Iran walked from the scheduled second Islamabad round. On May 2, Tehran submitted an unsolicited 14-point counter-proposal through Pakistani mediators (Tasnim/Press TV). On May 4, Trump announced "Project Freedom" on Truth Social — a CENTCOM-led merchant-ship escort operation aimed at the 2,000+ vessels backed up at Hormuz. Within hours, Iran fired 15 missiles and 4 drones at the UAE; one drone hit a Fujairah fuel facility (3 Indian workers wounded); the US sank seven IRGC small boats. On May 5 the operation collapsed: Saudi Arabia, blindsided by the unilateral announcement, closed its airspace and suspended US use of Prince Sultan Air Base. Trump paused the operation within 36 hours, citing "great progress" toward an agreement. By May 6, Rubio publicly declared "Epic Fury is over"; Axios broke that the parties were closing on a one-page, 14-point memorandum — moratorium of 12-15 years on Iranian enrichment, sanctions relief, frozen-asset release, 30-day window to negotiate the detailed treaty. Trump simultaneously threatened "much higher level" bombing if Iran balks. <strong>PROBABILITY SHIFT: Escalation CRASHES from 60% to 35% (↓25). Protracted RISES to 35% (↑7). De-escalation SURGES to 30% (↑18).</strong> Regime change — Iran 20-30% (↓ from 30-40%, deal pricing reduces existential pressure). Netanyahu 40-50% (↑ from 35-45%, end of war framing strips his strongest political shield).</p>
+
+  <div style="margin-bottom:16px;">
+    <p style="margin-bottom:8px;"><strong style="color:var(--red);">1. RUBIO DECLARES OPERATION EPIC FURY OVER; TRUMP HEDGES WITH BOMBING THREAT</strong> — On May 5, Secretary of State Marco Rubio told reporters Operation Epic Fury "is over" because objectives — degrading Iran's nuclear program, dismantling Khamenei-era command, ending the proxy threat — have been "achieved." Within hours Trump publicly contradicted the framing: Epic Fury would be "at an end" only if Iran "agrees to give what has been agreed to," otherwise "the bombing starts, and it will be, sadly, at a much higher level and intensity than before." Clearest signal yet that the campaign's military phase has formally concluded but Trump retains political deniability if the memorandum collapses. The State Department's April 30 legal-adviser memo "Operation Epic Fury and International Law" tellingly uses past tense throughout.</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--red);">2. SAUDI BASE-BAN COLLAPSED PROJECT FREEDOM IN 36 HOURS</strong> — The most consequential alliance event of the past 16 days was not in Tehran but in Riyadh. May 4: Trump announced Project Freedom — destroyers, 100+ aircraft, ~15,000 personnel, Maritime Freedom Construct coalition — to escort stranded ships through Hormuz. He did so on Truth Social without consulting Saudi Arabia. MBS responded by suspending US use of Prince Sultan Air Base and closing Saudi airspace to the operation. The Trump-MBS phone call did not resolve it. By May 5 Trump paused the operation. Only two ships transited under US protection during the operational window. Saudi Arabia has demonstrated, post-Abqaiq, that it will not be dragged into a Hormuz war it did not authorize.</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--orange);">3. IRAN'S 14-POINT PROPOSAL AND THE ONE-PAGE MEMO</strong> — On May 2, Tehran submitted a 14-point response through Pakistani mediation, reported first by Tasnim and Press TV. Terms: guarantees against future strikes, withdrawal of US forces from Iran's near-abroad, end to the naval blockade, frozen-asset release, reparations, full sanctions lift, Lebanon ceasefire, and a new multilateral Hormuz governance mechanism. On May 6, Axios broke that Witkoff, Kushner, and the Iranian team led by Ghalibaf and FM Araghchi were closing on a one-page, 14-point memorandum — declaring an end to the war and opening a 30-day window for the detailed agreement. Three sources put the enrichment moratorium at 12 years minimum; one at 15. Iranian response on key points expected within 48 hours.</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--red);">4. UAE STRUCK ON CONSECUTIVE DAYS; FUJAIRAH FUEL FACILITY HIT</strong> — On May 4 and again May 5, the UAE intercepted 15 missiles and 4 drones across the two days. One drone struck a fuel facility in Fujairah, igniting a fire and wounding three Indian-national workers. A second incident damaged ships off the UAE coast. Iran did not officially claim; an IRGC-linked Telegram channel posted attack visuals. First direct Iranian strike on UAE territory since the April 8 ceasefire. The US sank seven IRGC small boats in retaliation. Critically, the UAE has not invoked GCC mutual-defense or asked for US strikes on Iranian launch sites — Abu Dhabi is treating this as an event to absorb, not escalate.</p>
+    <p style="margin-bottom:0;"><strong style="color:var(--orange);">5. BRENT $113.54, 14.5 MBPD SHORTFALL, 2,000 SHIPS STRANDED</strong> — Brent crude closed May 5 at $113.54/barrel after touching $114.44 intraday — highest of 2026, ~50% above pre-war baseline. The IEA's April Oil Market Report estimates a 14.5 mbpd shortfall driven by Hormuz disruption, damaged Iranian export infrastructure, and unloaded-cargo backlog. UNCTAD reports approximately 2,000 vessels and 20,000+ seafarers stranded in the Strait approaches. Pre-war daily transit averaged 120+ ships; only 4 transited on Day 1 of Project Freedom. Even if the memorandum is signed this week, IEA and UNCTAD project elevated prices for several months due to mine clearance, infrastructure repair, and insurance re-rating. Structural re-pricing, not a 2019-style spike.</p>
+  </div>
+
+  <div style="background:var(--bg); border-radius:8px; padding:14px; margin-bottom:14px;">
+    <p style="margin-bottom:6px; font-weight:600; color:var(--accent);">Scenario Adjustment:</p>
+    <table style="width:100%; font-size:0.9em; border-collapse:collapse;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:6px;">Scenario</th>
+        <th style="text-align:center; padding:6px;">Apr 21 (v43)</th>
+        <th style="text-align:center; padding:6px;">Today</th>
+        <th style="text-align:center; padding:6px;">Change</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:6px; color:var(--red);">Escalation</td>
+        <td style="text-align:center; padding:6px;">60%</td>
+        <td style="text-align:center; padding:6px; font-weight:700;">35%</td>
+        <td style="text-align:center; padding:6px; color:var(--green);">↓ -25%</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:6px; color:var(--orange);">Protracted War</td>
+        <td style="text-align:center; padding:6px;">28%</td>
+        <td style="text-align:center; padding:6px; font-weight:700;">35%</td>
+        <td style="text-align:center; padding:6px; color:var(--orange);">↑ +7%</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; color:var(--green);">De-escalation</td>
+        <td style="text-align:center; padding:6px;">12%</td>
+        <td style="text-align:center; padding:6px; font-weight:700;">30%</td>
+        <td style="text-align:center; padding:6px; color:var(--green);">↑ +18%</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="background:var(--bg); border-radius:8px; padding:14px; margin-bottom:14px;">
+    <p style="margin-bottom:6px; font-weight:600; color:var(--accent);">Regime Change Probability (12 months):</p>
+    <table style="width:100%; font-size:0.9em; border-collapse:collapse;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:6px;">Country</th>
+        <th style="text-align:center; padding:6px;">Probability</th>
+        <th style="text-align:center; padding:6px;">Confidence</th>
+        <th style="text-align:left; padding:6px;">Signal</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:6px;">🇮🇷 Iran (Regime Collapse)</td>
+        <td style="text-align:center; padding:6px; font-weight:700;">20-30% (↓ from 30-40%)</td>
+        <td style="text-align:center; padding:6px;">Medium</td>
+        <td style="padding:6px;">→ Mojtaba Khamenei has not appeared publicly since his March 9 elevation (Day 61 of invisibility). CNN's April 21 piece argues this opacity is helping the regime survive. Protests have not re-ignited at January-2026 scale. The 14-point proposal demonstrates regime cohesion sufficient to negotiate. IRGC's UAE strikes show command remains intact. Counter-signal: rial near 1.38 million/USD, 42% YoY inflation, food prices up 72%. A signed memo with sanctions relief and frozen-asset release would lower this further toward 15-20%. A failed deal would push back to 30%+.</td>
+      </tr>
+      <tr>
+        <td style="padding:6px;">🇮🇱 Israel (Netanyahu Steps Down)</td>
+        <td style="text-align:center; padding:6px; font-weight:700;">40-50% (↑ from 35-45%)</td>
+        <td style="text-align:center; padding:6px;">Medium</td>
+        <td style="padding:6px;">→ April 26 Bennett-Lapid Beyachad merger polled 26 seats in Channel 12, one above Likud. Coalition still cannot reach 61 even with all current allies. Eisenkot's Yashar party adding pressure on October 7 inquiry. The end of Epic Fury removes Netanyahu's strongest political shield — the war presidency framing. Election by October 27 mandatory; growing analyst consensus is spring/summer dissolution. A war-end "victory tour" buys him weeks, not months.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="background:var(--bg); border-radius:8px; padding:14px;">
+    <p style="margin-bottom:6px; font-weight:600; color:var(--accent);">Watch the NEXT 24-48 HOURS (DAY 70-71 — MEMO RESPONSE WINDOW NARROWING):</p>
+    <p style="margin-bottom:4px;">→ <strong>IRANIAN RESPONSE TO ONE-PAGE MEMO</strong> — Per Axios May 6, the US expects Iranian responses on several key points within 48 hours. Watch: (a) whether the moratorium duration lands at 12 or 15 years, (b) whether Iran accepts the 30-day detailed-negotiation window without preconditions on sanctions, (c) whether any Iranian source publicly leaks rejection language. Silence past Friday May 9 = trouble. A second Mojtaba text-message endorsing a memo would be epoch-defining.</p>
+    <p style="margin-bottom:4px;">→ <strong>SAUDI-US RECONCILIATION CALL</strong> — Trump and MBS spoke once during the Project Freedom collapse without resolution. The next call determines whether Prince Sultan AB access is restored before any contingency reactivation. If MBS conditions restoration on no further unilateral Gulf operations, that becomes a structural ceiling on US Iran posture for the rest of 2026.</p>
+    <p style="margin-bottom:4px;">→ <strong>UAE-IRAN BACK-CHANNEL</strong> — Abu Dhabi has not retaliated for May 4-5 strikes and has not invoked GCC mutual defense. Watch: any UAE statement during memo-response window — endorsement locks in regional acquiescence; any move to allow US carrier-based aircraft to use UAE bases as workaround for Saudi closure restarts escalation risk.</p>
+    <p style="margin-bottom:4px;">→ <strong>HEZBOLLAH-LEBANON TEMPO</strong> — IRGC May 3 warning of "regretful response" to Israeli operations is the most explicit Iranian threat since the ceasefire. Hezbollah rocket spike during the memo finalization window = Iranian leverage signaling, derails the deal. Tapering = leading indicator that Tehran is committed to closure. Watch UNIFIL and IDF Northern Command daily counts.</p>
+    <p style="margin-bottom:0;">→ <strong>BRENT AND TANKER MOVEMENTS</strong> — Brent at $113.54 prices in roughly 60% probability of memo signature this week; confirmed deal sends prices toward $95-100 within days, not minutes (mine clearance, insurance war-risk re-rating, cargo backlog impose a floor). Major shipping companies reportedly waiting for memo signature before re-routing. Spike in approaches before deal announcement = insider confidence.</p>
+  </div>
+</div>
+
+<div class="highlight-strip">
+  <div class="highlight-card scenario-card" onclick="activateTab('scenarios')">
+    <div class="hl-label">SCENARIO ANALYSIS</div>
+    <div class="hl-title">Three Scenarios with Probabilities</div>
+    <div class="mini-prob-bar">
+      <div style="width:35%;background:var(--red);"></div>
+      <div style="width:35%;background:var(--orange);"></div>
+      <div style="width:30%;background:var(--green);"></div>
+    </div>
+    <div class="mini-prob-labels"><span class="lbl-red">Escalation 35%</span><span class="lbl-orange">Protracted 35%</span><span class="lbl-green">De-esc. 30%</span></div>
+    <div class="hl-body">DAY 70 — RUBIO DECLARES "EPIC FURY OVER" — ONE-PAGE 14-POINT MEMO ON TRUMP'S DESK — 12-15 YEAR ENRICHMENT MORATORIUM + 30-DAY DETAILED-NEGOTIATION WINDOW — SAUDI BASE-BAN COLLAPSED PROJECT FREEDOM IN 36 HOURS — UAE ABSORBED TWO DAYS OF STRIKES WITHOUT INVOKING GCC MUTUAL DEFENSE — BRENT $113.54, 2,000 SHIPS STRANDED, 14.5 MBPD SHORTFALL — TRUMP HEDGES: "MUCH HIGHER LEVEL" BOMBING IF IRAN BALKS — <strong style="color:var(--green);">Escalation CRASHES 60→35%, Protracted 28→35%, De-escalation SURGES 12→30%</strong>. Iranian response expected within 48h. <span class="divergence-badge" style="background:#2ed57333;border-color:#2ed573;color:#2ed573;">DEAL ON THE TABLE — REGIONAL CEILING ESTABLISHED</span></div>
+    <span class="hl-cta">View complete Scenario Analysis →</span>
+  </div>
+  <div class="highlight-card expert-card" onclick="activateTab('experts')">
+    <div class="hl-label">TRIPLE EXPERT VALIDATION</div>
+    <div class="hl-title">Political + Military + Intelligence</div>
+    <div class="hl-body" style="margin-top:8px;">
+      <span style="display:inline-block;background:#9b59b633;border:1px solid #9b59b6;color:#9b59b6;padding:2px 8px;border-radius:4px;font-size:0.85em;margin:2px;">Haass (CFR)</span>
+      <span style="display:inline-block;background:#e74c3c33;border:1px solid #e74c3c;color:#e74c3c;padding:2px 8px;border-radius:4px;font-size:0.85em;margin:2px;">Stein (FPRI)</span>
+      <span style="display:inline-block;background:#2ecc7133;border:1px solid #2ecc71;color:#2ecc71;padding:2px 8px;border-radius:4px;font-size:0.85em;margin:2px;">Roule (ex-CIA)</span>
+    </div>
+    <div class="hl-body"><strong>Consensus (Day 70):</strong> Operation Epic Fury is functionally over. Memorandum-of-understanding bypasses Senate, calibrated for political-symbolic value over enforcement. Critical 30-day detailed-negotiation window is where deal succeeds or unwinds. Iranian missile stocks visibly depleted (Fateh/Shahed used in UAE strikes, not Khorramshahr/Sejjil — inventory or signaling restraint). US Navy CENTCOM posture unsustainable past Q3 without Saudi/UAE rotation rebasing. Israeli strike packages have shifted from strategic targets to interdiction — high-value list substantially exhausted. Iran's 184.1 kg of UF6 at 20% U-235 and 440.9 kg at 60% U-235 remain physically inside Iran. IAEA inspectors no access since June 2025. Mojtaba invisibility is central intel mystery — likely deliberate insulation, not incapacity. <strong>Divergence:</strong> Haass favors structural integration timeline; Stein flags 80-100 IRGC small boats as multi-month tail; Roule warns weaponization-knowledge gap may matter more than centrifuges (12 vs 15 year moratorium is bet on detection horizon).</div>
+    <span class="hl-cta">View Expert Assessments →</span>
+  </div>
+  <div class="highlight-card regime-card" onclick="activateTab('scenarios')">
+    <div class="hl-label">REGIME CHANGE ANALYSIS</div>
+    <div class="hl-title">Iran 🇮🇷 &amp; Israel 🇮🇱</div>
+    <div class="hl-body" style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:0.85em;">🇮🇷 Iran Regime Collapse</span>
+        <span style="font-weight:700;color:var(--green);">20-30% ↓</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;">
+        <span style="font-size:0.85em;">🇮🇱 Netanyahu Steps Down</span>
+        <span style="font-weight:700;color:var(--red);">40-50% ↑</span>
+      </div>
+    </div>
+    <div class="hl-body" style="margin-top:6px;">Mojtaba Day 61 invisible. Beyachad polls 26 (vs Likud 25). Election by October 27.</div>
+    <span class="hl-cta">View Regime Change Analysis →</span>
+  </div>
+  <div class="highlight-card" style="border-top:3px solid var(--iran); background:linear-gradient(135deg, #1a2235 0%, #1f1a1a 100%);" onclick="activateTab('narrative');setTimeout(function(){document.getElementById('inside-iran').scrollIntoView({behavior:'smooth',block:'start'});},150);">
+    <div class="hl-label" style="color:var(--iran);">🇮🇷 INSIDE IRAN</div>
+    <div class="hl-title">What the Regime Tells Its People</div>
+    <div class="hl-body" style="margin-top:8px;">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+        <span style="display:inline-block;background:#c0392b22;border:1px solid #c0392b;color:#c0392b;padding:2px 6px;border-radius:4px;font-size:0.78em;">IRNA</span>
+        <span style="display:inline-block;background:#c0392b22;border:1px solid #c0392b;color:#c0392b;padding:2px 6px;border-radius:4px;font-size:0.78em;">IRIB</span>
+        <span style="display:inline-block;background:#c0392b22;border:1px solid #c0392b;color:#c0392b;padding:2px 6px;border-radius:4px;font-size:0.78em;">Press TV</span>
+        <span style="display:inline-block;background:#e74c3c22;border:1px solid #e74c3c;color:#e74c3c;padding:2px 6px;border-radius:4px;font-size:0.78em;">Fars</span>
+        <span style="display:inline-block;background:#e74c3c22;border:1px solid #e74c3c;color:#e74c3c;padding:2px 6px;border-radius:4px;font-size:0.78em;">Tasnim</span>
+        <span style="display:inline-block;background:#e74c3c22;border:1px solid #e74c3c;color:#e74c3c;padding:2px 6px;border-radius:4px;font-size:0.78em;">Kayhan</span>
+      </div>
+    </div>
+    <div class="hl-body"><strong style="color:var(--orange);">Day 70 (May 8 — MEMO RESPONSE WINDOW NARROWING):</strong> Press TV's coverage of the 14-point proposal omitted maximalist language — no demand for US recognition of enrichment rights, no demand for Israeli withdrawal from specific territory. Tasnim (closer to IRGC) was the chosen first-publication outlet — analysts read this as IRGC institutional buy-in for the negotiation track. Kayhan's Witkoff-Kushner attacks substantially decreased in volume from April 28 onward; May 4 edition focused on UAE "complicity" rather than US negotiators directly. Coded de-escalation that precedes deal signature in Iranian state-media practice. IRNA emphasizes "constructive dialogue" and "Iran's principled position." Press TV running consecutive Ghalibaf interviews, positioning him as deal's domestic political guarantor. <span class="divergence-badge" style="background:#2ed57333;border-color:#2ed573;color:#2ed573;">IDEOLOGICAL SPACE BEING CLEARED FOR FACE-SAVING FRAMING</span></div>
+    <span class="hl-cta">View Inside Iran Analysis →</span>
+  </div>
+</div>
+
+<nav class="nav-tabs" id="nav">
+  <div class="nav-tab active" data-section="overview">Overview</div>
+  <div class="nav-tab" data-section="narrative">Narrative Analysis</div>
+  <div class="nav-tab" data-section="twitter">OSINT &amp; Twitter/X</div>
+  <div class="nav-tab tab-highlight-expert" data-section="experts">Expert Validation</div>
+  <div class="nav-tab tab-highlight" data-section="scenarios">Scenarios</div>
+  <div class="nav-tab" data-section="warnings">Early Warning</div>
+  <div class="nav-tab" data-section="sources">Sources</div>
+</nav>
+
+<div class="container">
+
+<!-- ========== OVERVIEW ========== -->
+<div class="section active" id="overview">
+  <h2 class="section-title">Executive Summary</h2>
+  <div class="card">
+    <p><strong>Day 70 AM (May 8, 2026):</strong> Operation Epic Fury is functionally over, and the only remaining question is whether it ends in a signed memorandum within the next 7-10 days or in a managed cold standoff that lasts months. Rubio said it on May 5; Trump did not contradict the substance, only the conditionality.</p>
+    <br>
+    <p>The chronology of the past 16 days reads cleanly: <strong>April 21</strong>, Trump extended the ceasefire at Sharif's request after Iran walked away from a scheduled second Islamabad round. <strong>April 22-30</strong>, ceasefire held de facto despite expired de jure status, with backchannel mediation continuing through Pakistani Field Marshal Asim Munir and FM Ishaq Dar. <strong>May 2</strong>, Iran submitted a 14-point counter-proposal through Pakistani mediators (first published in Tasnim — itself a signal). <strong>May 4</strong>, Trump announced Project Freedom unilaterally on Truth Social, Iran fired 15 missiles and 4 drones at the UAE, the US sank seven IRGC boats, Saudi Arabia closed its airspace. <strong>May 5</strong>, Trump paused Project Freedom, Rubio declared Epic Fury over. <strong>May 6</strong>, Axios broke that a one-page 14-point memo with a 12-15 year enrichment moratorium and 30-day detailed-negotiation window was on the table.</p>
+    <br>
+    <p><strong>Implications:</strong> First, the Saudi base-ban is the single most important alliance event of the conflict — it demonstrated that Riyadh, post-Abqaiq and post-Vision-2030 capital recycling, will veto US actions that drag the Kingdom into a war it did not choose. This sets a structural ceiling on any US re-escalation through 2026. Second, the UAE absorbing direct Iranian strikes without invoking mutual defense or demanding US retaliation establishes that Gulf Arab states have decoupled their security calculus from Israel's. Third, Mojtaba Khamenei's continued invisibility — 60 days into his supreme leadership and not a single public appearance — has become a feature, not a bug; the regime appears to be governing through institutional consensus rather than personalist authority, which both reduces succession risk and slows decision-making in ways favorable to the deal. Fourth, the Iranian economy (rial at 1.38m/USD, 42% inflation, 72% food-price increase) has not yet produced a January-2026-scale protest re-ignition, but a failed deal would almost certainly trigger one. Fifth, Netanyahu's coalition shows polling weakness (Beyachad 26 seats vs Likud 25) that the war framing temporarily masked. Tel Aviv's casualty toll (26 killed, 7,791 wounded across 24 fatal Iranian missile incidents, including the cluster-munition strike that killed 14) is now politically catabolic for Likud, not stabilizing.</p>
+    <br>
+    <p>The most likely path is memorandum signature within 10 days followed by a 30-60 day window of acute fragility before structural integration begins. Brent at $113.54 prices in roughly 60% probability of memo signature this week.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card stat-orange"><div class="stat-value">$113.54</div><div class="stat-label">Brent crude (May 5 close)</div></div>
+    <div class="stat-card stat-red"><div class="stat-value">~2,000</div><div class="stat-label">Vessels stranded at Hormuz</div></div>
+    <div class="stat-card stat-red"><div class="stat-value">14.5 mbpd</div><div class="stat-label">IEA estimated shortfall</div></div>
+    <div class="stat-card"><div class="stat-value">12-15y</div><div class="stat-label">Enrichment moratorium (memo)</div></div>
+    <div class="stat-card"><div class="stat-value">30 days</div><div class="stat-label">Detailed-negotiation window</div></div>
+    <div class="stat-card stat-orange"><div class="stat-value">Day 61</div><div class="stat-label">Mojtaba Khamenei invisible</div></div>
+  </div>
+</div>
+
+<!-- ========== NARRATIVE ANALYSIS ========== -->
+<div class="section" id="narrative">
+  <h2 class="section-title">Narrative Analysis — Six Information Spheres</h2>
+
+  <div class="card" id="inside-iran">
+    <h3>🇮🇷 Inside Iran — Regime Media Framing (Day 70)</h3>
+    <p>State media framing has shifted markedly across the past 16 days, and the directional turn is the central tell that Tehran is committed to closure. Through April 21, Tasnim, Fars, and Kayhan all ran maximalist editorial lines: ceasefire was a tactical pause, US demands were "childish," the Strait of Hormuz remained sovereign, and Mojtaba Khamenei's March 12 text-message "keep Hormuz closed" was the operative authority.</p>
+    <br>
+    <p>By April 30, the line had shifted noticeably. Press TV's coverage of Iran's 14-point counter-proposal on May 2 was striking for what it omitted: no demand for US recognition of Iranian enrichment rights, no demand for Israeli withdrawal from any specific territory, no maximalist language on regime-change reparations. <strong>Tasnim</strong> — closer to IRGC than Fars or Kayhan — was the chosen outlet for the proposal's first publication, which Iran-watchers including Vahid Yücesoy interpret as IRGC institutional buy-in for the negotiation track.</p>
+    <br>
+    <p><strong>Kayhan</strong>, the hard-line outlet long associated with the Khamenei circle, has been the most interesting weather-vane. Through April 25, Kayhan ran daily editorials denouncing Witkoff and Kushner as "Zionist agents." From April 28 onward, the Witkoff-Kushner attacks substantially decreased in volume; the May 4 edition focused on UAE "complicity" in US blockade plans rather than US negotiators directly. This is the kind of coded de-escalation that precedes deal signature in Iranian state-media practice — the ideological space is being cleared for a face-saving framing.</p>
+    <br>
+    <p><strong>IRNA</strong>, the official state news agency, has become the channel for institutional-procedural framing. The May 6 IRNA report on the Pakistani-mediated channel emphasized "constructive dialogue" and "Iran's principled position" rather than martial language. <strong>Press TV</strong> has run consecutive interviews with parliament speaker Ghalibaf positioning him as the negotiation's domestic political guarantor — significant because Ghalibaf is positioned as a potential successor track, and the regime is investing him with deal-ownership.</p>
+    <br>
+    <p><strong>Mojtaba Khamenei's status is the central enigma.</strong> He has not appeared publicly since his March 9 elevation. His only attributed messaging is the March 12 text-message and a more recent text characterizing the strait closure as "one of the key impactful elements in negotiations with the enemy" — language carefully calibrated as instrumental rather than absolute. CNN's April 21 piece argued his invisibility is helping the regime survive: he cannot be assassinated, cannot be misquoted, cannot be politically wounded. Karim Sadjadpour and Suzanne Maloney have both endorsed this read. Internal whispering — relayed through Iran International and BBC Persian — suggests Mojtaba's authority is operationally exercised through a Ghalibaf-Larijani-IRGC consultative mechanism, with Mojtaba ratifying rather than initiating. Decoded: Tehran is messaging continuity to the base while delegating actual decision-authority to the institutional triumvirate negotiating the memo. This is the structural condition under which a deal is signable. If Mojtaba breaks his silence in the next 10 days with an endorsement message, the memo signs. If he breaks it with a denunciation, it dies.</p>
+  </div>
+
+  <div class="card">
+    <h3>🇮🇱 Israel — Coalition under polling pressure</h3>
+    <p>April 26 Bennett-Lapid <strong>Beyachad</strong> merger polled 26 seats in Channel 12, one above Likud. Coalition still cannot reach 61 even with all current allies. Eisenkot's <strong>Yashar</strong> party adding pressure on October 7 inquiry. Netanyahu's late-February release of his State Comptroller answers backfired. The end of Epic Fury removes his strongest political shield — the war presidency framing. Election by October 27 mandatory; growing analyst consensus is spring/summer dissolution. A war-end "victory tour" buys him weeks, not months. Tel Aviv casualty toll (26 killed, 7,791 wounded across 24 fatal Iranian missile incidents, including the cluster-munition strike that killed 14) is now politically catabolic for Likud, not stabilizing.</p>
+  </div>
+
+  <div class="card">
+    <h3>🇸🇦 Arab Sphere — Saudi veto, UAE absorption</h3>
+    <p>Saudi Arabia's May 5 closure of Prince Sultan Air Base and airspace to Project Freedom is the conflict's most consequential alliance event. Riyadh, post-2019 Abqaiq lessons absorbed and post-Vision-2030 capital recycling, demonstrated it will not be dragged into a Hormuz war it did not authorize. UAE absorbed two consecutive days of Iranian strikes (May 4-5) without invoking GCC mutual defense or demanding US retaliation — establishing that Gulf Arab states have decoupled their security calculus from Israel's. Pakistan's Sharif and Field Marshal Asim Munir have created a mediation channel that did not exist three months ago and may persist as permanent regional infrastructure regardless of memo outcome. Trita Parsi (Quincy) reads the Saudi airspace closure as evidence Riyadh is already pivoting toward a Beijing-mediated regional security architecture.</p>
+  </div>
+
+  <div class="card">
+    <h3>🇺🇸 Western Sphere — Rubio vs Trump messaging gap</h3>
+    <p>Rubio: "Operation Epic Fury has achieved its objectives" (May 5). Trump: "Much higher level and intensity" bombing if Iran balks (May 5). The substantive contradiction is small but the messaging gap is structural — Rubio is positioning State for the post-war diplomatic phase; Trump is preserving deniability on the deal's collapse path. State Department's April 30 legal-adviser memo "Operation Epic Fury and International Law" uses past tense throughout. Witkoff and Kushner remain in Islamabad as the negotiating team. The MoU structure (not treaty) bypasses Senate confirmation — speed at the cost of enforcement.</p>
+  </div>
+
+  <div class="card">
+    <h3>🇨🇳 China — Quiet beneficiary</h3>
+    <p>Beijing has not publicly intervened in the negotiation track but has reportedly increased crude purchases from non-Iranian sources (Russia, Venezuela) at war-risk discounts. Trita Parsi's read: Saudi airspace closure is a leading indicator of Riyadh-Beijing realignment continuing the 2023 mediation precedent. China-mediated Iran-Saudi rapprochement is now the most under-priced regional architecture variable.</p>
+  </div>
+
+  <div class="card">
+    <h3>🇷🇺 Russia — Sidelined</h3>
+    <p>Moscow has not been a meaningful party to the Pakistani mediation track. Russian state media has framed Saudi airspace closure as "US imperial overreach" but offered no concrete role. Iran has not requested Russian mediation, marking the clearest decoupling from the Russia-Iran-China "axis" framing in the post-2022 period.</p>
+  </div>
+</div>
+
+<!-- ========== TWITTER / OSINT ========== -->
+<div class="section" id="twitter">
+  <h2 class="section-title">OSINT, Twitter/X &amp; Expert Commentators</h2>
+
+  <div class="card">
+    <h3>Dominant narrative shift</h3>
+    <p>The dominant narrative on X this week shifted from "ceasefire collapse imminent" (Apr 22-28) to "managed wind-down with memo on the table" (May 4-7). The Saudi base-ban story broke late on May 5 and dominated by May 6, with NBC News, Times of Israel, and Ynet all crediting Riyadh with forcing Trump's pause. <code>#ProjectFreedom</code> trended briefly but was supplanted by <code>#EpicFuryOver</code> after Rubio's remarks.</p>
+  </div>
+
+  <div class="card">
+    <h3>Named analysts — current takes</h3>
+    <p><strong>Karim Sadjadpour (Carnegie):</strong> "between a cold war and a hot war." Argues Tehran is bargaining from a position of weakness it cannot acknowledge publicly, making a deal more likely than headlines suggest. Flags Mojtaba's invisibility as deliberate strategy.</p>
+    <p style="margin-top:8px;"><strong>Ali Vaez (International Crisis Group):</strong> "In the attempt to prevent Iran from developing a weapon of mass destruction, the US handed Iran a weapon of mass disruption" via Hormuz weaponization. Memo success depends on whether the 30-day window can deliver concrete sanctions relief, not just frozen-asset release.</p>
+    <p style="margin-top:8px;"><strong>Trita Parsi (Quincy Institute):</strong> Reads Saudi airspace closure as evidence Riyadh is already pivoting to Beijing-mediated regional architecture. Pakistan's mediation success makes Sharif/Munir the most consequential South Asian diplomats since the 1972 Simla Agreement.</p>
+    <p style="margin-top:8px;"><strong>Aaron Stein (FPRI):</strong> Iranian strategic missile inventory now ~30% of pre-war stock. May 4-5 UAE strikes used short-range Fateh-class and Shahed drones, not Khorramshahr. Constrains Iran's escalation menu more than Tehran admits.</p>
+    <p style="margin-top:8px;"><strong>Michael Knights (WINEP):</strong> 7 destroyed Iranian boats were Boghammar-derived swarm vessels; IRGC retains ~80-100 such units. "Hormuz harassment is a multi-month, not multi-week, tail." Project Freedom failed not because of Saudi closure but because the operational concept (escorted convoying) cannot scale to 120 ships/day.</p>
+    <p style="margin-top:8px;"><strong>Jonathan Spyer (MEF):</strong> IRGC's May 3 "regretful response" warning is bluffing — Iranian stockpile and IRGC-Quds C2 cannot sustain a meaningful Lebanon expansion while negotiating in Islamabad. Reads it as domestic posturing for Mojtaba succession rather than operational signaling.</p>
+    <p style="margin-top:8px;"><strong>Suzanne Maloney (Brookings):</strong> Mojtaba's invisibility plus Ghalibaf's elevation as lead negotiator signals transition to "consensus-bureaucratic" rule rather than personalist supreme-leadership. Reduces both regime-change probability AND deal-execution speed.</p>
+    <p style="margin-top:8px;"><strong>Vahid Yücesoy (independent):</strong> Tasnim's May 2 publication of the 14-point response (rather than Fars or Kayhan) is itself signaling — Tasnim is closer to IRGC and the publication implies IRGC endorsement.</p>
+  </div>
+
+  <div class="card">
+    <h3>Verified primary-source posts</h3>
+    <p>• <strong>@SecRubio (May 5):</strong> "Operation Epic Fury has achieved its objectives."<br>
+    • <strong>@realDonaldTrump (May 5):</strong> "Much higher level and intensity" bombing warning post.<br>
+    • <strong>@PakPMOffice (May 6):</strong> Confirming Sharif-Trump call on memorandum framework.<br>
+    • <strong>Esmaeil Baghaei, Iran FM spokesperson (Press TV, May 6):</strong> Characterized US proposals as "under serious review."<br>
+    • <strong>IDF Spokesperson (May 6):</strong> Northern-front rocket fire down 40% week-over-week.</p>
+  </div>
+</div>
+
+<!-- ========== EXPERTS ========== -->
+<div class="section" id="experts">
+  <h2 class="section-title">Triple Expert Validation</h2>
+
+  <div class="expert-box expert-political">
+    <div class="expert-name">Richard Haass — Council on Foreign Relations (fmr State Dept Director of Policy Planning)</div>
+    <p>The diplomatic state today is the inverse of what it was on April 20. Three weeks ago: fragile two-week ceasefire, Iranian walkout, US publicly preparing for re-escalation. Today: a one-page memorandum text, Pakistani-mediated channels operating in both directions, de facto end of major-combat operations. Critical insight: this is being structured as a <strong>memorandum-of-understanding, not a treaty</strong> — bypasses the Senate, can be reversed by either side without legal consequence, calibrated for political-symbolic value over enforcement. Fragility is the price of speed. The 30-day detailed-negotiation window inside the memo is where this either succeeds or unwinds. If Iran cannot get cash flow from frozen-asset release in the first two weeks, the IRGC-aligned faction in Tehran will revolt and Tasnim will start publishing maximalist demands. If the US cannot get IAEA access restored at the four declared enrichment facilities by Day 20, the Israeli right and Senate Republicans will torpedo the framework. Pakistan's role is the most underappreciated structural element — Sharif and Munir created a mediation channel that did not exist three months ago and may persist as permanent regional infrastructure regardless of memo outcome. This is Camp David sequencing in reverse: ceasefire first, framework second, treaty maybe never.</p>
+  </div>
+
+  <div class="expert-box expert-military">
+    <div class="expert-name">Aaron Stein — Foreign Policy Research Institute</div>
+    <p>The military balance has tilted decisively in three ways since April 21. <strong>First</strong>, Iranian strategic missile stocks are visibly depleted; the May 4-5 UAE strikes used Fateh-class and Shahed drones rather than Khorramshahr or Sejjil, indicating either inventory constraint or deliberate signaling restraint. Either suggests Iran cannot sustain another 6-week missile campaign at March's tempo. <strong>Second</strong>, US Navy CENTCOM posture in the Gulf is at its highest level since 1990 — two carrier strike groups, additional ARG, B-2 rotation at Diego Garcia, the THAAD/Aegis network that intercepted the UAE-bound salvo. Unsustainable past Q3 without rotation rebasing in Saudi or UAE. <strong>Third</strong>, Israeli strike packages have shifted from strategic-target priorities (Natanz, Fordow, Parchin in March) to interdiction of IRGC missile transport in April — itself an indicator that the high-value target list has been substantially exhausted. The IRGC retains 80-100 small-boat units in the Strait and full Hezbollah rocket-and-drone capability in Lebanon, but these are nuisance-grade rather than strategic-grade threats. Verdict: Iran cannot win re-escalation, the US cannot sustain current posture indefinitely, Israel has run out of strategic targets. That is the precise equilibrium where deals get signed.</p>
+  </div>
+
+  <div class="expert-box expert-intelligence">
+    <div class="expert-name">Norman Roule — fmr CIA National Intelligence Manager for Iran</div>
+    <p><strong>Known:</strong> Iran's enriched uranium stockpile remains physically inside Iran — 184.1 kg of UF6 at up to 20% U-235 and 440.9 kg at up to 60% U-235, per Grossi's most recent statement. Four declared enrichment facilities (Natanz, Fordow, Esfahan, Parchin) have damage that will take 12-36 months to restore. IAEA inspectors have had no access since June 2025. DNI Gabbard testified March 18 that Iran has not resumed enrichment; Iranian Ambassador Najafi reaffirmed April 2. <strong>Unknown:</strong> whether the stockpile is in pre-war locations or has been dispersed; whether Iran has covert centrifuge capacity outside the four declared sites; whether Mojtaba Khamenei has actual decision-authority or is a figurehead for a Ghalibaf-IRGC-Larijani triumvirate. The Mojtaba invisibility is the central intel mystery — I personally believe it's deliberate insulation, not incapacity, but no one in the IC has high-confidence assessment either way. <strong>The most consequential intel gap is on covert weaponization timelines:</strong> if Iran ran a weaponization-knowledge program parallel to enrichment (Israelis assess high-confidence, we assess medium), the knowledge survived even if the centrifuges did not. That is why moratorium length (12 vs 15 years) matters substantively — it's a bet on how long until weaponization knowledge becomes either obsolete or detectable through other means.</p>
+  </div>
+</div>
+
+<!-- ========== SCENARIOS ========== -->
+<div class="section" id="scenarios">
+  <h2 class="section-title">Three Scenarios — Detail</h2>
+
+  <div class="prob-bar-container">
+    <div class="prob-bar prob-escalation" style="width:35%;">Escalation 35%</div>
+    <div class="prob-bar prob-status" style="width:35%;">Protracted 35%</div>
+    <div class="prob-bar prob-deescalation" style="width:30%;">De-escalation 30%</div>
+  </div>
+
+  <div class="scenario scenario-escalation">
+    <h3>Escalation Path</h3>
+    <div class="probability">35%</div>
+    <div class="scenario-detail">
+      <h4>Triggers</h4>
+      <ul>
+        <li>Iran rejects the one-page memo by May 9-10, OR insists on amendments that violate the 12-year enrichment-moratorium floor</li>
+        <li>A Hezbollah strike kills 20+ Israeli civilians during the memo window</li>
+        <li>An IRGC-aligned faction conducts an unauthorized Hormuz mining incident</li>
+      </ul>
+      <h4>Indicators</h4>
+      <ul>
+        <li>Tasnim publishes Iran's "final position" with maximalist language</li>
+        <li>Mojtaba Khamenei breaks his silence with a hard-line address</li>
+        <li>Brent breaks $120; Saudi airspace closure extends past 10 days</li>
+        <li>Israeli aircraft conduct a "demonstration" strike on a non-nuclear Iranian target</li>
+      </ul>
+      <h4>Likely military moves</h4>
+      <ul>
+        <li>Trump executes the "much higher level" threat with a B-2 strike package targeting Bushehr, Bandar Abbas, and Larak Island IRGC Navy base</li>
+        <li>Iran fires what remains of its Khorramshahr inventory at Israel and the UAE</li>
+        <li>The 12-year-moratorium floor disappears for 18-24 months as the campaign restarts at greater scale</li>
+      </ul>
+      <h4>Endpoint</h4>
+      <ul>
+        <li>Extended kinetic phase through Q3 2026</li>
+        <li>Regime-change pressure on Iran spikes</li>
+        <li>Oil to $140+; Saudi formally distances from US Iran posture</li>
+        <li>China steps in as quasi-mediator alongside Pakistan</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scenario scenario-status">
+    <h3>Protracted "Managed Conflict" Path</h3>
+    <div class="probability">35%</div>
+    <div class="scenario-detail">
+      <h4>Triggers</h4>
+      <ul>
+        <li>Memo signed but the 30-day detailed-negotiation window expires without sanctions-relief delivery, OR with IAEA access still blocked</li>
+        <li>Memorandum's enforcement ambiguity allows both sides to claim compliance while doing neither</li>
+      </ul>
+      <h4>Steady-state characteristics</h4>
+      <ul>
+        <li>Ceasefire holds for major Iran-Israel kinetic operations</li>
+        <li>Hormuz transits gradually recover to ~60% of pre-war; insurance war-risk premiums remain elevated</li>
+        <li>Hezbollah-IDF exchanges continue at low tempo through Lebanon</li>
+        <li>Brent settles at $90-105</li>
+        <li>Iranian frozen assets partially released, partially held; IAEA monitoring at 2 of 4 sites</li>
+        <li>Covert enrichment status remains a permanent intelligence ambiguity</li>
+        <li>Mojtaba Khamenei makes 1-2 stage-managed appearances</li>
+        <li>Netanyahu coalition collapses on schedule (October 27 election or earlier dissolution)</li>
+        <li>Trump declares victory but maintains threat posture</li>
+      </ul>
+      <h4>Endpoint</h4>
+      <ul>
+        <li>Becomes the Iraq-1991-to-2003 template — neither war nor peace, with periodic kinetic flare-ups</li>
+        <li>Highest-probability outcome on a 12-month horizon</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scenario scenario-deescalation">
+    <h3>De-escalation Path</h3>
+    <div class="probability">30%</div>
+    <div class="scenario-detail">
+      <h4>Triggers</h4>
+      <ul>
+        <li>Memo signed by May 14</li>
+        <li>Mojtaba Khamenei issues a public endorsement (or stage-managed institutional equivalent)</li>
+        <li>IAEA inspectors physically present at Natanz by May 28</li>
+        <li>Iranian frozen-asset tranche of $6-10bn released through Qatari/Omani channels by mid-June</li>
+        <li>Hezbollah-Lebanon ceasefire follows within 30 days</li>
+      </ul>
+      <h4>Pre-conditions</h4>
+      <ul>
+        <li>Pakistan continues active mediation through detailed-negotiation phase</li>
+        <li>Saudi-US relationship repaired with explicit quid-pro-quo on no further unilateral operations</li>
+        <li>Israeli political calendar (elections by October 27) does not derail the framework with a Netanyahu spoiler move</li>
+        <li>Hezbollah accepts a Lebanon-track ceasefire as part of the package</li>
+        <li>US Senate does not block sanctions-relief implementation through statutory means</li>
+      </ul>
+      <h4>Endpoint</h4>
+      <ul>
+        <li>Hormuz returns to 90%+ of pre-war transit volume by August</li>
+        <li>Brent settles at $80-90</li>
+        <li>Iranian rial recovers to 800k-1m/USD range</li>
+        <li>Mojtaba consolidates institutional authority through bureaucratic rather than personalist mechanisms</li>
+        <li>The 30-day window stretches to 90 with implicit extension; a formal treaty becomes politically unattainable but the MoU becomes the de facto regime through 2027-2028</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ========== EARLY WARNING ========== -->
+<div class="section" id="warnings">
+  <h2 class="section-title">Early Warning Dashboard — 10 Signals</h2>
+  <div class="table-scroll">
+  <table class="warning-table">
+    <thead>
+      <tr><th>#</th><th>Signal</th><th>Level</th><th>Trigger</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Iranian memo response</td><td><span class="signal-high">HIGH</span></td><td>Tehran response to one-page 14-point memo expected within 48h per Axios. Silence past May 10 indicates trouble.</td></tr>
+      <tr><td>2</td><td>Saudi-US airspace status</td><td><span class="signal-high">HIGH</span></td><td>Restoration of Prince Sultan AB access by May 12 = relationship repair; continued closure = structural ceiling on US Iran posture.</td></tr>
+      <tr><td>3</td><td>Mojtaba Khamenei public appearance</td><td><span class="signal-high">HIGH</span></td><td>First public address since March 9 elevation. Endorsement = deal locked. Hard-line speech = deal dead.</td></tr>
+      <tr><td>4</td><td>Brent crude price</td><td><span class="signal-high">HIGH</span></td><td>Sustained close above $120 = market pricing escalation; sustained close below $100 = market pricing memo signature.</td></tr>
+      <tr><td>5</td><td>Hormuz ship transit count</td><td><span class="signal-high">HIGH</span></td><td>Daily transits via Hormuz Strait Monitor. 60+/day = memo-anticipation; 4-10/day = stalemate.</td></tr>
+      <tr><td>6</td><td>UAE second-retaliation posture</td><td><span class="signal-med">MED</span></td><td>Any Emirati move to invoke GCC mutual defense or grant US bases workaround for Saudi closure.</td></tr>
+      <tr><td>7</td><td>Hezbollah rocket tempo</td><td><span class="signal-med">MED</span></td><td>IDF Northern Command daily count. &gt;40/day = Iranian leverage signaling; &lt;10/day = Iranian commitment to closure.</td></tr>
+      <tr><td>8</td><td>IAEA access negotiation</td><td><span class="signal-med">MED</span></td><td>Grossi statement on Natanz/Fordow inspection schedule. Access by May 28 = deal substantively credible.</td></tr>
+      <tr><td>9</td><td>Iranian rial exchange rate</td><td><span class="signal-med">MED</span></td><td>Tehran bazaar rate. Recovery toward 1m/USD = deal pricing; deterioration past 1.5m = protest re-ignition risk.</td></tr>
+      <tr><td>10</td><td>Israeli political dissolution</td><td><span class="signal-low">LOW</span></td><td>Netanyahu coalition motion of confidence or budget vote. Early dissolution = Beyachad path to power.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- ========== SOURCES ========== -->
+<div class="section" id="sources">
+  <h2 class="section-title">Sources (May 2-7, 2026)</h2>
+  <div class="card">
+    <ul class="sources-list">
+      <li><a href="https://www.aljazeera.com/news/2026/5/6/operation-epic-fury-has-ended-is-the-iran-war-over" target="_blank">Al Jazeera (May 6)</a> — "Operation Epic Fury has ended: Is the Iran war over?"</li>
+      <li><a href="https://time.com/article/2026/05/05/rubio-iran-epic-fury-over-strait-hormuz/" target="_blank">TIME (May 5)</a> — Rubio Says 'Epic Fury' Is Over, as Flare-Ups in Strait of Hormuz Test Fragile Ceasefire</li>
+      <li><a href="https://www.axios.com/2026/05/06/iran-us-deal-one-page-memo" target="_blank">Axios (May 6)</a> — Exclusive: U.S. and Iran closing in on one-page memo to end war</li>
+      <li><a href="https://www.cnn.com/2026/05/06/world/live-news/iran-war-trump-strait-of-hormuz" target="_blank">CNN (May 6)</a> — Live updates: Iran reviewing US proposal as both sides move toward memo to end war</li>
+      <li><a href="https://www.nbcnews.com/politics/white-house/trumps-abrupt-u-turn-plan-re-open-strait-hormuz-came-backlash-allies-rcna343845" target="_blank">NBC News (May 6)</a> — Trump's abrupt U-turn on a plan to reopen the Strait of Hormuz came after backlash from allies</li>
+      <li><a href="https://www.cnbc.com/2026/05/05/trump-iran-deal-project-freedom-hormuz-strait.html" target="_blank">CNBC (May 5)</a> — Trump pauses U.S. bid to guide ships out of Strait of Hormuz, cites Iran deal progress</li>
+      <li><a href="https://www.aljazeera.com/economy/2026/5/5/oil-prices-surge-as-violence-flares-in-strait-of-hormuz" target="_blank">Al Jazeera (May 5)</a> — Oil prices surge as violence flares in Strait of Hormuz</li>
+      <li><a href="https://www.axios.com/2026/05/04/iran-attack-uae-missiles-ceasefire-hormuz" target="_blank">Axios (May 4)</a> — Iran ceasefire in peril as UAE says it's under attack</li>
+      <li><a href="https://www.aljazeera.com/news/2026/5/5/uae-intercepts-missiles-and-drones-for-second-day" target="_blank">Al Jazeera (May 5)</a> — UAE comes under Iranian attacks for second consecutive day: Ministry</li>
+      <li><a href="https://www.cbsnews.com/live-updates/iran-war-trump-strait-of-hormuz-ship-attack-threat-peace-proposal/" target="_blank">CBS News (May 4)</a> — U.S. sinks 7 small Iranian boats as Iran launches attacks on UAE</li>
+      <li><a href="https://www.jpost.com/middle-east/article-895397" target="_blank">Jerusalem Post (May 7)</a> — Saudi Arabia denied US access to airspace, pressured Trump to pause Project Freedom</li>
+      <li><a href="https://www.npr.org/2026/05/02/nx-s1-5808924/iran-response-trump-proposal" target="_blank">NPR (May 2)</a> — Iran submits a 14-point response to a U.S. proposal to end the war</li>
+      <li><a href="https://www.cnbc.com/2026/05/06/us-iran-peace-deal-nuclear-moratorium.html" target="_blank">CNBC (May 6)</a> — Trump says Iran will be bombed at a 'much higher level' if it doesn't agree to peace deal</li>
+      <li><a href="https://www.cnn.com/2026/05/04/middleeast/project-freedom-hormuz-guide-ships-intl-hnk-ml" target="_blank">CNN (May 4)</a> — 'Project Freedom': Trump's plan to 'guide' ships through Hormuz leaves many questions unanswered</li>
+      <li><a href="https://www.criticalthreats.org/analysis/iran-update-evening-special-report-may-5-2026" target="_blank">Critical Threats / AEI (May 5)</a> — Iran Update Evening Special Report</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<script>
+const tabs = document.querySelectorAll('.nav-tab');
+const sections = document.querySelectorAll('.section');
+
+function activateTab(sectionId) {
+  tabs.forEach(t => t.classList.remove('active'));
+  sections.forEach(s => s.classList.remove('active'));
+  const targetTab = document.querySelector(`.nav-tab[data-section="${sectionId}"]`);
+  if (targetTab) targetTab.classList.add('active');
+  document.getElementById(sectionId).classList.add('active');
+  window.scrollTo({ top: document.getElementById(sectionId).offsetTop - 80, behavior: 'smooth' });
+}
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    activateTab(tab.dataset.section);
+  });
+});
+</script>
+
+<footer style="text-align:center; padding: 40px 20px; color: var(--text-muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px;">
+  Geopolitical Scenario Analysis — Multi-Source OSINT Synthesis<br>
+  Generated May 8, 2026 (v44.0 — Day 70 — Epic Fury "Over") | Based on open sources | Not intelligence analysis<br>
+  Six information spheres | Triple expert validation | Named X analysts | 15 sources<br>
+  <span style="color:var(--accent);">Next automatic update: May 9 at 07:00 CET</span>
+</footer>
+
+<!-- GoatCounter analytics - privacy-friendly, no cookies, GDPR compliant -->
+<script data-goatcounter="https://mellanostern.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
