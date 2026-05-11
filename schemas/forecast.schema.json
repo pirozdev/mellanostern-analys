@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pirozdev.github.io/mellanostern-analys/schemas/forecast.schema.json",
+  "title": "Forecast",
+  "description": "A single time-bounded geopolitical forecast tracked across daily report updates.",
+  "type": "object",
+  "required": [
+    "id",
+    "question",
+    "owner_category",
+    "horizon_days",
+    "horizon_date",
+    "created_at",
+    "expires_at",
+    "p",
+    "p_prior",
+    "prior_date",
+    "delta_reason",
+    "resolution_criteria",
+    "resolution_source_rule",
+    "ambiguity_rule",
+    "indicators",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Stable slug — e.g. '2026-05-11-us-iran-memo-by-may-18'. Used in delta narrative citations: → moved F# refers to this id."
+    },
+    "question": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Binary or resolvable question phrased so YES/NO is unambiguous."
+    },
+    "owner_category": {
+      "type": "string",
+      "enum": ["diplomacy", "military", "domestic", "regime", "market", "humanitarian"],
+      "description": "Broad bucket so the board doesn't become 7 forecasts about the same diplomatic track."
+    },
+    "horizon_days": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Days from created_at to horizon_date (cache for sort)."
+    },
+    "horizon_date": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO date by which the forecast must resolve. After this date status must transition to RESOLVED-* or AMBIGUOUS-RESOLVED."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date",
+      "description": "When forecast was first added to active.json."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Hard expiry. Past this date a forecast cannot stay ACTIVE; must transition to a resolved/OBE state. Typically = horizon_date + 1 day."
+    },
+    "p": {
+      "type": "number",
+      "minimum": 0.05,
+      "maximum": 0.95,
+      "description": "Current probability. Bounded 5-95% to prevent 99%-theater (per Codex hygiene gate)."
+    },
+    "p_prior": {
+      "type": "number",
+      "minimum": 0.05,
+      "maximum": 0.95,
+      "description": "Probability from prior_date (last day this forecast was reasoned about). Survives skipped days unlike p_yesterday."
+    },
+    "prior_date": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO date when p_prior was set."
+    },
+    "delta_reason": {
+      "type": "string",
+      "description": "≥1 full sentence explaining the move from p_prior to p, OR the string 'No material movement' if p == p_prior. Empty string forbidden."
+    },
+    "resolution_criteria": {
+      "type": "string",
+      "minLength": 30,
+      "description": "What concretely counts as YES vs NO. Must be specific enough that two analysts would agree on outcome."
+    },
+    "resolution_source_rule": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Which kinds of sources are authoritative for resolution (e.g. 'Reuters/AP/AFP confirmation OR explicit US/Iran government statement OR confirmed leak by ≥2 named officials')."
+    },
+    "ambiguity_rule": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Pre-declared rule for what counts as AMBIGUOUS vs YES vs NO at resolution time. Closes the fake-binary loophole (e.g. 'A counter-proposal that defers core terms = AMBIGUOUS-RESOLVE-AS-NO')."
+    },
+    "indicators": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["name", "state", "observed_at", "expected_effect"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string", "minLength": 10},
+          "state": {
+            "type": "string",
+            "enum": ["NOT_OBSERVED", "PARTIAL", "OBSERVED", "CONTRADICTED"]
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date",
+            "description": "Most recent date this indicator state was confirmed."
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Optional list of source IDs (from today's SOURCES list) that confirm this state."
+          },
+          "expected_effect": {
+            "type": "string",
+            "minLength": 15,
+            "description": "What this indicator's transition to OBSERVED would imply for p (e.g. '+10pp toward YES if observed before horizon_date')."
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "RESOLVED-YES",
+        "RESOLVED-NO",
+        "RESOLVED-AMBIGUOUS",
+        "OPEN-AMBIGUOUS",
+        "OBE"
+      ],
+      "description": "ACTIVE = open and being reasoned. OPEN-AMBIGUOUS = live but the question may not cleanly binarize at horizon. RESOLVED-* = past horizon and final. OBE = retired before horizon because events overtook the question."
+    },
+    "graveyard_reason": {
+      "type": "string",
+      "enum": ["resolved", "superseded", "bad_question", "no_longer_relevant", "merged"],
+      "description": "Required when status is not ACTIVE/OPEN-AMBIGUOUS. Explains why forecast left active board."
+    },
+    "merged_into": {
+      "type": "string",
+      "description": "If graveyard_reason == 'merged', the id of the forecast this was merged into."
+    },
+    "last_reasoned_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Most recent date the Analyst actively reasoned about this forecast (may differ from prior_date if probability didn't change)."
+    }
+  }
+}

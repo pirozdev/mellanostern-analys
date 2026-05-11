@@ -134,15 +134,48 @@ PREV_DATE=$(date -v-1d +%Y-%m-%d)
 cp index.html "archive/${PREV_DATE}.html"
 ```
 
-### Steg 6: Sveper draft → index.html
+### Steg 6: Sveper draft → main (HTML + persistent forecasts)
 
 ```bash
-# Hämta draft-filen från draft-branchen utan att checka ut den
+# Hämta draft-filen från draft-branchen
 git checkout "$LATEST_BRANCH" -- "${DRAFT_DIR}/index.html.new"
 mv "${DRAFT_DIR}/index.html.new" index.html
 
+# v45+: hämta också uppdaterad forecasts/active.json (persistent state)
+# Detta är kritiskt — utan det cyklar daglig forecast-uppdatering aldrig till main,
+# och cloud-routinen nästa dag ärver stale state.
+if git show "$LATEST_BRANCH:${DRAFT_DIR}/forecasts-updated.json" >/dev/null 2>&1; then
+  git checkout "$LATEST_BRANCH" -- "${DRAFT_DIR}/forecasts-updated.json"
+  # Validera schema innan vi skriver över main:s active.json
+  python3 scripts/lint-draft.py /dev/null "${DRAFT_DIR}/forecasts-updated.json" || {
+    echo "FEL: forecasts-updated.json validerar inte"; exit 1;
+  }
+  # Resolved/OBE forecasts arkiveras separat
+  python3 -c "
+import json
+data = json.load(open('${DRAFT_DIR}/forecasts-updated.json'))
+resolved = [f for f in data['forecasts'] if f['status'] != 'ACTIVE' and f['status'] != 'OPEN-AMBIGUOUS']
+if resolved:
+    from pathlib import Path
+    Path('forecasts/resolved').mkdir(parents=True, exist_ok=True)
+    with open('forecasts/resolved/${DATE}.jsonl', 'a') as out:
+        for f in resolved:
+            out.write(json.dumps(f) + chr(10))
+    print(f'Arkiverade {len(resolved)} resolved/OBE till forecasts/resolved/${DATE}.jsonl')
+# Behåll bara ACTIVE och OPEN-AMBIGUOUS i active.json
+data['forecasts'] = [f for f in data['forecasts'] if f['status'] in ('ACTIVE', 'OPEN-AMBIGUOUS')]
+json.dump(data, open('forecasts/active.json', 'w'), indent=2)
+"
+fi
+
 # Hämta också judge-notes (de hör hemma på main)
 git checkout "$LATEST_BRANCH" -- "archive/judge-notes/${DATE}.md"
+
+# Hämta opposing-narrative om den finns
+if git show "$LATEST_BRANCH:${DRAFT_DIR}/opposing-narrative.md" >/dev/null 2>&1; then
+  mkdir -p archive/opposing-narratives
+  git show "$LATEST_BRANCH:${DRAFT_DIR}/opposing-narrative.md" > "archive/opposing-narratives/${DATE}.md"
+fi
 ```
 
 ### Steg 7: Sista validering

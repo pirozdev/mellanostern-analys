@@ -1,0 +1,232 @@
+{
+  "schema_version": "v45.0",
+  "seeded_at": "2026-05-11",
+  "seeded_from": "v44.1 (Day 70, 2026-05-08)",
+  "note": "Initial seed for new forecast-board architecture. Probabilities are starting points derived from v44.1's qualitative scenario probabilities; the first cloud-routine run will re-reason these against current evidence.",
+  "forecasts": [
+    {
+      "id": "2026-05-11-iran-public-response-by-may-13",
+      "question": "Will an Iranian official (Pezeshkian, Araghchi, or named Foreign Ministry spokesperson) make a public statement explicitly addressing the 14-point MOU on the record before EOD 2026-05-13?",
+      "owner_category": "diplomacy",
+      "horizon_days": 2,
+      "horizon_date": "2026-05-13",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-14",
+      "p": 0.55,
+      "p_prior": 0.55,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Initial seed.",
+      "resolution_criteria": "YES if a named Iranian official (Pezeshkian, Araghchi, Baghaei, Larijani, or Mojtaba Khamenei) is quoted directly by name in Reuters/AP/AFP/IRNA/Press TV/Tasnim addressing the specific 14-point framework or its terms (not generic 'reviewing US proposals'). NO if only Pakistani-channel intermediaries comment publicly.",
+      "resolution_source_rule": "Direct quote in at least two of: Reuters, AP, AFP, IRNA, Press TV, Tasnim, or named-Iranian-official Telegram/X account. Anonymous 'sources' do not resolve.",
+      "ambiguity_rule": "If Iran issues a statement on US-Iran negotiations broadly but does not reference the 14-point framework specifically: AMBIGUOUS-RESOLVE-AS-NO. If Mojtaba addresses the question via written statement (no live address): counts as YES (named official, named question).",
+      "indicators": [
+        {
+          "name": "Tasnim publishes named Foreign Ministry comment on MOU",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+25pp toward YES if observed; Tasnim is the IRGC-aligned outlet that broke the 14-point response May 2."
+        },
+        {
+          "name": "Mojtaba Khamenei live televised address",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+30pp toward YES if observed in window; would also materially shift downstream forecasts toward de-escalation."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-11"
+    },
+    {
+      "id": "2026-05-11-us-iran-memo-signed-by-may-18",
+      "question": "Will a written US-Iran framework memorandum (the 14-point document or named successor) be confirmed signed by both parties before EOD 2026-05-18?",
+      "owner_category": "diplomacy",
+      "horizon_days": 7,
+      "horizon_date": "2026-05-18",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-19",
+      "p": 0.35,
+      "p_prior": 0.35,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Initial seed; reflects v44.1's de-escalation 35% probability translated to a time-bounded resolvable forecast.",
+      "resolution_criteria": "YES if a named US administration official AND a named Iranian official publicly confirm signing of a written memorandum; OR if the document text is published by Axios/Reuters/State Dept with both parties acknowledging authenticity. Verbal/'agreement in principle' does not count.",
+      "resolution_source_rule": "At least two named official sources from each side, OR official document release by State Dept / Iranian Foreign Ministry / Pakistani Foreign Office acting as confirmed mediator. Reuters/AP/AFP/Axios reporting acceptable when both sides quoted.",
+      "ambiguity_rule": "If a memo is signed but Iran publicly disputes key terms within 72 hours: AMBIGUOUS-RESOLVE-AS-NO (per JCPOA-2022 failure pattern). If signed by envoys but not publicly confirmed by principals (Trump/Pezeshkian) by horizon: AMBIGUOUS-RESOLVE-AS-NO.",
+      "indicators": [
+        {
+          "name": "Witkoff/Kushner return to Islamabad with Iranian counterpart confirmed in attendance",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+10pp if observed; both delegations physically present is a necessary condition."
+        },
+        {
+          "name": "IRGC Quds Force statement endorsing diplomatic track",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+15pp if observed; addresses the central JCPOA-2022 failure mode of envoys without IRGC sign-off."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-11"
+    },
+    {
+      "id": "2026-05-11-iran-formally-rejects-by-may-18",
+      "question": "Will Iran formally and publicly reject the current MOU framework before EOD 2026-05-18?",
+      "owner_category": "diplomacy",
+      "horizon_days": 7,
+      "horizon_date": "2026-05-18",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-19",
+      "p": 0.20,
+      "p_prior": 0.20,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Initial seed. Iran's pattern is delay/counter-propose rather than explicit rejection; explicit rejection carries political cost.",
+      "resolution_criteria": "YES if Iran's Foreign Ministry, Pezeshkian, or Khamenei's office issues a public statement using rejection language (rad, mardud, rejected, refused) about the 14-point framework specifically. NO if Iran continues 'reviewing' or issues a counter-proposal.",
+      "resolution_source_rule": "Direct attributed quote in IRNA, Press TV, Tasnim, or Reuters/AP/AFP. Statement must name the framework, not generic 'US proposals'.",
+      "ambiguity_rule": "Counter-proposal with modifications = NOT rejection (resolve NO). Walk-away from talks without explicit rejection statement = AMBIGUOUS-RESOLVE-AS-NO.",
+      "indicators": [
+        {
+          "name": "Kayhan editorial uses rejection-grade language about framework",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+15pp toward YES; Kayhan editorials are coordinated weather-vanes for hardliner positioning."
+        },
+        {
+          "name": "Mojtaba written statement against framework",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+30pp toward YES; supreme leader rejection is the canonical signal."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-11"
+    },
+    {
+      "id": "2026-05-11-second-beirut-strike-by-may-15",
+      "question": "Will IDF conduct a second airstrike on Beirut (within the Greater Beirut municipal area) before EOD 2026-05-15?",
+      "owner_category": "military",
+      "horizon_days": 4,
+      "horizon_date": "2026-05-15",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-16",
+      "p": 0.30,
+      "p_prior": 0.30,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Initial seed. May 6 Haret Hreik strike (Radwan commander Balout) was first since April 8 truce; Smotrich coalition pressure is the proximate driver.",
+      "resolution_criteria": "YES if any Israeli airstrike or named operation hits a location within Beirut governorate borders. Southern Lebanon strikes outside Beirut governorate do NOT count. Reported by Lebanese Health Ministry OR Reuters/AP/AFP OR IDF spokesperson.",
+      "resolution_source_rule": "Lebanese government sources or major wire confirming impact location within Beirut governorate; OR IDF spokesperson statement naming Beirut as target.",
+      "ambiguity_rule": "Drone strike on Beirut outskirts (Mount Lebanon governorate) = AMBIGUOUS-RESOLVE-AS-NO unless explicitly described as 'Beirut strike' by IDF or Lebanese government. Intercepted strike that did not impact = NO.",
+      "indicators": [
+        {
+          "name": "Smotrich public threat to bolt over Iran-deal terms",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+15pp toward YES; coalition-stabilization Lebanon strikes correlate with explicit Smotrich pressure."
+        },
+        {
+          "name": "Hezbollah rocket fire from south of Litani at >20/day rate",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+10pp toward YES; would provide Israel justification for Beirut retaliation."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-11"
+    },
+    {
+      "id": "2026-05-11-saudi-airspace-restored-by-may-25",
+      "question": "Will Saudi Arabia publicly restore US access to Prince Sultan Air Base airspace for CENTCOM operations before EOD 2026-05-25?",
+      "owner_category": "diplomacy",
+      "horizon_days": 14,
+      "horizon_date": "2026-05-25",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-26",
+      "p": 0.40,
+      "p_prior": 0.40,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Initial seed. Restoration is the operational tell whether Saudi May 5 closure was punishment-for-protocol-breach (quick reversal) or structural ceiling (sustained).",
+      "resolution_criteria": "YES if KC-46 tanker tracks resume over Saudi Arabia airspace AND Saudi MOFA or Pentagon issues public statement confirming restored access. ADS-B tracking alone = AMBIGUOUS (could be exception). NO if airspace remains closed past 2026-05-25 OR if access is partial/conditional with public Saudi reservation.",
+      "resolution_source_rule": "Pentagon spokesperson + Saudi MOFA statement; OR Reuters/Bloomberg/Times of Israel confirming sustained access with named DoD source. ADS-B alone is supportive but not resolving.",
+      "ambiguity_rule": "Partial access (e.g. tankers but not strike aircraft) = AMBIGUOUS-RESOLVE-AS-NO. Trump claims access restored without Saudi confirmation = NO.",
+      "indicators": [
+        {
+          "name": "MBS-Trump phone call or in-person summit",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+15pp toward YES; bilateral reset is the typical precondition."
+        },
+        {
+          "name": "ADS-B tanker tracks return to Saudi airspace",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+20pp toward YES; operational return precedes public announcement."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-11"
+    },
+    {
+      "id": "2026-05-11-hormuz-commercial-shipping-resumed-by-june-10",
+      "question": "Will at least 50 commercial vessels per day transit the Strait of Hormuz (50%+ of pre-war ~120/day baseline) during any consecutive 7-day window before EOD 2026-06-10?",
+      "owner_category": "market",
+      "horizon_days": 30,
+      "horizon_date": "2026-06-10",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-06-11",
+      "p": 0.45,
+      "p_prior": 0.45,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Initial seed. Hormuz partial reopening is the market-pricing forecast — Brent at $100 May 7 implied 50%+ deal-priced.",
+      "resolution_criteria": "YES if Hormuz Strait Monitor (or UNCTAD, or Lloyd's List) reports ≥50 daily transits averaged over 7 consecutive days within the horizon window. NO if average stays below 50/day for the full horizon window.",
+      "resolution_source_rule": "Hormuz Strait Monitor (primary), Lloyd's List Intelligence (secondary), UNCTAD Maritime Trade quarterly report (lagging confirmation).",
+      "ambiguity_rule": "If only Iranian-flagged or sanctions-evading dark-fleet vessels make up the count, but Western insurers still refuse: AMBIGUOUS-RESOLVE-AS-NO (the operationally meaningful question is whether Western shipping has returned).",
+      "indicators": [
+        {
+          "name": "Lloyd's war-risk premium reduced below 1.5% of hull",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+20pp toward YES; insurance is the binding constraint on commercial transit."
+        },
+        {
+          "name": "Maersk/MSC/Frontline announce return to scheduled Hormuz transit",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+25pp toward YES; major shipping lines lead the resumption."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-11"
+    },
+    {
+      "id": "2026-05-11-netanyahu-coalition-collapse-by-oct-27",
+      "question": "Will Netanyahu's governing coalition lose its 61-seat Knesset majority (via defection, dissolution motion, or no-confidence) before the mandatory 2026-10-27 election date?",
+      "owner_category": "regime",
+      "horizon_days": 169,
+      "horizon_date": "2026-10-27",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-10-28",
+      "p": 0.35,
+      "p_prior": 0.35,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Initial seed. Reflects Polymarket-implied range (Netanyahu 38.5% vs Bennett 37.5% PM odds) and Channel 12 Beyachad-26-vs-Likud-25 polling.",
+      "resolution_criteria": "YES if a Knesset roll-call vote confirms coalition loss of majority (61 seats), OR if Netanyahu announces early dissolution and election date moves earlier than 2026-10-27. NO if coalition survives to mandatory election date with 61+ seats intact.",
+      "resolution_source_rule": "Knesset official record + Reuters/Haaretz/Times of Israel confirmation. Polling alone does not resolve.",
+      "ambiguity_rule": "If coalition drops below 61 but Netanyahu remains caretaker PM until election: counts as YES (majority lost). If a single party (e.g. Smotrich) departs but coalition retains 61+: counts as NO. Reviewed weekly only (Sundays); no intra-week deltas allowed per Codex DA #12.",
+      "indicators": [
+        {
+          "name": "Smotrich formally departs coalition",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+20pp toward YES if observed; would also trigger Haredi reconsideration."
+        },
+        {
+          "name": "Eisenkot Yashar party reaches 8+ seats in Channel 12 poll",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-11",
+          "expected_effect": "+10pp toward YES; would crystallize anti-Bibi opposition bloc."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-11"
+    }
+  ]
+}
