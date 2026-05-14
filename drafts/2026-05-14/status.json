@@ -1,0 +1,61 @@
+{
+  "date": "2026-05-14",
+  "version": "v45.2",
+  "war_day": 76,
+  "weekday": "Thursday",
+  "status": "human_review_required",
+  "size_kb": 44.2,
+  "structure_ok": true,
+  "lint": {
+    "fails": 0,
+    "warns": 1,
+    "warn_detail": "WARN: no near-term (≤72h) forecast on active board (F4 horizon_days=4 per JSON seed; effectively resolves tomorrow — expected and acceptable)",
+    "passed": true,
+    "exit_code": 2
+  },
+  "forecasts_active": 7,
+  "forecasts_resolved_today": 1,
+  "forecasts_resolved_ids": ["2026-05-11-iran-public-response-by-may-13"],
+  "forecasts_resolution": {
+    "2026-05-11-iran-public-response-by-may-13": "RESOLVED-AMBIGUOUS (AMBIGUOUS-RESOLVE-AS-NO)"
+  },
+  "forecasts_retired_today": 0,
+  "forecasts_added_today": 1,
+  "forecasts_added_ids": ["2026-05-14-knesset-dissolution-vote-passes-by-may-28"],
+  "forecasts_dropped_obe_at_creation": [
+    "2026-05-14-china-iran-hormuz-commitment-by-may-18",
+    "2026-05-14-us-iran-talks-resume-channel-by-may-21"
+  ],
+  "key_probability_moves": {
+    "F1": "RESOLVED-AMBIGUOUS (was 0.55)",
+    "F2": "0.35 → 0.07 (-28pp)",
+    "F3": "0.20 → 0.18 (-2pp)",
+    "F4": "0.30 → 0.40 (+10pp)",
+    "F5": "0.40 → 0.28 (-12pp)",
+    "F6": "0.45 → 0.18 (-27pp)",
+    "F7": "0.35 → 0.35 (no move; weekly cadence)",
+    "N1": "new at 0.72"
+  },
+  "judge_flags": [
+    "F4 horizon expires EOD 2026-05-15 — same-day resolution check required tomorrow",
+    "F7 Sunday 2026-05-17 mandatory review: dissolution bill vs. majority-loss adjudication required",
+    "N2 (China Hormuz commitment) held OBE — reinstate immediately if Trump-Xi summit names Hormuz in closing statement",
+    "F5 at 0.28 is a Judge judgment call between conflicting source assessments (Source A: 0.20, Source B: 0.55) — human reviewer should confirm comfort with this split"
+  ],
+  "opposing_narrative_triggered": true,
+  "opposing_narrative_targets": ["F2", "F4", "F5", "F6"],
+  "opposing_narrative_rulings": {
+    "F2": "ACCEPT — Judge sets 0.07 within DA-recommended range (0.06-0.08); contrary Xi-summit-bridge evidence real but insufficient",
+    "F4": "REJECT — DA false positive; UN News article cited dates to May 7 (pre-seed event); May 12-13 strikes confirmed as Mount Lebanon governorate (Jiyeh), not Beirut governorate",
+    "F5": "PARTIAL ACCEPT — direction correct (Source A's 0.20 under-weights operational reality); magnitude not accepted (Source B's 0.55 over-corrects); Judge sets 0.28",
+    "F6": "ACCEPT — Source A KEEP at 0.45 indefensible given 6-12/day vs 50/day threshold; Judge sets 0.18 matching Source B"
+  },
+  "cold_start_audit_run": false,
+  "scenario_probabilities": {
+    "escalation": 24,
+    "protracted": 62,
+    "deescalation": 14
+  },
+  "direction_of_travel": "The board's centre of gravity has shifted decisively toward prolonged stalemate: the collapse of the US-Iran diplomatic channel (F2 7%) combined with Hormuz transits at 10-24% of threshold (F6 18%) makes continued deadlock the highest-probability near-term path, with the Trump-Xi summit outcome the single variable most capable of altering that trajectory within the current forecast horizon.",
+  "draft_branch": "claude/daily-draft-2026-05-14"
+}
