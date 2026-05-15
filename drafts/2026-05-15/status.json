@@ -1,0 +1,42 @@
+{
+  "date": "2026-05-15",
+  "version": "v45.3",
+  "war_day": 77,
+  "weekday": "Friday",
+  "status": "human_review_required",
+  "size_kb": 47.8,
+  "structure_ok": true,
+  "lint": {
+    "fails": 0,
+    "warns": 1,
+    "warn_detail": "WARN: no near-term (≤72h) forecast on active board (F2/F3 have horizon_days=7 from creation; N2 horizon_days=4 — all expire within 3-4 days but stored horizon_days exceed 72h threshold in lint check)",
+    "passed": true,
+    "exit_code": 2
+  },
+  "forecasts_active": 7,
+  "forecasts_resolved_today": 1,
+  "forecasts_resolved_ids": ["2026-05-11-second-beirut-strike-by-may-15"],
+  "forecasts_resolution": {
+    "2026-05-11-second-beirut-strike-by-may-15": "RESOLVED-NO (Jiyeh strikes in Mount Lebanon governorate, not Beirut governorate; ambiguity rule applied)"
+  },
+  "forecasts_retired_today": 0,
+  "forecasts_added_today": 1,
+  "forecasts_added_ids": ["2026-05-15-israel-lebanon-ceasefire-extended-by-may-19"],
+  "judge_flags": [
+    "F7 seat count post-Degel HaTorah departure requires Sunday review — may already be RESOLVED-YES if below 61",
+    "N3 (US-Iran framework by June 15) ready to open on May 19 draft when F2/F3 resolve",
+    "F5 near-OBE: if no public statement by May 22, consider retiring as no_longer_relevant",
+    "F6 driver stagnation: assess OBE if no ceasefire pathway emerges by May 22"
+  ],
+  "opposing_narrative_triggered": true,
+  "opposing_narrative_count": 2,
+  "cold_start_audit_run": false,
+  "scenario_probabilities": {
+    "escalation": 28,
+    "protracted": 58,
+    "deescalation": 14
+  },
+  "direction_of_travel": "Material movement today is concentrated in two directions: F6 (Hormuz commercial shipping) fell 9pp to 9% as transit data and unimplemented Trump-Xi language confirmed no operational pathway to the 50-vessel threshold, while N1 (Knesset dissolution vote) rose 10pp to 82% on confirmed all-faction co-sponsorship and an identified May 20-28 vote window.",
+  "draft_branch": "claude/daily-draft-2026-05-15",
+  "lint_fix_applied": "Updated scripts/lint-draft.py CLOSURE_RE from F\\d+ to [A-Z]\\d+ to support N-prefixed forecast IDs (N1, N2); Judge-pipeline gap, not content error"
+}
