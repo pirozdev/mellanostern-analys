@@ -3,7 +3,7 @@
   "seeded_at": "2026-05-11",
   "seeded_from": "v44.1 (Day 70, 2026-05-08)",
   "last_updated": "2026-05-16",
-  "note": "Day 78. F1 resolved YES (Baghaei named 14-point plan explicitly by name, Press TV/IranPress/CGTN, May 4-13). F4 resolved NO (no second Beirut-governorate strike before May 15; May 13 drone strikes hit Jiyeh ~20km south, Mount Lebanon governorate, not Beirut governorate; Israel-Lebanon ceasefire extended 45 days May 15). F5 resolved YES (Saudi/Kuwait lifted airspace restrictions May 8, confirmed by Reuters/WSJ/Bloomberg). Three new forecasts added to replace resolved slots.",
+  "note": "Day 78. F1 resolved YES (Baghaei named 14-point plan explicitly by name, Press TV/IranPress, May 11-12). F4 resolved NO (no second Beirut-governorate strike before May 15; May 13 drone strikes hit Jiyeh ~20km south, Mount Lebanon governorate, not Beirut governorate; Israel-Lebanon ceasefire extended 45 days May 15). F5 JUDGE CORRECTION: reverted from RESOLVED-YES to OPEN-AMBIGUOUS — Saudi/Kuwait lifted airspace restrictions May 8 confirmed, but KC-46 operational tracks and Pentagon press statement both unconfirmed per Judge search; Project Freedom did not restart. Human review required before resolving YES. Three new forecasts added.",
   "forecasts": [
     {
       "id": "2026-05-11-iran-public-response-by-may-13",
@@ -149,14 +149,13 @@
       "horizon_date": "2026-05-25",
       "created_at": "2026-05-11",
       "expires_at": "2026-05-26",
-      "p": 0.95,
+      "p": 0.85,
       "p_prior": 0.40,
       "prior_date": "2026-05-11",
-      "delta_reason": "RESOLVED YES. Saudi Arabia and Kuwait lifted all restrictions on US military use of bases and airspace on May 8, 2026, following a second Trump-MBS phone call. Confirmed by Reuters via Iran International (May 7), Middle East Monitor (May 7), thedefensenews.com (May 7), WSJ (Iran International, May 7), and news-pravda (May 7). Pentagon confirmed operational restoration. Resolution occurred on May 8, well before the May 25 horizon.",
+      "delta_reason": "JUDGE CORRECTION — OPEN-AMBIGUOUS (was RESOLVED-YES, reverted by Judge 2026-05-16). Saudi Arabia and Kuwait lifted airspace restrictions May 8 (confirmed WSJ/Iran International, Middle East Monitor, TheDefenseNews). However, the resolution criteria requires BOTH (1) KC-46 tanker tracks resume AND (2) Pentagon or Saudi MOFA public statement. Judge search found: (1) no independent institutional confirmation of KC-46 ADS-B tracks resuming as CENTCOM operational flights — the 'ADS-B OBSERVED' indicator was inferred from 'path cleared' reporting, not documented flight data; (2) Pentagon 'referred questions to the White House' per NBC — no Pentagon press briefing transcript or DoD press release found. Project Freedom did NOT restart after May 8 (Trump rejected Iran's proposal May 10-11, ceasefire 'on life support'). Access was restored in principle but operational KC-46 transits are unconfirmed. Ambiguity rule applies: partial/unconfirmed access = AMBIGUOUS-RESOLVE-AS-NO pending human confirmation of KC-46 tracks or Pentagon statement text. Remains ACTIVE with p=0.85 (path cleared, horizon still 9 days away, odds favor eventual confirmation).",
       "resolution_criteria": "YES if KC-46 tanker tracks resume over Saudi Arabia airspace AND Saudi MOFA or Pentagon issues public statement confirming restored access. ADS-B tracking alone = AMBIGUOUS (could be exception). NO if airspace remains closed past 2026-05-25 OR if access is partial/conditional with public Saudi reservation.",
       "resolution_source_rule": "Pentagon spokesperson + Saudi MOFA statement; OR Reuters/Bloomberg/Times of Israel confirming sustained access with named DoD source. ADS-B alone is supportive but not resolving.",
       "ambiguity_rule": "Partial access (e.g. tankers but not strike aircraft) = AMBIGUOUS-RESOLVE-AS-NO. Trump claims access restored without Saudi confirmation = NO.",
-      "graveyard_reason": "resolved",
       "indicators": [
         {
           "name": "MBS-Trump phone call or in-person summit",
@@ -166,12 +165,19 @@
         },
         {
           "name": "ADS-B tanker tracks return to Saudi airspace",
-          "state": "OBSERVED",
+          "state": "PARTIAL",
           "observed_at": "2026-05-08",
-          "expected_effect": "+20pp toward YES; operational return precedes public announcement."
+          "expected_effect": "+20pp toward YES; operational return precedes public announcement. JUDGE: marked PARTIAL — 'path cleared' reported but no institutional ADS-B track confirmation found; Project Freedom did not restart."
+        },
+        {
+          "name": "Pentagon or Saudi MOFA press release confirming restored operational access",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-16",
+          "expected_effect": "+30pp toward YES; required by resolution criteria conjunctive test."
         }
       ],
-      "status": "RESOLVED-YES",
+      "status": "OPEN-AMBIGUOUS",
+      "judge_flag": "human_review_required — confirm KC-46 ADS-B tracks OR find Pentagon/MOFA press release text before resolving YES",
       "last_reasoned_at": "2026-05-16"
     },
     {
