@@ -1,0 +1,445 @@
+{
+  "schema_version": "v45.0",
+  "last_updated": "2026-05-18",
+  "day": 80,
+  "judge_run": true,
+  "version": "v45.5",
+  "prior_version": "v45.4",
+  "prior_version_date": "2026-05-17",
+  "forecasts": [
+    {
+      "id": "2026-05-11-iran-public-response-by-may-13",
+      "question": "Will an Iranian official (Pezeshkian, Araghchi, or named Foreign Ministry spokesperson) make a public statement explicitly addressing the 14-point MOU on the record before EOD 2026-05-13?",
+      "owner_category": "diplomacy",
+      "horizon_days": 2,
+      "horizon_date": "2026-05-13",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-14",
+      "p": 0.05,
+      "p_prior": 0.55,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Resolved AMBIGUOUS at horizon May 13. No named Iranian official addressed the 14-point framework specifically; Araghchi's BRICS statements addressed the diplomatic track broadly. Ambiguity rule applied: 'Iran issues a statement on negotiations broadly but does not reference the 14-point framework specifically: AMBIGUOUS-RESOLVE-AS-NO.' Schema minimum p=0.05 applied.",
+      "resolution_criteria": "YES if a named Iranian official (Pezeshkian, Araghchi, Baghaei, Larijani, or Mojtaba Khamenei) is quoted directly by name in Reuters/AP/AFP/IRNA/Press TV/Tasnim addressing the specific 14-point framework or its terms (not generic 'reviewing US proposals'). NO if only Pakistani-channel intermediaries comment publicly.",
+      "resolution_source_rule": "Direct quote in at least two of: Reuters, AP, AFP, IRNA, Press TV, Tasnim, or named-Iranian-official Telegram/X account. Anonymous 'sources' do not resolve.",
+      "ambiguity_rule": "If Iran issues a statement on US-Iran negotiations broadly but does not reference the 14-point framework specifically: AMBIGUOUS-RESOLVE-AS-NO. If Mojtaba addresses the question via written statement (no live address): counts as YES (named official, named question).",
+      "indicators": [
+        {
+          "name": "Tasnim publishes named Foreign Ministry comment on MOU",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-13",
+          "expected_effect": "+25pp toward YES if observed; Tasnim is the IRGC-aligned outlet that broke the 14-point response May 2."
+        },
+        {
+          "name": "Mojtaba Khamenei live televised address",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-13",
+          "expected_effect": "+30pp toward YES if observed in window; would also materially shift downstream forecasts toward de-escalation."
+        }
+      ],
+      "status": "RESOLVED-AMBIGUOUS",
+      "graveyard_reason": "resolved",
+      "last_reasoned_at": "2026-05-17"
+    },
+    {
+      "id": "2026-05-11-us-iran-memo-signed-by-may-18",
+      "question": "Will a written US-Iran framework memorandum (the 14-point document or named successor) be confirmed signed by both parties before EOD 2026-05-18?",
+      "owner_category": "diplomacy",
+      "horizon_days": 7,
+      "horizon_date": "2026-05-18",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-19",
+      "p": 0.05,
+      "p_prior": 0.07,
+      "prior_date": "2026-05-14",
+      "delta_reason": "Resolved NO at horizon May 18. Araghchi at BRICS New Delhi May 15-17 described enrichment as 'almost in a deadlock,' expressed deep distrust of US intentions, and confirmed no Witkoff-Araghchi bilateral meeting. No memorandum text entered the public domain through May 18. Schema minimum p=0.05 applied.",
+      "resolution_criteria": "YES if a named US administration official AND a named Iranian official publicly confirm signing of a written memorandum; OR if the document text is published by Axios/Reuters/State Dept with both parties acknowledging authenticity. Verbal/'agreement in principle' does not count.",
+      "resolution_source_rule": "At least two named official sources from each side, OR official document release by State Dept / Iranian Foreign Ministry / Pakistani Foreign Office acting as confirmed mediator. Reuters/AP/AFP/Axios reporting acceptable when both sides quoted.",
+      "ambiguity_rule": "If a memo is signed but Iran publicly disputes key terms within 72 hours: AMBIGUOUS-RESOLVE-AS-NO (per JCPOA-2022 failure pattern). If signed by envoys but not publicly confirmed by principals (Trump/Pezeshkian) by horizon: AMBIGUOUS-RESOLVE-AS-NO.",
+      "indicators": [
+        {
+          "name": "Witkoff or named US envoy holds direct-channel meeting with Araghchi or named Iranian deputy",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+10pp if confirmed; direct bilateral contact is a necessary condition for signing."
+        },
+        {
+          "name": "IRGC Quds Force statement endorsing diplomatic track",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+15pp if observed; addresses the central JCPOA-2022 failure mode of envoys without IRGC sign-off."
+        }
+      ],
+      "status": "RESOLVED-NO",
+      "graveyard_reason": "resolved",
+      "last_reasoned_at": "2026-05-18"
+    },
+    {
+      "id": "2026-05-11-iran-formally-rejects-by-may-18",
+      "question": "Will Iran formally and publicly reject the current MOU framework before EOD 2026-05-18?",
+      "owner_category": "diplomacy",
+      "horizon_days": 7,
+      "horizon_date": "2026-05-18",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-19",
+      "p": 0.05,
+      "p_prior": 0.22,
+      "prior_date": "2026-05-14",
+      "delta_reason": "Resolved NO at horizon May 18. Iran did not issue a named rejection statement using rejection language (rad, mardud, rejected, refused) naming the MOU document specifically. Araghchi's 'doubt about US seriousness' and five-precondition framework are conditional skepticism, not formal rejection. Ambiguity rule applied. Schema minimum p=0.05 applied.",
+      "resolution_criteria": "YES if Iran's Foreign Ministry, Pezeshkian, or Khamenei's office issues a public statement using rejection language (rad, mardud, rejected, refused) about the 14-point framework specifically. NO if Iran continues 'reviewing' or issues a counter-proposal.",
+      "resolution_source_rule": "Direct attributed quote in IRNA, Press TV, Tasnim, or Reuters/AP/AFP. Statement must name the framework, not generic 'US proposals'.",
+      "ambiguity_rule": "Counter-proposal with modifications = NOT rejection (resolve NO). Walk-away from talks without explicit rejection statement = AMBIGUOUS-RESOLVE-AS-NO. Statements of deadlock or doubt without explicit document-naming = AMBIGUOUS-RESOLVE-AS-NO.",
+      "indicators": [
+        {
+          "name": "Kayhan editorial uses rejection-grade language about framework",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+15pp toward YES; Kayhan editorials are coordinated weather-vanes for hardliner positioning."
+        },
+        {
+          "name": "Mojtaba written statement against framework",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+30pp toward YES; supreme leader rejection is the canonical signal."
+        }
+      ],
+      "status": "RESOLVED-NO",
+      "graveyard_reason": "resolved",
+      "last_reasoned_at": "2026-05-18"
+    },
+    {
+      "id": "2026-05-11-second-beirut-strike-by-may-15",
+      "question": "Will IDF conduct a second airstrike on Beirut (within the Greater Beirut municipal area) before EOD 2026-05-15?",
+      "owner_category": "military",
+      "horizon_days": 4,
+      "horizon_date": "2026-05-15",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-16",
+      "p": 0.05,
+      "p_prior": 0.40,
+      "prior_date": "2026-05-13",
+      "delta_reason": "Resolved NO at horizon May 15. No Beirut-governorate strike confirmed by tier-1 sources. IDF strikes near Jiyeh/Barja (May 13) were in Mount Lebanon governorate; ambiguity rule applied. Israel-Lebanon ceasefire extended 45 days (US State Dept May 15). Schema minimum p=0.05 applied.",
+      "resolution_criteria": "YES if any Israeli airstrike or named operation hits a location within Beirut governorate borders. Southern Lebanon strikes outside Beirut governorate do NOT count. Reported by Lebanese Health Ministry OR Reuters/AP/AFP OR IDF spokesperson.",
+      "resolution_source_rule": "Lebanese government sources or major wire confirming impact location within Beirut governorate; OR IDF spokesperson statement naming Beirut as target.",
+      "ambiguity_rule": "Drone strike on Beirut outskirts (Mount Lebanon governorate) = AMBIGUOUS-RESOLVE-AS-NO unless explicitly described as 'Beirut strike' by IDF or Lebanese government. Intercepted strike that did not impact = NO.",
+      "indicators": [
+        {
+          "name": "Smotrich public threat to bolt over Iran-deal terms",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-15",
+          "expected_effect": "+15pp toward YES; coalition-stabilization Lebanon strikes correlate with explicit Smotrich pressure."
+        },
+        {
+          "name": "Hezbollah rocket fire from south of Litani at more than 20/day rate",
+          "state": "OBSERVED",
+          "observed_at": "2026-05-15",
+          "expected_effect": "OBSERVED (IDF reports >40/day); did not produce Beirut-governorate IDF retaliation within forecast window."
+        }
+      ],
+      "status": "RESOLVED-NO",
+      "graveyard_reason": "resolved",
+      "last_reasoned_at": "2026-05-17"
+    },
+    {
+      "id": "2026-05-11-saudi-airspace-restored-by-may-25",
+      "question": "Will Saudi Arabia publicly restore US access to Prince Sultan Air Base airspace for CENTCOM operations before EOD 2026-05-25?",
+      "owner_category": "diplomacy",
+      "horizon_days": 14,
+      "horizon_date": "2026-05-25",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-05-26",
+      "p": 0.95,
+      "p_prior": 0.15,
+      "prior_date": "2026-05-14",
+      "delta_reason": "Resolved YES. Saudi Arabia and Kuwait lifted restrictions on US military access circa May 7-8. Trump's Riyadh visit May 13-14 produced $142B in arms agreements conducted from the restored basing framework. Named-principal confirmation at presidential level satisfies resolution criteria. Schema ceiling p=0.95 applied.",
+      "resolution_criteria": "YES if KC-46 tanker tracks resume over Saudi Arabia airspace AND Saudi MOFA or Pentagon issues public statement confirming restored access. ADS-B tracking alone = AMBIGUOUS (could be exception). NO if airspace remains closed past 2026-05-25 OR if access is partial/conditional with public Saudi reservation.",
+      "resolution_source_rule": "Pentagon spokesperson + Saudi MOFA statement; OR Reuters/Bloomberg/Times of Israel confirming sustained access with named DoD source. ADS-B alone is supportive but not resolving.",
+      "ambiguity_rule": "Partial access (e.g. tankers but not strike aircraft) = AMBIGUOUS-RESOLVE-AS-NO. Trump claims access restored without Saudi named-official confirmation = NO.",
+      "indicators": [
+        {
+          "name": "MBS-Trump in-person summit",
+          "state": "OBSERVED",
+          "observed_at": "2026-05-14",
+          "expected_effect": "+15pp toward YES; bilateral reset is the typical precondition."
+        },
+        {
+          "name": "Saudi Arabia and Kuwait lift restrictions on US military access",
+          "state": "OBSERVED",
+          "observed_at": "2026-05-07",
+          "expected_effect": "Primary resolution trigger met May 7-8."
+        }
+      ],
+      "status": "RESOLVED-YES",
+      "graveyard_reason": "resolved",
+      "last_reasoned_at": "2026-05-17"
+    },
+    {
+      "id": "2026-05-11-hormuz-commercial-shipping-resumed-by-june-10",
+      "question": "Will at least 50 commercial vessels per day transit the Strait of Hormuz (50%+ of pre-war ~120/day baseline) during any consecutive 7-day window before EOD 2026-06-10?",
+      "owner_category": "market",
+      "horizon_days": 30,
+      "horizon_date": "2026-06-10",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-06-11",
+      "p": 0.05,
+      "p_prior": 0.05,
+      "prior_date": "2026-05-17",
+      "delta_reason": "No material movement. Bloomberg (May 17) confirmed Hormuz gridlock persists with daily transits at approximately 10 vessels — one-fifth of the 50/day threshold. Lloyd's war-risk premiums remain 1.5-3% of hull. Maersk moved one vessel with US military escort (May 6) but no scheduled resumption announced. Project Freedom remains paused; no Pentagon restart order issued. Iran five preconditions (ceasefire, sanctions lifted, assets released, compensation, sovereignty recognition over Hormuz) are structural blocks to any near-term transit normalization.",
+      "resolution_criteria": "YES if Hormuz Strait Monitor, BIMCO, Lloyd's List Intelligence, or UNCTAD reports at least 50 daily commercial transits averaged over 7 consecutive days within the horizon window, using Western-insured vessels (dark fleet excluded per ambiguity rule).",
+      "resolution_source_rule": "Hormuz Strait Monitor (primary), BIMCO or Lloyd's List Intelligence (secondary), UNCTAD Maritime Trade report (lagging confirmation).",
+      "ambiguity_rule": "If only Iranian-flagged or sanctions-evading dark-fleet vessels make up the transit count but Western insurers still refuse coverage: AMBIGUOUS-RESOLVE-AS-NO. The operationally meaningful question is whether Western commercial shipping has returned. Extortion-toll dark-fleet traversal does not count toward YES.",
+      "indicators": [
+        {
+          "name": "Lloyd's war-risk premium reduced below 1.5% of hull",
+          "state": "CONTRADICTED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+20pp toward YES; insurance is the binding constraint on commercial transit. Current 1.5-3% per Lloyd's List / LMA."
+        },
+        {
+          "name": "Maersk/MSC/Frontline announce return to scheduled Hormuz transit",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+25pp toward YES; major shipping lines lead the resumption."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-18"
+    },
+    {
+      "id": "2026-05-11-netanyahu-coalition-collapse-by-oct-27",
+      "question": "Will Netanyahu's governing coalition lose its 61-seat Knesset majority (via defection, dissolution motion, or no-confidence) before the mandatory 2026-10-27 election date?",
+      "owner_category": "regime",
+      "horizon_days": 169,
+      "horizon_date": "2026-10-27",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-10-28",
+      "p": 0.95,
+      "p_prior": 0.35,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Resolved YES (Day 79 Sunday cold-start audit confirmed). Degel HaTorah and Agudat Yisrael formally departed coalition reducing seats to 60 — below 61-seat majority. UTJ co-signing dissolution bill confirms sub-61 political reality. Schema ceiling p=0.95 applied.",
+      "resolution_criteria": "YES if a Knesset roll-call vote confirms coalition loss of majority (61 seats), OR if Netanyahu announces early dissolution and election date moves earlier than 2026-10-27. NO if coalition survives to mandatory election date with 61+ seats intact.",
+      "resolution_source_rule": "Knesset official record + Reuters/Haaretz/Times of Israel confirmation. Polling alone does not resolve.",
+      "ambiguity_rule": "If coalition drops below 61 but Netanyahu remains caretaker PM until election: counts as YES (majority lost). If a single party (e.g. Smotrich) departs but coalition retains 61+: counts as NO.",
+      "indicators": [
+        {
+          "name": "Degel HaTorah and Agudat Yisrael formally depart coalition reducing seats below 61",
+          "state": "OBSERVED",
+          "observed_at": "2025-07-01",
+          "expected_effect": "Condition met: coalition at 60 seats per NPR/i24NEWS — resolution threshold crossed."
+        },
+        {
+          "name": "Smotrich formally departs coalition",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-17",
+          "expected_effect": "Not needed for resolution — already resolved."
+        }
+      ],
+      "status": "RESOLVED-YES",
+      "graveyard_reason": "resolved",
+      "last_reasoned_at": "2026-05-17"
+    },
+    {
+      "id": "2026-05-14-knesset-dissolution-vote-passes-by-may-28",
+      "question": "Will the Knesset pass a dissolution bill (any version — coalition or opposition) before EOD 2026-05-28?",
+      "owner_category": "domestic",
+      "horizon_days": 14,
+      "horizon_date": "2026-05-28",
+      "created_at": "2026-05-14",
+      "expires_at": "2026-05-29",
+      "p": 0.88,
+      "p_prior": 0.88,
+      "prior_date": "2026-05-17",
+      "delta_reason": "No material movement. All four coalition factions remain co-signatories. Shas confirmed YES vote for the preliminary reading scheduled May 20 (Times of Israel, May 18). No injunction filed as of May 18. The dissolution bill requires four readings; given the May 20 preliminary reading is confirmed and all-party backing persists, passage within May 28 horizon remains consistent with inherited p=0.88. Note: 'passes by May 28' in resolution criteria requires the FINAL reading, not just preliminary — see ambiguity rule. The coalition scramble to reach a Haredi compromise before the May 20 vote is an active risk; no deal announced as of May 18.",
+      "resolution_criteria": "YES if the Knesset passes a dissolution bill by a majority vote before EOD 2026-05-28, confirmed by Times of Israel, Haaretz, or official Knesset records. Coalition or opposition bill both count.",
+      "resolution_source_rule": "Times of Israel, Haaretz, or official Knesset records; corroborated by Reuters or AP wire.",
+      "ambiguity_rule": "If vote is scheduled but postponed past May 28 due to Speaker delay or injunction = RESOLVE-NO. If bill passes a preliminary reading but not a final reading by May 28 = RESOLVE-NO. Multiple bills merged into one that passes = RESOLVE-YES. Opposition bill passing with same dissolution effect = RESOLVE-YES.",
+      "indicators": [
+        {
+          "name": "All four coalition factions co-signed dissolution bill",
+          "state": "OBSERVED",
+          "observed_at": "2026-05-14",
+          "expected_effect": "+15pp toward YES; supermajority coalition signals rapid passage."
+        },
+        {
+          "name": "Shas confirms YES vote for preliminary reading",
+          "state": "OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+5pp toward YES; Shas confirmation removes one faction-defection risk."
+        },
+        {
+          "name": "Speaker Ohana confirmed May 20 for preliminary reading",
+          "state": "OBSERVED",
+          "observed_at": "2026-05-14",
+          "expected_effect": "+10pp toward YES; formal scheduling is the procedural unlock."
+        },
+        {
+          "name": "No Haredi last-minute deal announced before May 20 vote",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "If a Haredi deal is struck before May 20 withdrawing the dissolution push, would reduce p by ~15pp."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-18"
+    },
+    {
+      "id": "2026-05-17-knesset-dissolution-preliminary-vote-by-may-21",
+      "question": "Will the Knesset dissolution bill pass its preliminary (first) reading vote before EOD 2026-05-21?",
+      "owner_category": "domestic",
+      "horizon_days": 4,
+      "horizon_date": "2026-05-21",
+      "created_at": "2026-05-17",
+      "expires_at": "2026-05-22",
+      "p": 0.87,
+      "p_prior": 0.82,
+      "prior_date": "2026-05-17",
+      "delta_reason": "Updated from 0.82 to 0.87. Shas (7 seats) publicly confirmed YES vote for the preliminary reading, published in Times of Israel on May 18. This removes the last faction-defection uncertainty for the coalition side. No injunction has been filed with the Supreme Court as of May 18. Speaker Ohana's May 20 scheduling stands. Residual 13pp uncertainty: a last-minute Haredi compromise deal that withdraws the dissolution push before the plenary, or an unexpected quorum failure.",
+      "resolution_criteria": "YES if official Knesset results show a dissolution bill (coalition or opposition version) obtained a majority in a preliminary reading vote held on or before May 21, 2026, confirmed by Times of Israel, Haaretz, or official Knesset records.",
+      "resolution_source_rule": "Times of Israel live blog, Haaretz Politics, or official Knesset (knesset.gov.il) vote records, confirmed by at least one additional Reuters/AP/AFP wire report.",
+      "ambiguity_rule": "If vote is held but tied or fails quorum = RESOLVE-NO. If vote postponed past May 21 due to Speaker delay = RESOLVE-NO (horizon missed). If coalition withdraws bill but opposition bill advances and passes = RESOLVE-YES. Multiple bills merged into one that passes = RESOLVE-YES.",
+      "indicators": [
+        {
+          "name": "Shas confirms YES vote for May 20 preliminary reading",
+          "state": "OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+5pp toward YES; Shas confirmation removes last faction-defection risk on coalition side."
+        },
+        {
+          "name": "No procedural injunction filed before May 20 session",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+15pp toward YES if confirmed absent on May 19-20; injunction is the primary remaining risk."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-18"
+    },
+    {
+      "id": "2026-05-17-us-iran-talks-resume-by-may-31",
+      "question": "Will US and Iranian officials (at any level — envoy, deputy FM, or principal) hold a documented face-to-face or facilitated meeting specifically on war-termination/nuclear framework before EOD 2026-05-31?",
+      "owner_category": "diplomacy",
+      "horizon_days": 14,
+      "horizon_date": "2026-05-31",
+      "created_at": "2026-05-17",
+      "expires_at": "2026-06-01",
+      "p": 0.38,
+      "p_prior": 0.55,
+      "prior_date": "2026-05-17",
+      "delta_reason": "Reduced from 0.55 to 0.38, a −17pp move. Araghchi at BRICS New Delhi on May 16-17 stated publicly that Iran 'cannot trust the Americans at all,' calling distrust 'the main obstacle to any diplomatic effort.' Iran's Fars News Agency (May 13) published five preconditions for resumed talks — including lifting sanctions, releasing frozen assets, war compensation, and ending the US naval blockade — none of which the US has agreed to. The BRICS ministerial ended without a joint statement, partly because Iran-UAE tensions blocked consensus, signaling Iran's isolation from potential multilateral pressure for concessions. No Oman FM announcement of facilitation. No confirmed Witkoff travel to Gulf states post-May 16. The 13-day remaining window (May 18-31) is not sufficient to move through Iran's five preconditions to a face-to-face meeting at current pace.",
+      "resolution_criteria": "YES if Reuters, AP, AFP, or Axios report that named US and Iranian officials met in person (directly or via Oman/Pakistan facilitation) in a session described as addressing war-termination, ceasefire terms, or nuclear framework, with both governments acknowledging the meeting occurred.",
+      "resolution_source_rule": "Reuters, AP, or AFP newswire confirmation; OR Axios with named-official attribution from both governments. NOT social media alone.",
+      "ambiguity_rule": "Indirect written message exchanges without a documented meeting = RESOLVE-NO. Meetings at multilateral fora where US-Iran bilateral contact is incidental = RESOLVE-NO unless both governments describe it as a bilateral session. Meeting held but one side immediately denies = RESOLVE-AMBIGUOUS.",
+      "indicators": [
+        {
+          "name": "Oman FM announces facilitation of US-Iran session",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+25pp toward YES if observed; Oman is the established channel for bilateral facilitation."
+        },
+        {
+          "name": "Witkoff travel to Gulf states confirmed by May 25",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+15pp toward YES; Witkoff travel to Oman/UAE is operational precondition."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-18"
+    },
+    {
+      "id": "2026-05-17-israel-elections-date-set-before-june-15",
+      "question": "Will the Israeli government formally set a general election date before EOD 2026-06-15?",
+      "owner_category": "domestic",
+      "horizon_days": 29,
+      "horizon_date": "2026-06-15",
+      "created_at": "2026-05-17",
+      "expires_at": "2026-06-16",
+      "p": 0.70,
+      "p_prior": 0.70,
+      "prior_date": "2026-05-17",
+      "delta_reason": "No material movement. N3 preliminary vote (May 20) has not yet occurred. No House Committee convening observed. Dissolution trajectory remains strong (N3 updated to 0.87) and a House Committee date-setting after successful preliminary reading is procedurally expected within 14 days, keeping the June 15 deadline within reach. The bill does not set an election date automatically — House Committee must convene and specify a date within the statutory 3-5 month window. No new evidence changes the 0.70 estimate today.",
+      "resolution_criteria": "YES if the Knesset House Committee or government formally announces a specific date for general elections, confirmed by Times of Israel, Haaretz, or Knesset official records, after the dissolution bill has passed at least its first reading. The election date must be a specific calendar date, not a range.",
+      "resolution_source_rule": "Times of Israel, Haaretz, or official Knesset records; corroborated by Reuters or AP wire.",
+      "ambiguity_rule": "If dissolution bill passes but House Committee fails to convene and set date before June 15 = RESOLVE-NO. Netanyahu delays via court injunction and no date is set = RESOLVE-NO. Date set by decree confirmed by both government and Times of Israel = RESOLVE-YES.",
+      "indicators": [
+        {
+          "name": "Dissolution bill passes first reading (N3 resolves YES)",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+30pp toward YES; dissolution advancement is the necessary precondition."
+        },
+        {
+          "name": "House Committee convened to table election date",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+25pp toward YES; committee convening after dissolution vote typically produces date within 14 days."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-18"
+    },
+    {
+      "id": "2026-05-17-hormuz-project-freedom-restart-by-june-1",
+      "question": "Will the US military formally restart Operation Project Freedom (naval escort through Hormuz) before EOD 2026-06-01?",
+      "owner_category": "military",
+      "horizon_days": 15,
+      "horizon_date": "2026-06-01",
+      "created_at": "2026-05-17",
+      "expires_at": "2026-06-02",
+      "p": 0.20,
+      "p_prior": 0.28,
+      "prior_date": "2026-05-17",
+      "delta_reason": "Reduced from 0.28 to 0.20, a −8pp move. Iran's five preconditions published via Fars (May 13) include an explicit demand to end the US naval blockade as a precondition for talks — meaning Iran treats any resumed US escort operation as a ceasefire violation. Araghchi's 'cannot trust Americans' language (May 16-17) removes the near-term political space in which a Trump administration could justify restarting Project Freedom as a confidence-building measure rather than a confrontational act. No Pentagon restart announcement. No Maersk/MSC Gulf route resumption. The 14-day remaining window (May 18 to June 1) requires a diplomatic breakthrough that has no observable precursor signals.",
+      "resolution_criteria": "YES if Pentagon or CENTCOM publicly confirms resumption of naval escort operations through the Strait of Hormuz, with at least one merchant vessel successfully transiting under US military escort after May 17, 2026, confirmed by Reuters, AP, USNI News, or official CENTCOM statement.",
+      "resolution_source_rule": "CENTCOM official statement OR USNI News confirmed by Reuters/AP. ADS-B track data alone from MarineTraffic insufficient without official statement.",
+      "ambiguity_rule": "A single US Navy vessel passing Hormuz without escorting merchant ship = RESOLVE-NO. US aircraft overflights without surface escort = RESOLVE-NO. Resumed escort paused within 24h = RESOLVE-YES (the restart occurred even if brief). Iranian acquiescence without formal escort framing = RESOLVE-NO.",
+      "indicators": [
+        {
+          "name": "Pentagon announces formal Project Freedom restart",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+40pp toward YES; official restart announcement is the primary resolution trigger."
+        },
+        {
+          "name": "Maersk/MSC announce Gulf route resumption",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+15pp toward YES; major shipping line resumption signals both political clearance and operational readiness."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-18"
+    },
+    {
+      "id": "2026-05-17-iran-khamenei-statement-on-talks-by-june-7",
+      "question": "Will Supreme Leader Mojtaba Khamenei make a public statement directly addressing the status of US-Iran war-termination negotiations before EOD 2026-06-07?",
+      "owner_category": "regime",
+      "horizon_days": 21,
+      "horizon_date": "2026-06-07",
+      "created_at": "2026-05-17",
+      "expires_at": "2026-06-08",
+      "p": 0.65,
+      "p_prior": 0.72,
+      "prior_date": "2026-05-17",
+      "delta_reason": "Reduced from 0.72 to 0.65, a −7pp move. Khamenei's April 30 written statement on nuclear capabilities ('national assets') addressed the general negotiation posture but did not specifically name the US-Iran diplomatic track or ceasefire framework — per resolution criteria it does not count as YES. Araghchi's BRICS statements (May 15-17) were issued publicly without any reported Khamenei briefing or green-light, suggesting the supreme leader remains in a deliberate communications posture. The deepening enrichment deadlock and Iran's five-preconditions hardening create conditions where a Khamenei statement on the specific negotiation track is less likely in the near term: when talks are at an impasse, leadership avoids public statements that could be read as signaling flexibility or foreclosing it. The 20-day remaining window still provides meaningful probability.",
+      "resolution_criteria": "YES if Khamenei's official website (khamenei.ir), IRNA, or Press TV publishes a statement in which Khamenei explicitly references the ongoing US-Iran diplomatic track, Hormuz negotiations, or nuclear framework discussions — not merely generic 'resistance' or anti-American rhetoric. Statement must be dateable to May 17–June 7, 2026.",
+      "resolution_source_rule": "khamenei.ir primary; corroborated by IRNA or Reuters/AFP translation. Iran International or Al Jazeera English may serve as secondary confirmation.",
+      "ambiguity_rule": "Generic anti-US speeches without reference to specific negotiation track = RESOLVE-NO. Statements by aides 'on behalf of' Khamenei = RESOLVE-NO unless published on khamenei.ir as his direct statement. Statement published after June 7 = RESOLVE-NO.",
+      "indicators": [
+        {
+          "name": "Khamenei written statement specifically naming the negotiation track or ceasefire framework",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+35pp toward YES; any statement meeting the resolution criteria would represent the primary resolution trigger."
+        },
+        {
+          "name": "Araghchi publicly briefs Khamenei's office on BRICS/talks outcome",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-05-18",
+          "expected_effect": "+20pp toward YES; a formal briefing typically precedes a public Khamenei statement."
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-05-18"
+    }
+  ]
+}
