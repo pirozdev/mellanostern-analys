@@ -1,26 +1,52 @@
 #!/usr/bin/env python3
 """
-Lint gate for daily-update-draft pipeline.
+Lint gate for daily-update-draft + daily-update-publish pipelines.
 
-Runs in Step 8 of /daily-update-draft. Validates:
+Three modes:
 
-1. Forecast schema (forecasts/active.json validates against schemas/forecast.schema.json)
-2. Max 7 ACTIVE forecasts
-3. Every ACTIVE forecast has resolution_criteria + ambiguity_rule + ≥1 indicator
-4. Banned-verb scan in two HTML sections (delta + inside-iran)
-5. Every <p> in Delta + Inside Iran ends with a forecast citation OR context-only marker
+  Full      (draft Step 8):
+    python3 scripts/lint-draft.py <html> <forecasts.json>
+      Runs schema check on forecasts + verb-ban + cite-closure on HTML sections.
+
+  Forecasts-only (publish Step 6 — schema sanity on forecasts-updated.json):
+    python3 scripts/lint-draft.py --forecasts-only <forecasts.json>
+      Skips HTML extraction entirely. Use when validating just the persistent
+      state file with no HTML context (e.g. mid-publish sweep).
+
+  HTML-only   (debugging / template smoke-test):
+    python3 scripts/lint-draft.py --html-only <html>
+      Skips forecast schema. Useful for verifying template structure + verb
+      discipline without a full forecasts JSON in hand.
+
+Checks performed:
+
+  Forecast schema (full / forecasts-only):
+    - Max 7 ACTIVE forecasts (cap)
+    - Horizon coverage warnings (no near-term / no 7-30d)
+    - Required fields per object (id, question, owner_category, p, p_prior,
+      resolution_criteria, ambiguity_rule, indicators, status, ...)
+    - owner_category in {diplomacy, military, domestic, regime, market, humanitarian}
+    - status in {ACTIVE, RESOLVED-YES, RESOLVED-NO, RESOLVED-AMBIGUOUS,
+      OPEN-AMBIGUOUS, OBE}
+    - p in [0.05, 0.95] (Codex 5-95% rule)
+    - resolution_criteria ≥30 chars; ambiguity_rule ≥20 chars
+    - ≥1 indicator per forecast
+    - graveyard_reason present when status is non-ACTIVE
+
+  HTML lints (full / html-only):
+    - Banned-verb scan in <div class="section" id="delta"> and "inside-iran"
+    - Every <p> in those sections ends with → moved F# / → supports F# /
+      → context only
 
 Exit codes:
   0 = pass (publishable)
   1 = fail (one or more checks blocked)
-  2 = warn (passes but flagged; routine should still publish, just log)
-
-Usage:
-  python3 scripts/lint-draft.py drafts/YYYY-MM-DD/index.html.new forecasts/active.json
+  2 = warn (passes but flagged)
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
@@ -209,34 +235,76 @@ def lint_section_text(section_html: str, label: str) -> list[str]:
     return errors
 
 
+def parse_args() -> argparse.Namespace:
+    """Parse CLI; support positional (full mode) + flag-based modes.
+
+    Backwards-compatible: `lint-draft.py <html> <forecasts>` still works.
+    """
+    parser = argparse.ArgumentParser(
+        prog="lint-draft.py",
+        description="Lint gate for daily-update-draft + publish pipelines.",
+        epilog="See module docstring for full check list. Exit: 0=pass, 1=fail, 2=warn.",
+    )
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument(
+        "--forecasts-only",
+        metavar="FORECASTS_JSON",
+        help="Run only forecast schema checks (skip HTML extraction).",
+    )
+    mode.add_argument(
+        "--html-only",
+        metavar="HTML_FILE",
+        help="Run only HTML lints (skip forecast schema).",
+    )
+    parser.add_argument(
+        "positional",
+        nargs="*",
+        help="Full mode: <html> <forecasts>. Ignored if --forecasts-only or --html-only.",
+    )
+    return parser.parse_args()
+
+
 def main() -> int:
-    if len(sys.argv) != 3:
-        print(__doc__, file=sys.stderr)
-        return 2
+    args = parse_args()
 
-    html_path = Path(sys.argv[1])
-    forecasts_path = Path(sys.argv[2])
+    # Determine mode + resolve file paths
+    html_path: Optional[Path] = None
+    forecasts_path: Optional[Path] = None
 
-    if not html_path.exists():
+    if args.forecasts_only:
+        forecasts_path = Path(args.forecasts_only)
+    elif args.html_only:
+        html_path = Path(args.html_only)
+    else:
+        # Full mode requires exactly two positional args
+        if len(args.positional) != 2:
+            print(__doc__, file=sys.stderr)
+            return 2
+        html_path = Path(args.positional[0])
+        forecasts_path = Path(args.positional[1])
+
+    # Validate file existence
+    if html_path is not None and not html_path.exists():
         die(f"FAIL: HTML file not found: {html_path}")
-    if not forecasts_path.exists():
+    if forecasts_path is not None and not forecasts_path.exists():
         die(f"FAIL: forecasts file not found: {forecasts_path}")
-
-    html = html_path.read_text(encoding="utf-8")
-    active = load_forecasts(forecasts_path)
 
     all_errors: list[str] = []
 
-    # 1-3: forecast checks
-    all_errors.extend(validate_forecast_schema(active))
+    # Forecast schema checks
+    if forecasts_path is not None:
+        active = load_forecasts(forecasts_path)
+        all_errors.extend(validate_forecast_schema(active))
 
-    # 4-5: section lints
-    for sid, label in [("delta", "DELTA"), ("inside-iran", "INSIDE_IRAN")]:
-        section = extract_section(html, sid)
-        if section is None:
-            all_errors.append(f"FAIL: section '{sid}' not found in HTML; structure broken.")
-            continue
-        all_errors.extend(lint_section_text(section, label))
+    # HTML section lints
+    if html_path is not None:
+        html = html_path.read_text(encoding="utf-8")
+        for sid, label in [("delta", "DELTA"), ("inside-iran", "INSIDE_IRAN")]:
+            section = extract_section(html, sid)
+            if section is None:
+                all_errors.append(f"FAIL: section '{sid}' not found in HTML; structure broken.")
+                continue
+            all_errors.extend(lint_section_text(section, label))
 
     # Categorize
     fails = [e for e in all_errors if e.startswith("FAIL")]

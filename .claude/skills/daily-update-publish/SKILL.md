@@ -147,7 +147,8 @@ mv "${DRAFT_DIR}/index.html.new" index.html
 if git show "$LATEST_BRANCH:${DRAFT_DIR}/forecasts-updated.json" >/dev/null 2>&1; then
   git checkout "$LATEST_BRANCH" -- "${DRAFT_DIR}/forecasts-updated.json"
   # Validera schema innan vi skriver över main:s active.json
-  python3 scripts/lint-draft.py /dev/null "${DRAFT_DIR}/forecasts-updated.json" || {
+  # --forecasts-only skippar HTML-sektionschecks (de gjordes vid draft-generation)
+  python3 scripts/lint-draft.py --forecasts-only "${DRAFT_DIR}/forecasts-updated.json" || {
     echo "FEL: forecasts-updated.json validerar inte"; exit 1;
   }
   # Resolved/OBE forecasts arkiveras separat
