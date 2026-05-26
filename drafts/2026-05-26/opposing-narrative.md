@@ -1,0 +1,39 @@
+# Opposing Narrative — Day 88 (2026-05-26)
+
+**Triggered by:** F1 moved −23pp; F3 moved −5pp; F5 moved −16pp; F4 resolved NO; F6 new forecast added.
+
+---
+
+## DA Opposing Narrative
+
+**Claim being opposed:** Iran-US deal and Hormuz reopening are "largely negotiated" and imminent, warranting upward movement on F3 and F1.
+
+**Best contrary evidence:**
+
+1. Al Jazeera (May 24) reports Iran simultaneously accused Washington of "obstruction" even as Rubio claimed "significant progress" — public contradiction in the same news cycle, a pattern historically associated with pre-breakdown posturing rather than pre-signing confidence.
+
+2. Axios May 24 notes the MOU still requires "final sign-off from Trump AND Iran's Supreme Leader" — the identity of Iran's supreme authority is disputed given the conflict background, creating a principal-identification problem that could invalidate any signed document under the disavowal clause.
+
+3. Windward.ai reports growing AIS-dark activity around Hormuz, inconsistent with a genuine reopening posture. Vessels transiting dark are not countable toward the 50/day resolution threshold.
+
+**DA falsifier:** Trump signs a document with a named Iranian principal by June 1, AND Hormuz Strait Monitor records measurable uptick above 5 transits/day within 48 hours — absent that, the deal remains a negotiating signal, not a resolution event.
+
+**DA recommendation:** Hold F3 at 0.25 pending final confirmation; reduce F1 horizon-optimism (0.20–0.25 more appropriate even under optimistic scenario given mine-clearing time constraint); retire F4 (NO); urgent ambiguity-rule patches for F2 and F5.
+
+---
+
+## Judge Ruling
+
+**PARTIALLY ACCEPT.**
+
+**Point 1 (Al Jazeera public contradiction):** ACCEPTED. The public contradiction pattern (simultaneous Rubio "significant progress" and Iranian "obstruction" in the same news cycle) is a genuine pre-breakdown diagnostic. This is not dismissible as negotiating theater — it embodies genuine domestic political constraints on both sides that reduce the probability of rapid closure. This contributed to F3 moving from 0.25 to 0.20.
+
+**Point 2 (Principal-identification problem):** ACCEPTED as a hygiene concern. The Khamenei-naming patch has been applied to F3 ambiguity rule (replaced with "Supreme Leader or acting sovereign authority"). As a probability driver, the risk is already priced in via the disavowal clause: if Iran signs but the acting supreme authority disavows within 72h, it resolves AMBIGUOUS-NO. The structural problem does not require additional downward probability adjustment beyond the patch.
+
+**Point 3 (Windward AIS-dark activity):** NEUTRAL marginal effect. Consistent with the ~2 vessels/day finding already incorporated in F1 revision to 0.15. Not new information requiring additional downward pressure.
+
+**On DA's "hold F3 at 0.25" recommendation:** REJECTED. The DA recommendation was constructed prior to identifying the three new downward-pressure events: (1) US strikes on Bandar Abbas on the same day as Doha talks; (2) Araghchi's named "deadlock" statement on enriched uranium; (3) Baghaei's direct "not imminent" language. These events are genuinely new since May 19 and collectively warrant a downward move. The intermediate position of 0.20 (between the Analyst's 0.18 and the prior hold-at-0.25) is the calibrated ruling.
+
+**On DA's F1 range (0.20–0.25 under optimistic scenario):** PARTIALLY ACCEPTED. Correct that mine-clearing is a binding physical constraint even under an optimistic deal scenario. However, the DA's range was constructed before the May 25 strikes on mine-laying boats — strikes that simultaneously degraded Iranian mine-laying capability AND damaged Iranian willingness to cooperate on mine-clearance within the June 10 window. 0.15 (marginal upward nudge from the Analyst's 0.14 to reflect the timing concern) is the ruling.
+
+**DA falsifier tracking:** The falsifier (signed document with named Iranian principal by June 1 AND Hormuz uptick above 5 transits/day within 48h) is logged as a tracked leading indicator for F3 and F6. Non-occurrence by June 1 is consistent with the current F3=0.20 (already prices in 80% chance of NO by June 5).
