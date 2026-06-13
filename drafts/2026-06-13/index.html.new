@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geopolitical Scenario Analysis — Middle East</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #22263a;
+    --accent: #4f8cff;
+    --accent2: #ff6b6b;
+    --accent3: #ffd93d;
+    --accent4: #6bcb77;
+    --text: #e0e0e0;
+    --text-muted: #8a8fa8;
+    --border: #2a2e3f;
+    --red: #ff4757;
+    --orange: #ffa502;
+    --green: #2ed573;
+    --iran: #8e44ad;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+  .hero { text-align: center; padding: 56px 20px 36px; background: linear-gradient(135deg, #1a1d27 0%, #0f1117 100%); border-bottom: 1px solid var(--border); }
+  .hero h1 { font-size: 2.2em; font-weight: 700; margin-bottom: 10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .subtitle { font-size: 1em; color: var(--text-muted); max-width: 700px; margin: 0 auto 16px; }
+  .hero .date-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 18px; font-size: 0.85em; color: var(--accent); }
+  .hero .war-day { display: inline-block; background: var(--accent2); color: #fff; border-radius: 20px; padding: 6px 18px; font-size: 0.85em; font-weight: 600; margin-left: 8px; }
+  .hero .build-meta { margin-top: 10px; font-size: 0.75em; color: var(--text-muted); }
+  .triplet-badge { background: linear-gradient(135deg, #1a2235, #0e1a1e); border: 1px solid var(--accent); border-radius: 8px; padding: 6px 12px; font-size: 0.75em; color: var(--accent); display: inline-block; margin-top: 10px; }
+
+  .direction-of-travel { max-width: 900px; margin: 24px auto; background: linear-gradient(135deg, #1a2235, #1a1d27); border: 2px solid var(--accent); border-radius: 12px; padding: 22px 28px; font-size: 1.05em; line-height: 1.55; }
+  .direction-of-travel .label { font-size: 0.72em; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 6px; }
+  .direction-of-travel .body { color: var(--text); }
+  .direction-of-travel .body .cite { color: var(--accent); font-weight: 600; font-family: 'SF Mono', Menlo, monospace; font-size: 0.92em; }
+  .direction-of-travel.no-move { border-color: var(--border); }
+  .direction-of-travel.no-move .body { color: var(--text-muted); font-style: italic; }
+
+  .disclaimer { background: #2a1a1a; border: 1px solid #5a2020; border-radius: 12px; padding: 16px 20px; margin: 24px auto; max-width: 900px; font-size: 0.85em; color: #ffaaaa; }
+  .disclaimer strong { color: var(--accent2); }
+
+  .section { padding: 30px 0; }
+  .section-title { font-size: 1.5em; font-weight: 700; margin-bottom: 18px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); display: flex; align-items: baseline; justify-content: space-between; }
+  .section-title .meta { font-size: 0.6em; color: var(--text-muted); font-weight: 400; }
+
+  .forecast-board { display: flex; flex-direction: column; gap: 12px; }
+  .forecast-bucket-label { font-size: 0.75em; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin: 14px 0 4px; padding-left: 4px; }
+  .forecast-bucket-label:first-child { margin-top: 0; }
+  .forecast-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 16px 20px; }
+  .forecast-card.cat-diplomacy { border-left-color: var(--accent); }
+  .forecast-card.cat-military { border-left-color: var(--red); }
+  .forecast-card.cat-regime { border-left-color: var(--iran); }
+  .forecast-card.cat-market { border-left-color: var(--accent3); }
+  .forecast-card.cat-domestic { border-left-color: var(--accent4); }
+  .forecast-card.cat-humanitarian { border-left-color: var(--orange); }
+  .forecast-card .fc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+  .forecast-card .fc-id { font-family: 'SF Mono', Menlo, monospace; font-size: 0.7em; color: var(--text-muted); }
+  .forecast-card .fc-category { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); padding: 2px 8px; border: 1px solid var(--border); border-radius: 4px; }
+  .forecast-card .fc-question { font-size: 1em; font-weight: 600; color: var(--text); margin: 6px 0 10px; line-height: 1.45; }
+  .forecast-card .fc-probrow { display: flex; align-items: baseline; gap: 18px; margin-bottom: 8px; flex-wrap: wrap; }
+  .forecast-card .fc-p { font-size: 1.8em; font-weight: 800; color: var(--accent); }
+  .forecast-card .fc-delta { font-size: 0.9em; color: var(--text-muted); }
+  .forecast-card .fc-delta.move-up { color: var(--red); }
+  .forecast-card .fc-delta.move-down { color: var(--green); }
+  .forecast-card .fc-delta.no-move { color: var(--border); }
+  .forecast-card .fc-horizon { font-size: 0.85em; color: var(--text-muted); }
+  .forecast-card .fc-delta-reason { font-size: 0.92em; color: var(--text); margin: 6px 0 10px; }
+  .forecast-card .fc-meta-row { font-size: 0.8em; color: var(--text-muted); display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .forecast-card .fc-meta-row dt { font-weight: 600; color: var(--text-muted); }
+  .forecast-card .fc-meta-row dd { color: var(--text); }
+  .forecast-card .fc-indicators { font-size: 0.82em; color: var(--text-muted); margin-top: 6px; }
+  .forecast-card .fc-indicator { display: inline-block; padding: 2px 8px; margin: 2px; border-radius: 4px; border: 1px solid var(--border); }
+  .forecast-card .fc-indicator.state-OBSERVED { background: rgba(46, 213, 115, 0.15); border-color: var(--green); color: var(--green); }
+  .forecast-card .fc-indicator.state-PARTIAL { background: rgba(255, 165, 2, 0.15); border-color: var(--orange); color: var(--orange); }
+  .forecast-card .fc-indicator.state-CONTRADICTED { background: rgba(255, 71, 87, 0.15); border-color: var(--red); color: var(--red); }
+  .forecast-card .fc-indicator.state-NOT_OBSERVED { color: var(--text-muted); }
+  .forecast-card.status-OBE { opacity: 0.55; border-left-style: dashed; }
+  .forecast-empty-slot { background: transparent; border: 1px dashed var(--border); border-radius: 10px; padding: 14px 20px; color: var(--text-muted); font-style: italic; font-size: 0.88em; }
+
+  .delta-narrative p { color: var(--text); font-size: 0.96em; margin-bottom: 14px; }
+  .delta-narrative p .cite { color: var(--accent); font-family: 'SF Mono', Menlo, monospace; font-size: 0.88em; }
+  .delta-narrative p .context-only { color: var(--text-muted); font-family: 'SF Mono', Menlo, monospace; font-size: 0.85em; }
+
+  .scenario-map { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; }
+  .prob-bar-container { display: flex; height: 36px; border-radius: 8px; overflow: hidden; margin: 8px 0 14px; }
+  .prob-bar { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; color: #fff; }
+  .prob-escalation { background: var(--red); }
+  .prob-status { background: var(--orange); }
+  .prob-deescalation { background: var(--green); }
+  .scenario-line { font-size: 0.92em; color: var(--text); margin-bottom: 6px; }
+  .scenario-line strong.label-esc { color: var(--red); }
+  .scenario-line strong.label-prot { color: var(--orange); }
+  .scenario-line strong.label-desc { color: var(--green); }
+
+  .inside-iran { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--iran); border-radius: 10px; padding: 18px 22px; }
+  .inside-iran p { font-size: 0.93em; margin-bottom: 12px; }
+  .inside-iran p .cite { color: var(--accent); font-family: 'SF Mono', Menlo, monospace; font-size: 0.85em; }
+  .iran-media-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .iran-media-badge { display: inline-block; padding: 2px 8px; border: 1px solid var(--iran); border-radius: 4px; font-size: 0.72em; color: var(--iran); }
+
+  .regime-watch { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; }
+  .regime-watch-meta { font-size: 0.8em; color: var(--text-muted); margin-bottom: 14px; }
+  .regime-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+  .regime-row:last-child { border-bottom: 0; }
+  .regime-row .name { font-weight: 600; }
+  .regime-row .p { font-size: 1.4em; font-weight: 700; color: var(--orange); }
+  .regime-row .drivers { font-size: 0.85em; color: var(--text-muted); flex-basis: 100%; margin-top: 4px; }
+
+  .sources-list { list-style: none; padding: 0; }
+  .sources-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.88em; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .sources-list a { color: var(--accent); text-decoration: none; }
+  .sources-list a:hover { text-decoration: underline; }
+  .source-tier { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 0.7em; font-weight: 700; letter-spacing: 0.5px; flex-shrink: 0; }
+  .source-tier.tier-TIER1 { background: rgba(46, 213, 115, 0.15); color: var(--green); border: 1px solid var(--green); }
+  .source-tier.tier-OSINT { background: rgba(79, 140, 255, 0.15); color: var(--accent); border: 1px solid var(--accent); }
+  .source-tier.tier-STATE_MEDIA { background: rgba(255, 165, 2, 0.15); color: var(--orange); border: 1px solid var(--orange); }
+  .source-tier.tier-EXPERT { background: rgba(155, 89, 182, 0.15); color: #9b59b6; border: 1px solid #9b59b6; }
+
+  .expert-appendix { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-top: 18px; }
+  .expert-appendix summary { padding: 14px 20px; cursor: pointer; font-weight: 600; color: var(--text-muted); font-size: 0.92em; user-select: none; }
+  .expert-appendix summary:hover { color: var(--text); }
+  .expert-appendix[open] summary { border-bottom: 1px solid var(--border); }
+  .expert-appendix .expert-body { padding: 14px 20px 18px; }
+  .expert-quote { padding: 10px 14px; border-left: 3px solid #9b59b6; margin-bottom: 12px; font-size: 0.9em; }
+  .expert-quote .expert-name { font-weight: 700; color: #9b59b6; margin-bottom: 4px; }
+  .expert-empty { color: var(--text-muted); font-style: italic; font-size: 0.88em; }
+
+  footer { text-align: center; padding: 32px 20px; color: var(--text-muted); font-size: 0.8em; border-top: 1px solid var(--border); margin-top: 32px; }
+  footer .next-update { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .hero { padding: 36px 16px 24px; }
+    .hero h1 { font-size: 1.5em; line-height: 1.3; }
+    .container { padding: 12px; }
+    .direction-of-travel { margin: 16px 12px; padding: 16px 18px; font-size: 0.95em; }
+    .disclaimer { margin: 16px 12px; padding: 12px; font-size: 0.8em; }
+    .section-title { font-size: 1.2em; }
+    .forecast-card { padding: 14px 16px; }
+    .forecast-card .fc-p { font-size: 1.5em; }
+    .scenario-map, .inside-iran, .regime-watch, .expert-appendix .expert-body { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Geopolitical Scenario Analysis — Middle East</h1>
+  <p class="subtitle">Forecast board + descriptive delta. Predictions are time-bounded and scored; descriptions are sourced and verb-disciplined.</p>
+  <span class="date-badge">June 13, 2026</span>
+  <span class="war-day">Day 106</span>
+  <div class="build-meta">Published: <span id="pub-ts">2026-06-13 09:00 UTC+2</span> &middot; Build <span id="build-id" style="font-family:monospace;opacity:0.6;">v48.0</span></div>
+  <div class="triplet-badge">&#9878; Triple-blind: Analyst + Devil&#8217;s Advocate + Judge &middot; forecast-board v45</div>
+</div>
+
+<div class="container">
+
+  <!-- 1. DIRECTION OF TRAVEL -->
+  <div class="direction-of-travel">
+    <div class="label">Where this is heading</div>
+    <div class="body">
+      The diplomatic track moved further in 72 hours than at any point since the June&nbsp;1 suspension (<span class="cite">F1</span> +15pp to 0.45, <span class="cite">F2</span> +22pp to 0.62, <span class="cite">NF1</span> created at 0.40), while the military front held its fourth consecutive day without a direct exchange (<span class="cite">F3</span> &minus;20pp to 0.35), together constituting the most pronounced single-day shift in the scenario map since this conflict cycle began.
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>&#9888; DISCLAIMER:</strong> This analysis relies on open sources (OSINT) and AI-generated assessments. Probabilities are time-bounded forecasts with resolution criteria; track record visible internally until &ge;20 forecasts resolve. Descriptive sections enforce verb discipline &mdash; any causal/directional claim must cite a forecast or be marked context-only.
+  </div>
+
+  <!-- 2. FORECAST BOARD -->
+  <div class="section" id="forecast-board">
+    <h2 class="section-title">
+      Forecast Board
+      <span class="meta">7 active &middot; 1 resolved today (F5) &middot; last reasoned 2026-06-13</span>
+    </h2>
+
+    <div class="forecast-board">
+
+      <!-- NEAR-TERM (≤72h) -->
+      <div class="forecast-bucket-label">Near-Term (&le;72h)</div>
+
+      <div class="forecast-card cat-diplomacy status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F1 &middot; 2026-06-02-iran-resumes-us-talks-by-june-16</span>
+          <span class="fc-category">diplomacy</span>
+        </div>
+        <div class="fc-question">Will Iran formally resume direct or indirect nuclear/ceasefire talks with the US before EOD 2026-06-16, as evidenced by an officially confirmed session or explicit rescission of the June&nbsp;1 suspension?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">45%</span>
+          <span class="fc-delta move-up">&Delta; +15pp from 30% (2026-06-10)</span>
+          <span class="fc-horizon">&rarr; resolves by 2026-06-16</span>
+        </div>
+        <div class="fc-delta-reason">Pakistan PM Shehbaz Sharif announced on 2026-06-12 that a &ldquo;final, agreed upon text&rdquo; of a US-Iran peace deal has been reached via Pakistan&rsquo;s mediation. Iranian FM Araghchi stated on 2026-06-13 that the Islamabad MOU is &ldquo;closer to finalisation than ever before&rdquo; and described a two-stage agreement structure. Trump administration officials referenced a possible signing ceremony &ldquo;over the weekend in Europe&rdquo; with VP Vance attending. Qatar negotiators visited Tehran on approximately 2026-06-11. However, Iran&rsquo;s Foreign Ministry spokesperson Baghaei (IRNA) described deal reports as &ldquo;speculation&rdquo; on June&nbsp;11, the IRGC cast doubt on Trump&rsquo;s claims the same day, and the formal June&nbsp;1 suspension has not been explicitly rescinded in IRNA or Tasnim dispatches as of 0600 CET 2026-06-13. Khamenei sign-off unconfirmed. Judge p=0.45: strong pre-cursor signal cluster moves p above prior, but multiple unresolved gatekeeping steps and 3-day residual horizon limit upside.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if: (a) Iranian and US officials jointly confirm a formal negotiating session has been convened, OR (b) Iran&rsquo;s Foreign Ministry or Supreme Leader&rsquo;s office explicitly rescinds the June&nbsp;1 suspension in official state media, before EOD 2026-06-16. Informal back-channel contacts, Pakistan-only statements, and unilateral Trump assertions do not meet this bar.</dd>
+          <dt>Sources OK</dt><dd>Two independent TIER1 (Reuters, AP, AFP, Bloomberg, BBC, WSJ) OR one TIER1 + Iran MFA (IRNA) or Iranian state media. Pakistan PM statement alone = AMBIGUOUS-RESOLVE-AS-NO.</dd>
+          <dt>Ambiguity</dt><dd>If Iran and US hold a session but Iran disputes its characterization as formal resumption, resolve as AMBIGUOUS-NO. Pakistan or Qatar-mediated indirect contact without Iranian-side direct engagement = NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-OBSERVED">Pakistan PM confirms final agreed text (2026-06-12)</span>
+          <span class="fc-indicator state-OBSERVED">Araghchi: MOU closer than ever, two-stage structure (2026-06-13)</span>
+          <span class="fc-indicator state-CONTRADICTED">Baghaei + IRGC: deal reports are speculation (2026-06-11)</span>
+          <span class="fc-indicator state-NOT_OBSERVED">Iran June&nbsp;1 suspension formally rescinded in IRNA/Tasnim</span>
+        </div>
+      </div>
+
+      <!-- 7-30 DAYS -->
+      <div class="forecast-bucket-label">7&ndash;30 Days</div>
+
+      <div class="forecast-card cat-diplomacy status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">NF1 &middot; 2026-06-13-iran-us-mou-signed-by-june-17</span>
+          <span class="fc-category">diplomacy &middot; NEW</span>
+        </div>
+        <div class="fc-question">Will an official, publicly announced signing of the US-Iran Islamabad MOU (or equivalent ceasefire/nuclear framework document) occur before EOD 2026-06-17?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">40%</span>
+          <span class="fc-delta no-move">New forecast &mdash; no prior</span>
+          <span class="fc-horizon">&rarr; resolves by 2026-06-17</span>
+        </div>
+        <div class="fc-delta-reason">New forecast created Day 106. Pakistan PM Sharif confirmed a &ldquo;final, agreed upon text&rdquo; on 2026-06-12. Trump referenced a signing ceremony &ldquo;over the weekend in Europe&rdquo; with VP Vance. Araghchi on 2026-06-13 described the MOU as &ldquo;closer to finalisation than ever&rdquo; with a two-stage structure. Counter-signals: Iran MFA Baghaei called reports &ldquo;speculation&rdquo; on June&nbsp;11; IRGC dismissed Trump&rsquo;s claims; Khamenei sign-off undocumented; no IRNA rescission of June&nbsp;1 suspension. p=0.40 reflects strong pre-cursor signals balanced against undocumented Khamenei approval and Iran&rsquo;s institutionally bifurcated signaling.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if both an Iranian official (FM Araghchi, President Pezeshkian, or Supreme Leader Khamenei&rsquo;s office) AND a US official (Secretary Rubio, VP Vance, or President Trump in official capacity) publicly confirm the signing before EOD 2026-06-17. Trump social media alone = NO.</dd>
+          <dt>Sources OK</dt><dd>Reuters/AP/AFP/Bloomberg with named Iranian AND US officials both confirming signing, OR concurrent Iran MFA + US State Dept statements on the same document.</dd>
+          <dt>Ambiguity</dt><dd>Pakistan PM or third-party-only announcement without independent Iranian official confirmation = AMBIGUOUS-RESOLVE-AS-NO. If framework announced but Iran disputes characterization later, resolve AMBIGUOUS if both confirmed at signing.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">Iran MFA or Araghchi publicly confirms MOU signed</span>
+          <span class="fc-indicator state-NOT_OBSERVED">US State Dept or VP Vance confirms signing ceremony held</span>
+        </div>
+      </div>
+
+      <div class="forecast-card cat-diplomacy status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F2 &middot; 2026-06-10-iran-us-structured-round-by-june-24</span>
+          <span class="fc-category">diplomacy</span>
+        </div>
+        <div class="fc-question">Will a structured, formally convened round of Iran-US nuclear or ceasefire negotiations &mdash; with named principals and a documented venue &mdash; occur before EOD 2026-06-24?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">62%</span>
+          <span class="fc-delta move-up">&Delta; +22pp from 40% (2026-06-10)</span>
+          <span class="fc-horizon">&rarr; resolves by 2026-06-24</span>
+        </div>
+        <div class="fc-delta-reason">Pakistan PM&rsquo;s 2026-06-12 &ldquo;final agreed text&rdquo; announcement and Trump&rsquo;s reference to a signing ceremony &ldquo;over the weekend&rdquo; with VP Vance substantially raise the probability of a convened session before June&nbsp;24. Araghchi&rsquo;s framing of a two-stage agreement on 2026-06-13 aligns with a structured session to operationalize the MOU. G7 summit June&nbsp;15-17 provides an external deadline. F2&rsquo;s broader 14-day horizon absorbs near-term uncertainty: a failed weekend signing still leaves 9 days for a structured round to occur. Iran&rsquo;s Foreign Ministry has not confirmed a meeting date; IRGC injected doubt on June&nbsp;11. No confirmed TIER1 session held June&nbsp;10-13. Judge accepts Analyst&rsquo;s 0.62.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if a formally convened round of Iran-US negotiations occurs with named principals from both sides at FM or nuclear-negotiator level, a documented venue, and confirmation from at least one Iranian and one US official, before EOD 2026-06-24. Proximity talks via intermediaries without direct Iran-US presence do not qualify.</dd>
+          <dt>Sources OK</dt><dd>Two TIER1 (Reuters, AP, AFP, Bloomberg, BBC, WSJ) with named principals from both sides, OR concurrent Iranian MFA and US State Dept statements confirming convened session.</dd>
+          <dt>Ambiguity</dt><dd>Intermediary-mediated indirect talks without direct Iran-US presence = NO. Session announced but later disputed by either party as informal = AMBIGUOUS-NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-OBSERVED">Trump references signing ceremony this weekend, VP Vance attending (2026-06-12)</span>
+          <span class="fc-indicator state-OBSERVED">Araghchi: two-stage agreement structure described (2026-06-13)</span>
+          <span class="fc-indicator state-OBSERVED">G7 summit June&nbsp;15-17 with Hormuz demining on agenda</span>
+          <span class="fc-indicator state-PARTIAL">VP Vance reportedly attending &mdash; US-side report only</span>
+        </div>
+      </div>
+
+      <div class="forecast-card cat-military status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F3 &middot; 2026-06-10-iran-israel-direct-exchange-by-june-24</span>
+          <span class="fc-category">military</span>
+        </div>
+        <div class="fc-question">Will a direct military exchange between Iranian forces (including IRGC) and Israeli forces occur &mdash; with both sides publicly acknowledging strikes or fire &mdash; within any 48-hour window before EOD 2026-06-24? Proxy-only exchanges do not qualify.</div>
+        <div class="fc-probrow">
+          <span class="fc-p">35%</span>
+          <span class="fc-delta move-down">&Delta; &minus;20pp from 55% (2026-06-10)</span>
+          <span class="fc-horizon">&rarr; resolves by 2026-06-24</span>
+        </div>
+        <div class="fc-delta-reason">The June&nbsp;7-8 exchange predates F3&rsquo;s creation date (2026-06-10) and does not count toward resolution. Since creation, a 4-day ceasefire has held through June&nbsp;13 with no new direct Iran-Israel exchange documented. Netanyahu confirmed Israel halted Iran strikes at Trump&rsquo;s request circa June&nbsp;8. Iran declared a suspension of direct operations against Israel, conditional on Israel stopping Lebanon strikes. Deal-making momentum and active Trump pressure reduce probability of a fresh exchange in the next 11 days. However, Israel&rsquo;s Lebanon campaign continues at declared full force, Iran has threatened more severe attacks if Lebanon strikes continue, and Netanyahu explicitly stated Israel is not party to the Iran-US deal &mdash; preserving Israeli operational autonomy. Judge sets p=0.35.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if direct Iranian and Israeli forces conduct a documented military exchange in any 48-hour window before EOD 2026-06-24, with both governments publicly acknowledging the exchange. Proxy strikes without direct IRGC or IDF involvement = NO.</dd>
+          <dt>Sources OK</dt><dd>Two TIER1 with on-record IDF or Israeli government AND IRGC or Iranian government statements confirming strikes in both directions within the same 48-hour window.</dd>
+          <dt>Ambiguity</dt><dd>Only one side acknowledges strikes = AMBIGUOUS. Exchange involves only proxies without documented IRGC or IDF direct participation = NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-OBSERVED">4-day ceasefire holds: no direct Iran-Israel exchange June&nbsp;10-13</span>
+          <span class="fc-indicator state-OBSERVED">Netanyahu: Israel halted Iran strikes at Trump&rsquo;s request (~June&nbsp;8)</span>
+          <span class="fc-indicator state-PARTIAL">Iran conditional threat: more severe attacks if Lebanon strikes continue</span>
+          <span class="fc-indicator state-OBSERVED">Netanyahu: Israel is not party to Iran-US deal (June&nbsp;11)</span>
+        </div>
+      </div>
+
+      <div class="forecast-card cat-market status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F4 &middot; 2026-06-02-hormuz-50-vessels-7day-by-july-2</span>
+          <span class="fc-category">market</span>
+        </div>
+        <div class="fc-question">Will the 7-day rolling average of commercial vessel transits through the Strait of Hormuz reach or exceed 50 vessels per day before EOD 2026-07-02?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">20%</span>
+          <span class="fc-delta no-move">&Delta; 0pp from 20% (2026-06-10)</span>
+          <span class="fc-horizon">&rarr; resolves by 2026-07-02</span>
+        </div>
+        <div class="fc-delta-reason">No material change June&nbsp;10-13. CENTCOM documented 2-4 daily transits as of June&nbsp;11; Iran&rsquo;s IRGC declared the strait closed to all vessels on June&nbsp;11 (CENTCOM contested this). PortWatch data through June&nbsp;7 recorded 2 transits against a 94/day pre-crisis baseline. US mine-clearance operations are ongoing but safe corridor certification is not complete. G7 demining coalition awaiting US presidential approval at June&nbsp;15-17 summit. A deal-signing this weekend could begin unlocking conditions for shipping recovery, but reaching a 7-day average of 50 vessels by July&nbsp;2 requires a sustained step-change within 19 days with no evidence of that trajectory.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if any 7-day rolling average of commercial vessel transits through the Strait of Hormuz &mdash; as reported by PortWatch, CENTCOM, or Lloyd&rsquo;s List &mdash; reaches or exceeds 50 vessels per day before EOD 2026-07-02. Single-day spikes do not qualify.</dd>
+          <dt>Sources OK</dt><dd>PortWatch (IAEA/JRC), CENTCOM official press statements, or Lloyd&rsquo;s List showing 7-day rolling average &ge;50 vessels. Warship transits do not count toward commercial totals.</dd>
+          <dt>Ambiguity</dt><dd>If sources disagree, use PortWatch as primary. If PortWatch data delayed &gt;5 days, use CENTCOM official figures. Warship transits do not count.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-OBSERVED">CENTCOM: 2-4 commercial transits/day as of June&nbsp;11</span>
+          <span class="fc-indicator state-OBSERVED">Iran IRGC: Hormuz declared closed to all commercial vessels (June&nbsp;11)</span>
+          <span class="fc-indicator state-OBSERVED">G7 demining coalition operationally ready, awaiting US approval (June&nbsp;15-17)</span>
+          <span class="fc-indicator state-NOT_OBSERVED">PortWatch 7-day average &ge;20 vessels/day intermediate milestone</span>
+        </div>
+      </div>
+
+      <!-- 30-90 DAYS -->
+      <div class="forecast-bucket-label">30&ndash;90 Days</div>
+
+      <div class="forecast-card cat-domestic status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F6 &middot; 2026-06-02-knesset-sets-early-election-date-by-july-15</span>
+          <span class="fc-category">domestic</span>
+        </div>
+        <div class="fc-question">Will the Knesset formally set a date for early elections before EOD 2026-07-15, as evidenced by a passed dissolution bill with an election date inserted?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">55%</span>
+          <span class="fc-delta move-up">&Delta; +10pp from 45% (2026-06-10)</span>
+          <span class="fc-horizon">&rarr; resolves by 2026-07-15</span>
+        </div>
+        <div class="fc-delta-reason">Knesset dissolution bill passed first reading 106-0 on approximately 2026-06-01. Coalition whip Katz declined to insert an election date pending committee negotiations. i24NEWS confirmed the coalition temporarily lost its functioning parliamentary majority due to the Haredi draft crisis. Rabbi Dov Lando of Degel HaTorah publicly denounced Netanyahu as a &ldquo;liar&rdquo; and moved his faction toward supporting dissolution. One unconfirmed report referenced an emerging informal agreement on an October 20 election date. Cumulative evidence supports +10pp to 0.55. Residual uncertainty: Netanyahu coalition has survived previous dissolution threats; second and third readings remain unscheduled.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if the Knesset passes a dissolution bill with a specific election date inserted through all required readings and the President sets the election date, before EOD 2026-07-15. First reading passage alone is insufficient.</dd>
+          <dt>Sources OK</dt><dd>Israeli PMO or Knesset Speaker announcement confirmed by two TIER1 (Reuters, AP, AFP, Haaretz English, Times of Israel) stating dissolution bill passed with election date.</dd>
+          <dt>Ambiguity</dt><dd>Dissolution passes without election date inserted = AMBIGUOUS-NO. Bill passed then legally challenged or suspended by Supreme Court = AMBIGUOUS.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-OBSERVED">Dissolution bill passes first reading 106-0 (~June&nbsp;1)</span>
+          <span class="fc-indicator state-OBSERVED">Coalition temporarily loses functioning majority &mdash; Haredi crisis (June&nbsp;10)</span>
+          <span class="fc-indicator state-OBSERVED">Rabbi Lando denounces Netanyahu as &ldquo;liar,&rdquo; moves faction toward dissolution</span>
+          <span class="fc-indicator state-NOT_OBSERVED">Unconfirmed: informal agreement on October&nbsp;20 election date</span>
+        </div>
+      </div>
+
+      <!-- 6-12 MONTHS -->
+      <div class="forecast-bucket-label">6&ndash;12 Months</div>
+
+      <div class="forecast-card cat-domestic status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F7 &middot; 2026-05-11-netanyahu-coalition-collapse-by-oct-27</span>
+          <span class="fc-category">domestic</span>
+        </div>
+        <div class="fc-question">Will the Netanyahu coalition formally collapse &mdash; defined as a no-confidence vote passed or PM resignation submitted &mdash; before EOD 2026-10-27?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">35%</span>
+          <span class="fc-delta no-move">&Delta; 0pp from 35% (weekly cadence; next review Sun 2026-06-14)</span>
+          <span class="fc-horizon">&rarr; resolves by 2026-10-27</span>
+        </div>
+        <div class="fc-delta-reason">Weekly cadence &mdash; held at p=0.35 pending Sunday 2026-06-14 re-reasoning. Auditor flags 25-day stale gap since last_reasoned_at 2026-05-19. Coalition has materially moved (Haredi crisis, 106-0 dissolution first reading, temporary majority loss). Re-reasoning mandatory Sunday. Today&rsquo;s KEEP is procedural only.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if: (a) a no-confidence motion passes the Knesset with an absolute majority, OR (b) Netanyahu submits his resignation as PM, before EOD 2026-10-27. Dissolution by mutual agreement proceeding to scheduled elections without a confidence vote does not qualify.</dd>
+          <dt>Sources OK</dt><dd>Israeli PMO official statement or Knesset Speaker announcement confirmed by two TIER1 (Reuters, AP, AFP, Haaretz English).</dd>
+          <dt>Ambiguity</dt><dd>Netanyahu resigns as coalition leader but successor coalition formed without elections = AMBIGUOUS. Dissolution initiated but legally blocked = AMBIGUOUS.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">Knesset no-confidence motion filed with sufficient sponsor signatures</span>
+          <span class="fc-indicator state-OBSERVED">Coalition majority temporarily lost per i24NEWS &mdash; Haredi draft crisis (June&nbsp;10)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. 24-48H DELTA -->
+  <div class="section" id="delta">
+    <h2 class="section-title">
+      What Moved (Last 24-48h)
+      <span class="meta">Descriptive &middot; banned-verb lint enforced &middot; each paragraph cites a forecast or is marked context-only</span>
+    </h2>
+    <div class="delta-narrative">
+      <p>On 2026-06-12, Pakistani Prime Minister Shehbaz Sharif stated that a &ldquo;final, agreed upon text&rdquo; of a US-Iran peace agreement had been reached through Pakistan&rsquo;s mediation. Iranian FM Araghchi followed with a statement on 2026-06-13 characterizing the Islamabad MOU as &ldquo;closer to finalisation than ever before&rdquo; and describing a two-stage structure in which the nuclear file is deferred to a second phase. Trump stated a signing ceremony could occur &ldquo;this weekend in Europe&rdquo; with VP Vance attending. No confirmed face-to-face session between Iranian and US delegations has been documented for June&nbsp;10-13. → moved <span class="cite">F1</span>, <span class="cite">F2</span>, <span class="cite">NF1</span></p>
+      <p>Iran&rsquo;s domestic diplomatic posture remained divided across institutional lines through June&nbsp;11-13. Foreign Ministry spokesperson Baghaei (IRNA) stated on June&nbsp;11 that reports of a finalized agreement were &ldquo;merely speculation,&rdquo; and the IRGC cast doubt on Trump&rsquo;s claims the same day. Araghchi&rsquo;s June&nbsp;13 statement stands as the most authoritative forward-leaning framing from the Iranian side, but the formal June&nbsp;1 suspension of negotiations &mdash; issued through state media &mdash; had not been officially and explicitly rescinded in any IRNA or Tasnim dispatch as of 0600 CET June&nbsp;13. Qatar negotiators held sessions in Tehran through the early hours of June&nbsp;11. → moved <span class="cite">F1</span>, <span class="cite">F2</span></p>
+      <p>The Israel-Iran military front entered a fourth consecutive day without a direct exchange as of June&nbsp;13, with the post-June&nbsp;8 pause sustained by commitments extracted by Trump: Israel halted strikes on Iran; Iran declared a suspension of operations against Israel. Both conditions were contingent on restraint &mdash; Israel stated its Lebanon campaign would continue &ldquo;at full force,&rdquo; and Iran issued a warning of &ldquo;more severe&rdquo; retaliation if Lebanon strikes continued. Al Jazeera documented the ceasefire as holding on War Day 102 (June&nbsp;9). Netanyahu stated publicly on June&nbsp;11 that Israel is not a party to the emerging Iran-US deal. → moved <span class="cite">F3</span></p>
+      <p>Strait of Hormuz transit figures remained at or near historic lows as of June&nbsp;11-13. Iran&rsquo;s IRGC declared the strait &ldquo;closed to all vessels&rdquo; on June&nbsp;11; CENTCOM contested this characterization, noting that some transits occurred. PortWatch data through June&nbsp;7 recorded 2 commercial transits against a 94/day pre-crisis baseline. US mine-clearance operations using the USS Frank E. Peterson and USS Michael Murphy, which began in April 2026, are ongoing. G7 partners with an expanded demining coalition are operationally ready but are awaiting US presidential approval, with the June&nbsp;15-17 G7 summit the next formal decision point. → supports <span class="cite">F4</span></p>
+      <p>Israel&rsquo;s domestic political structure continued to fracture through the week of June&nbsp;9-13. The Knesset dissolution bill passed its first reading 106-0 on approximately June&nbsp;1, with coalition whip Katz declining to insert an election date pending committee negotiations. The Haredi draft crisis deepened: i24NEWS documented that the coalition temporarily lost its functioning majority, and Rabbi Dov Lando of Degel HaTorah publicly denounced Netanyahu as a &ldquo;liar&rdquo; and moved his faction toward supporting dissolution. One report referenced an emerging informal agreement on an October&nbsp;20 election date, unconfirmed. The second and third readings of the dissolution bill remain unscheduled. → moved <span class="cite">F6</span>, supports <span class="cite">F7</span></p>
+    </div>
+  </div>
+
+  <!-- 4. SCENARIO MAP -->
+  <div class="section" id="scenario-map">
+    <h2 class="section-title">
+      Scenario Map
+      <span class="meta">Computed from Forecast Board &middot; 1 sentence per scenario</span>
+    </h2>
+    <div class="scenario-map">
+      <div class="prob-bar-container">
+        <div class="prob-bar prob-escalation" style="width:35%;">Escalation 35%</div>
+        <div class="prob-bar prob-status" style="width:40%;">Protracted 40%</div>
+        <div class="prob-bar prob-deescalation" style="width:25%;">De-esc 25%</div>
+      </div>
+      <p class="scenario-line"><strong class="label-esc">Escalation path (35%):</strong> Military exchange probability has fallen materially (<span style="font-family:monospace;font-size:0.9em;">F3</span> at 0.35) with a 4-day ceasefire holding and deal momentum active, but Lebanon operations, Iran&rsquo;s conditional threat posture, and Netanyahu&rsquo;s declared non-party status preserve a residual escalation pathway.</p>
+      <p class="scenario-line"><strong class="label-prot">Protracted path (40%):</strong> The most probable single scenario: deal-track is moving but has not closed, Hormuz corridor remains at near-zero commercial transits (<span style="font-family:monospace;font-size:0.9em;">F4</span> at 0.20), and the gap between Pakistan PM&rsquo;s announcement and formal IRNA confirmation leaves the diplomatic outcome unresolved.</p>
+      <p class="scenario-line"><strong class="label-desc">De-escalation path (25%):</strong> A signing of the MOU this weekend (<span style="font-family:monospace;font-size:0.9em;">NF1</span> at 0.40) combined with a structured session before June&nbsp;24 (<span style="font-family:monospace;font-size:0.9em;">F2</span> at 0.62) would constitute the most concrete de-escalation pathway since the conflict began, lifting de-esc from 10% to 25% on the strength of the current diplomatic signal cluster.</p>
+    </div>
+  </div>
+
+  <!-- 5. INSIDE IRAN -->
+  <div class="section" id="inside-iran">
+    <h2 class="section-title">
+      Inside Iran
+      <span class="meta">State-media decode &middot; ~200 words &middot; verb-ban + forecast-cite rule applies</span>
+    </h2>
+    <div class="inside-iran">
+      <div class="iran-media-badges">
+        <span class="iran-media-badge">IRNA</span>
+        <span class="iran-media-badge">IRIB</span>
+        <span class="iran-media-badge">Press TV</span>
+        <span class="iran-media-badge">Fars</span>
+        <span class="iran-media-badge">Tasnim</span>
+        <span class="iran-media-badge">Kayhan</span>
+      </div>
+      <p>Iranian state media maintained a carefully bifurcated posture on the US-Iran deal track during June&nbsp;11-13. IRNA and Tasnim carried Foreign Ministry spokesperson Baghaei&rsquo;s June&nbsp;11 characterization of deal reports as &ldquo;speculation,&rdquo; while also transmitting Araghchi&rsquo;s more forward-leaning June&nbsp;13 framing &mdash; an internal calibration that kept Iran&rsquo;s official position within deniable range of the formal suspension while the FM&rsquo;s office advanced proximity to agreement. The IRGC&rsquo;s public skepticism of Trump&rsquo;s claims, transmitted via Tasnim, served its established institutional function of separating the military arm from any diplomatic retreat that the Foreign Ministry navigates. Mohsen Rezaei, military adviser to Supreme Leader, told Tasnim that Trump had agreed to partial release of Iran&rsquo;s frozen assets but declined to state so publicly &mdash; a framing constructed to present to domestic audiences that Iran extracted material concessions without yielding to US pressure narratives. The June&nbsp;1 suspension language has not been formally withdrawn in IRNA dispatches; this preserves the option to frame any resumed session as a new initiative rather than a reversal. Araghchi&rsquo;s reference to a two-stage structure with nuclear matters deferred to the second phase tracks the state media line that Iran did not capitulate on core red lines. → supports <span class="cite">F1</span>, supports <span class="cite">F2</span></p>
+    </div>
+  </div>
+
+  <!-- 6. REGIME CHANGE WATCH -->
+  <div class="section" id="regime-change">
+    <h2 class="section-title">
+      Regime Change Watch
+      <span class="meta">12-month horizon &middot; weekly review only (Sundays) &middot; no intra-week deltas</span>
+    </h2>
+    <div class="regime-watch">
+      <div class="regime-watch-meta">Last reviewed: <strong>2026-06-10</strong> &middot; Next review: <strong>2026-06-14</strong></div>
+
+      <div class="regime-row">
+        <span class="name">&#127470;&#127479; Iran (Regime Collapse)</span>
+        <span class="p">20&ndash;30%</span>
+        <div class="drivers">Mojtaba Khamenei consolidated as supreme leader post-28-Feb, governing via written intermediaries; Rubio on 2026-06-02 described him as alive and increasingly engaging, with a 2026-06-04 written statement asserting control, showing continuity rather than imminent rupture despite sustained US/Israeli strikes on Qeshm/Jask. Range held; next review 2026-06-14.</div>
+      </div>
+
+      <div class="regime-row">
+        <span class="name">&#127470;&#127473; Israel (Netanyahu Steps Down)</span>
+        <span class="p">40&ndash;50%</span>
+        <div class="drivers">The coalition advanced its own dissolution bill through a 106-0 first reading on 2026-06-02 after a 9-0 committee vote, with a Sept&nbsp;8&ndash;Oct&nbsp;20 election band floated but no fixed date and haredi-draft/Basic Law Torah Study brinkmanship unresolved; the escalation adds wartime strain. Range held; next review 2026-06-14.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. SOURCES -->
+  <div class="section" id="sources">
+    <h2 class="section-title">
+      Sources
+      <span class="meta">Last 7 days &middot; typed [TIER1/OSINT/STATE_MEDIA/EXPERT]</span>
+    </h2>
+    <ul class="sources-list">
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.cnn.com/2026/06/12/world/live-news/iran-war-trump-israel" target="_blank">CNN (2026-06-12)</a> &mdash; US and Iran say an agreement is close, but questions remain</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.cnn.com/2026/06/11/world/live-news/iran-war-trump-israel-hnk" target="_blank">CNN (2026-06-11)</a> &mdash; Trump cancels planned strikes and touts progress, Iran says no deal finalized</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.cbsnews.com/live-updates/iran-war-us-trump-peace-deal-agreement/" target="_blank">CBS News (2026-06-12)</a> &mdash; &ldquo;Final, agreed upon text&rdquo; of U.S.-Iran peace deal reached, Pakistan says</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.washingtonpost.com/world/2026/06/12/iran-us-ceasefire-hezbollah-israel-12-june-2026/" target="_blank">Washington Post (2026-06-12)</a> &mdash; US and Iran have agreed to wording of a deal to end their war, Pakistan&rsquo;s prime minister says</li>
+      <li><span class="source-tier tier-STATE_MEDIA">STATE_MEDIA</span> <a href="https://english.news.cn/asiapacific/20260613/" target="_blank">Xinhua (2026-06-13)</a> &mdash; Final, agreed-upon text of U.S.-Iran peace deal reached: Pakistan PM</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.aljazeera.com/features/2026/6/12/are-iran-us-really-close-to-a-breakthrough-deal" target="_blank">Al Jazeera (2026-06-12)</a> &mdash; Are Iran, US really close to a breakthrough &lsquo;deal&rsquo;?</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.aljazeera.com/news/2026/6/8/israel-and-iran-exchange-attacks-as-ceasefire-falters" target="_blank">Al Jazeera (2026-06-08)</a> &mdash; Iran and Israel halt attacks but sabre-rattling continues</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.aljazeera.com/news/2026/6/9/iran-war-day-102-trump-warns-israel-against-new-strikes-as-ceasefire-holds" target="_blank">Al Jazeera (2026-06-09)</a> &mdash; Iran war day 102: Trump warns Israel against new strikes as ceasefire holds</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.centcom.mil/MEDIA/PRESS-RELEASES/Press-Release-View/Article/4457220/us-forces-start-mine-clearance-mission-in-strait-of-hormuz/" target="_blank">CENTCOM Press Release (2026-04-11)</a> &mdash; U.S. Forces Start Mine Clearance Mission in Strait of Hormuz</li>
+      <li><span class="source-tier tier-OSINT">OSINT</span> <a href="https://www.breitbart.com/middle-east/2026/06/11/hormuz-update-iran-claims-to-halt-shipping-again-u-s-says-strait-open-for-transit/" target="_blank">Breitbart/Reuters (2026-06-11)</a> &mdash; Hormuz Update: Iran Claims to Halt Shipping Again, U.S. Says Strait &lsquo;Open for Transit&rsquo;</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.timesofisrael.com/liveblog-june-11-2026/" target="_blank">Times of Israel (2026-06-11)</a> &mdash; Netanyahu says Israel not party to emerging Iran deal announced by Trump</li>
+      <li><span class="source-tier tier-OSINT">OSINT</span> <a href="https://pjmedia.com/chris-queen/2026/06/10/netanyahu-faces-election-chaos-as-israels-knesset-moves-to-tear-itself-down-n4953816" target="_blank">PJ Media (2026-06-10)</a> &mdash; Netanyahu faces election chaos as Israel&rsquo;s Knesset moves to tear itself down</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.jpost.com/israel-news/politics-and-diplomacy/article-898048" target="_blank">Jerusalem Post (2026-06-01)</a> &mdash; Knesset dissolution bill passes first reading after 106-0 vote</li>
+      <li><span class="source-tier tier-TIER1">TIER1</span> <a href="https://www.i24news.tv/en/news/israel/politics/artc-netanyahu-government-paralyzed-as-haredi-crisis-dissolves-coalition-majority" target="_blank">i24NEWS (2026-06-10)</a> &mdash; Netanyahu government paralyzed as Haredi crisis dissolves coalition majority</li>
+      <li><span class="source-tier tier-OSINT">OSINT</span> <a href="https://news.usni.org/2026/05/01/strait-of-hormuz-commercial-transits-at-lowest-level-since-operation-epic-fury-start-shipping-data-shows" target="_blank">USNI News (2026-06-11)</a> &mdash; Strait of Hormuz Commercial Transits at Lowest Level Since Operation Epic Fury Start</li>
+    </ul>
+
+    <!-- 8. EXPERT APPENDIX -->
+    <details class="expert-appendix">
+      <summary>Expert citations from today&rsquo;s Delta &nbsp;&middot;&nbsp; <span style="color:var(--text-muted);font-weight:400;font-size:0.9em;">no quotes today</span></summary>
+      <div class="expert-body">
+        <p class="expert-empty">No expert citations in today&rsquo;s Delta.</p>
+      </div>
+    </details>
+  </div>
+
+</div>
+
+<footer>
+  Geopolitical Scenario Analysis &mdash; Multi-Source OSINT Synthesis<br>
+  Generated 2026-06-13 (v48.0) &middot; forecast-board architecture &middot; triple-blind triplet &middot; based on open sources, not intelligence analysis<br>
+  <span class="next-update">Next automatic update: 2026-06-14 at 07:00 UTC (09:00 Stockholm)</span>
+</footer>
+
+<!-- GoatCounter analytics - privacy-friendly, no cookies, GDPR compliant -->
+<script data-goatcounter="https://mellanostern.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
