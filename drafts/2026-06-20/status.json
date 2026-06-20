@@ -2,8 +2,36 @@
   "date": "2026-06-20",
   "version": "v48.0",
   "war_day": 113,
-  "status": "in_progress",
-  "note": "Daily-update-draft v45 pipeline running. Judge agent active. Analyst+DA triplet complete. Awaiting Judge output to write final files.",
+  "status": "human_review_required",
+  "size_kb": 34,
+  "structure_ok": true,
+  "lint": {
+    "fails": 0,
+    "warns": 1,
+    "passed": true,
+    "warn_detail": "no near-term (<=72h) forecast on active board"
+  },
+  "forecasts_active": 6,
+  "forecasts_resolved_today": 2,
+  "forecasts_retired_today": 0,
+  "forecasts_added_today": 1,
+  "judge_flags": [
+    "F7 June 22 mandatory cold-start audit (32-day staleness; 5 Sunday cycles missed)",
+    "N1/F2 horizon overlap: if F2 resolves YES before June 24, N1 must co-resolve YES",
+    "No near-term (<=72h) forecast: lint warns; Judge judges acceptable"
+  ],
+  "opposing_narrative_triggered": true,
+  "opposing_narrative_ruling": "REJECT — DA F3 geographic ambiguity rejected; two TIER1 + IRGC statement sufficient",
+  "cold_start_audit_run": false,
+  "scenario_probabilities": {
+    "escalation": 52,
+    "protracted": 33,
+    "deescalation": 15
+  },
+  "direction_of_travel": "F3 resolved YES June 18-19 bilateral exchange; F2 at 35% and N1 at 30% show diplomatic track frozen",
   "draft_branch": "claude/daily-draft-2026-06-20",
-  "pipeline_stage": "judge_running"
+  "resolutions_today": [
+    {"fnum": "F1", "result": "RESOLVED-NO", "reason": "Horizon EOD 2026-06-16 passed; no held session confirmed"},
+    {"fnum": "F3", "result": "RESOLVED-YES", "reason": "Reuters+Haaretz+IRGC confirm two-way exchange June 18-19"}
+  ]
 }
