@@ -1,0 +1,38 @@
+{
+  "date": "2026-06-24",
+  "version": "v48.0",
+  "run_status": "human_review_required",
+  "lint_exit_code": 2,
+  "lint_result": "WARN — publishable with flags",
+  "lint_warnings": [
+    "WARN: no near-term (≤72h) forecast on active board (expected: F1/F2/F3 all resolved this run)."
+  ],
+  "size_bytes": 43647,
+  "size_gate": "PASS (limit 153600)",
+  "structure_gate": "PASS (83 opens / 83 closes)",
+  "human_review_flags": [
+    {
+      "id": "F1-resolution-evidence",
+      "severity": "REQUIRED",
+      "description": "Islamabad-evidensen (CNN/Al Jazeera June 14) hittades inte av Källa B i egna sökningar. Redaktören bör bekräfta originalartiklarna innan publicering."
+    },
+    {
+      "id": "F5-criteria-change",
+      "severity": "RECOMMENDED",
+      "description": "Retroaktivt tillägg 'or are actively ongoing within the specified window' är principiellt ovanligt. Redaktören bekräftar att denna tolkning är konsistent med rapportens intentioner."
+    },
+    {
+      "id": "F9-IAEA-dispute",
+      "severity": "MONITORING",
+      "description": "NPR (2026-06-23) rapporterar aktiv tvist om IAEA-inspektionstillträde. Om Iran blockerar tillträde inom 72h behöver F9 akutuppdatering (p 0.30 → lägre)."
+    }
+  ],
+  "blocking_issues": [],
+  "p_prior_corrections_applied": [
+    "F5: p_prior korrigerat 0.72→0.30 (Judge aritmetikfel)",
+    "F6: p_prior korrigerat 0.55→0.45 (Judge aritmetikfel)",
+    "F7: p korrigerat 0.68→0.35 (Judge KEEP-fel)",
+    "F2: p capped 0.97→0.95 (Codex 5-95% rule; final_p_at_resolution=0.97 bevarad)"
+  ],
+  "publishable": true
+}
