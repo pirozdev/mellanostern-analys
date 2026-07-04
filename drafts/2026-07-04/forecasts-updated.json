@@ -1,0 +1,270 @@
+{
+  "schema_version": "v45.0",
+  "seeded_at": "2026-05-19",
+  "seeded_from": "v46.0 (Day 95, 2026-06-02)",
+  "last_updated": "2026-07-04",
+  "note": "v48.0 Day 127 (Khamenei funeral week; 24-day gap covered). Resolutions: F1 RESOLVED-YES (June 11 Qatar-mediated session in Tehran + June 12 Pakistan PM confirmed agreed text, both TIER1-confirmed before EOD June 16), F2 RESOLVED-YES (multiple sessions June 11-22 including Bürgenstock June 21-22), F3 RESOLVED-NO (June 7-8 bilateral exchange falls outside resolution_criteria window June 10-24; ceasefire framework active within window; process note: F3 seeded after qualifying event, flag for board process log), F4 RESOLVED-NO (AIS 33-38/day 7d avg July 2 vs >=50 threshold), F5 RESOLVED-YES (CENTCOM announced active MCM operations June 16; WaPo June 22 + AJZ June 25 confirm ongoing clearing). F7 staleness-override applied (p 0.35->0.80; 46-day gap, 3 missed Sunday cycles; derivation: P(F6 YES)*1.0 + P(F6 NO)*0.55). Five new forecasts seeded: F8 Knesset 2nd reading by July 7, F9 Nuclear WG session by July 18, F10 Hormuz 50/day by Aug 3, F11 IAEA access to damaged sites by July 25, F12 enrichment+HEU agreement by Aug 16. Scenario: Esc 20% / Prot 52% / De-esc 28%.",
+  "forecasts": [
+    {
+      "id": "2026-06-02-knesset-sets-early-election-date-by-july-15",
+      "fnum": "F6",
+      "question": "Will the Knesset hold a final (third) reading of the dissolution bill with a fixed early election date (before 2026-10-27) before EOD 2026-07-15?",
+      "owner_category": "domestic",
+      "horizon_days": 43,
+      "horizon_date": "2026-07-15",
+      "created_at": "2026-06-02",
+      "expires_at": "2026-07-16",
+      "p": 0.55,
+      "p_prior": 0.45,
+      "prior_date": "2026-06-10",
+      "delta_reason": "Knesset legal adviser Sagit Afik formally recommended dissolution on July 17 (Times of Israel, July 3), placing the required third-reading completion at approximately July 14-15 within F6's deadline. The operative election window in the bill (September 8 through October 20) contains no dates on or after October 27, satisfying F6's criteria. Countervailing: Times of Israel source reported election 'likely on original October 27 date'; coalition whip had not published second-reading calendar as of July 4; Shas and UTJ conditioned second-reading support on binding election-date agreement. p raised 0.45->0.55.",
+      "resolution_criteria": "YES if the Knesset completes a formal third-reading plenary vote on the dissolution bill with a fixed election date falling before 2026-10-27, per TIER1 Israeli media (Times of Israel/Haaretz/Jerusalem Post) or official Knesset channel, before EOD 2026-07-15.",
+      "resolution_source_rule": "Two independent Israeli TIER1 sources (ToI/Haaretz/JPost) OR official Knesset statement.",
+      "ambiguity_rule": "Second reading without third reading = NO; election date of Oct 27 exactly = AMBIGUOUS-RESOLVE-AS-NO; committee passage without plenary vote = NO; a fixed date on or after Oct 27 set by the bill = RESOLVE-NO.",
+      "indicators": [
+        {
+          "name": "First reading passed June 2, 2026 in plenary (106-0)",
+          "state": "OBSERVED",
+          "observed_at": "2026-06-02",
+          "expected_effect": "Dissolution bill structurally advancing toward final readings; +15pp baseline"
+        },
+        {
+          "name": "Knesset legal adviser formally recommends July 17 dissolution",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-03",
+          "expected_effect": "Creates hard deadline for third reading by July 14-15; +10pp toward YES"
+        },
+        {
+          "name": "Coalition whip publishes second-reading plenary date for week of July 7",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If confirmed for July 7-11, p rises to ~0.75"
+        },
+        {
+          "name": "Third reading with fixed pre-Oct-27 election date passes plenary",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "Direct RESOLVE-YES upon TIER1 confirmation"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-04"
+    },
+    {
+      "id": "2026-05-11-netanyahu-coalition-collapse-by-oct-27",
+      "fnum": "F7",
+      "question": "Will Netanyahu's coalition formally collapse — defined as dissolution bill completing final reading with election date set, OR Knesset passing a successful no-confidence vote, OR PM Netanyahu resigning — before EOD 2026-10-27?",
+      "owner_category": "regime",
+      "horizon_days": 169,
+      "horizon_date": "2026-10-27",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-10-28",
+      "p": 0.80,
+      "p_prior": 0.35,
+      "prior_date": "2026-05-11",
+      "delta_reason": "STALENESS OVERRIDE: 46-day gap covering 3 missed Sunday cycles (last_reasoned_at: 2026-05-19). Since May 19: dissolution bill passed preliminary reading 110-0 (May 20), first reading 106-0 (June 2), Knesset legal adviser recommended July 17 dissolution (July 3). Resolution_criteria clarified: loss of numerical majority alone without governing consequence does NOT trigger resolution. Derivation: P(F7 YES) = P(F6 YES)*1.0 + P(F6 NO)*P(collapse via other path | F6 NO) = 0.55 + 0.45*0.55 = 0.80. F6/F7 interaction: if F6 resolves YES, F7 auto-resolves YES and retires from board. Sunday cadence resumes July 5.",
+      "resolution_criteria": "YES if: (a) dissolution bill completes final reading with election date set on or before Oct 27; OR (b) Knesset passes a successful no-confidence vote; OR (c) PM Netanyahu publicly resigns. Loss of numerical majority alone without a governing consequence — e.g., coalition drops below 61 but Netanyahu remains PM via caretaker — does not trigger resolution.",
+      "resolution_source_rule": "TIER1 Israeli media (Times of Israel/Haaretz/Jerusalem Post) OR official Knesset/PMO statement.",
+      "ambiguity_rule": "If F6 resolves YES, F7 auto-resolves YES and retires from board immediately. If coalition drops below 61 but Netanyahu remains caretaker PM without triggering resolution criteria (a), (b), or (c): NOT YET resolved. Reviewed weekly on Sundays; staleness override applied once for this 46-day gap only.",
+      "indicators": [
+        {
+          "name": "Dissolution bill first reading passed June 2, 2026 (106-0 plenary)",
+          "state": "OBSERVED",
+          "observed_at": "2026-06-02",
+          "expected_effect": "Coalition-sponsored dissolution underway; structurally drives p upward via F6 track"
+        },
+        {
+          "name": "Knesset legal adviser recommends July 17 dissolution (July 3)",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-03",
+          "expected_effect": "Hard structural deadline for final reading; combined with F6 p=0.55 drives F7 p=0.80"
+        },
+        {
+          "name": "Third reading dissolution bill passed with fixed election date",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "Direct RESOLVE-YES for both F6 and F7 upon TIER1 confirmation"
+        },
+        {
+          "name": "Ra'am or National Unity coalition re-entry talks reported (DA falsifier)",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If confirmed by Times of Israel or Jerusalem Post, F7 p should be reassessed downward"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-04"
+    },
+    {
+      "id": "2026-07-04-knesset-dissolution-second-reading-by-july-07",
+      "fnum": "F8",
+      "question": "Will the Knesset dissolution bill advance to a second-reading plenary vote before EOD 2026-07-07?",
+      "owner_category": "domestic",
+      "horizon_days": 3,
+      "horizon_date": "2026-07-07",
+      "created_at": "2026-07-04",
+      "expires_at": "2026-07-08",
+      "p": 0.27,
+      "p_prior": 0.27,
+      "prior_date": "2026-07-04",
+      "delta_reason": "Initial estimate. Knesset legal adviser's July 17 dissolution recommendation creates pressure this week, but coalition whip had not published a plenary calendar as of July 4; Shabbat (July 4-5) reduces working days to July 6-7; Shas and UTJ conditioned second-reading support on a binding election-date agreement not yet concluded as of July 4. Most probable second-reading window: July 8-12.",
+      "resolution_criteria": "YES if the Knesset holds a formal plenary second-reading vote on the dissolution bill before EOD 2026-07-07, per TIER1 Israeli media (Times of Israel/Haaretz/Jerusalem Post) or official Knesset channel.",
+      "resolution_source_rule": "Two independent Israeli TIER1 sources (ToI/Haaretz/JPost) OR official Knesset statement.",
+      "ambiguity_rule": "House Committee deliberation without plenary floor vote = NO; procedural advancement without an actual plenary vote = NO; vote occurring July 7 in Israeli local time but reported after UTC midnight = AMBIGUOUS-RESOLVE-AS-YES if Israeli midnight is clearly before the date change.",
+      "indicators": [
+        {
+          "name": "Coalition whip publishes second-reading plenary date for July 6 or July 7",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If confirmed for this week, p rises to ~0.75"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-04"
+    },
+    {
+      "id": "2026-07-04-iran-us-nuclear-working-group-session-by-july-18",
+      "fnum": "F9",
+      "question": "Will a formally convened session of the Nuclear Affairs working group (one of four designated under the Islamabad MOU) take place before EOD 2026-07-18?",
+      "owner_category": "diplomacy",
+      "horizon_days": 14,
+      "horizon_date": "2026-07-18",
+      "created_at": "2026-07-04",
+      "expires_at": "2026-07-19",
+      "p": 0.48,
+      "p_prior": 0.48,
+      "prior_date": "2026-07-04",
+      "delta_reason": "Initial estimate. VP Vance stated nuclear discussions 'will start soon' July 1 (CNN); Deputy FM Gharibabadi confirmed four working groups established including Nuclear Affairs (July 1-2 Doha). Formal talks paused for Khamenei state funeral July 3-8; earliest resumption window July 9-10. Qalibaf's July 1 explicit ban on IAEA access to damaged sites creates a substantive barrier to fully opening the nuclear track, though a first session to exchange positions (not reach agreement) is technically possible.",
+      "resolution_criteria": "YES if a TIER1 source reports that the designated Nuclear Affairs working group under the Islamabad MOU has formally convened a session, mediated by Qatar or Pakistan, between 2026-07-04 and 2026-07-18.",
+      "resolution_source_rule": "TIER1 (Reuters/AP/AFP/CNN/Al Jazeera) OR US or Iranian government statement explicitly naming the Nuclear Affairs working group as having convened a session.",
+      "ambiguity_rule": "General diplomatic meetings discussing nuclear as one item without naming the working group = NOT qualifying; informal expert contacts without a named convened session = NOT qualifying; written exchanges only = AMBIGUOUS-RESOLVE-AS-NO.",
+      "indicators": [
+        {
+          "name": "Post-funeral US-Iran talks formally resume (expected July 9-10, prerequisite)",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If confirmed resumed by July 10, p rises to ~0.60"
+        },
+        {
+          "name": "Nuclear Affairs working group formally named as convened by TIER1 source",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "Direct RESOLVE-YES upon TIER1 or government confirmation"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-04"
+    },
+    {
+      "id": "2026-07-04-hormuz-commercial-50-transit-7day-by-aug-03",
+      "fnum": "F10",
+      "question": "Will Hormuz commercial transits reach >=50 vessels/day (7-day average) before EOD 2026-08-03?",
+      "owner_category": "market",
+      "horizon_days": 30,
+      "horizon_date": "2026-08-03",
+      "created_at": "2026-07-04",
+      "expires_at": "2026-08-04",
+      "p": 0.38,
+      "p_prior": 0.38,
+      "prior_date": "2026-07-04",
+      "delta_reason": "Initial estimate. AIS data July 1 (straits.live): 43 transits/day, up from 27 on June 28; MCM coalition operating since June 16; Islamabad MOU commits Iran to best-efforts safe passage for 60 days. Key inhibitors: Hormuz toll dispute unresolved (Vance explicitly rejected any Iranian-led fee mechanism at Doha July 1); P&I clubs have not issued broad commercial war-risk clearances; IRGC Marine Division July 2 warning against 'military corridors'; mine-clearing projected 40-180 days. 30-day window provides time for insurance market response if toll dispute and IRGC posture resolve.",
+      "resolution_criteria": "YES if IMF PortWatch or equivalent AIS tracker (straits.live, Windward Daily Intelligence) records >=50 commercial transits/day averaged over any consecutive 7-day window between 2026-07-04 and 2026-08-03.",
+      "resolution_source_rule": "IMF PortWatch primary; straits.live or Windward as secondary. If PortWatch unpublished, use best available AIS tracker; flag AMBIGUOUS if sources conflict >20%.",
+      "ambiguity_rule": "Naval-escorted convoys count toward the 50-vessel threshold; AIS-dark vessels do not count; single-day surges without a 7-day average >=50 do not qualify.",
+      "indicators": [
+        {
+          "name": "P&I clubs issue broad commercial war-risk clearance for Hormuz transit",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If confirmed, p rises to ~0.65; prerequisite for bulk carrier and LNG tanker return"
+        },
+        {
+          "name": "Hormuz toll dispute formally resolved with no Iranian fee mechanism",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If confirmed, p rises to ~0.55; prerequisite for commercial confidence"
+        },
+        {
+          "name": "IRGC military corridors warning revoked or formally superseded by MOU text",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If revoked with insurance clearance, combined p rises to ~0.65"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-04"
+    },
+    {
+      "id": "2026-07-04-iran-iaea-access-damaged-sites-by-july-25",
+      "fnum": "F11",
+      "question": "Will Iran formally permit IAEA inspectors physical access to at least one wartime-damaged nuclear facility — Fordow, Natanz, or Isfahan — before EOD 2026-07-25?",
+      "owner_category": "diplomacy",
+      "horizon_days": 21,
+      "horizon_date": "2026-07-25",
+      "created_at": "2026-07-04",
+      "expires_at": "2026-07-26",
+      "p": 0.17,
+      "p_prior": 0.17,
+      "prior_date": "2026-07-04",
+      "delta_reason": "Initial estimate set low on the basis of an explicit on-record denial: parliamentary speaker Qalibaf stated on state television July 1 that inspectors are 'strictly barred from accessing any bombed or damaged sites under any circumstances,' limiting IAEA access to Bushehr and the Tehran research reactor only. The US has conditioned further frozen-asset tranche releases beyond the first $6 billion on expanded IAEA access. The Doha session July 1-2 did not bridge this gap. No MFA reversal signal as of July 4; Khamenei funeral-week pause suppresses near-term diplomatic movement.",
+      "resolution_criteria": "YES if a TIER1 source or IAEA official statement confirms that Iranian authorities have permitted IAEA inspectors physical on-site access to at least one of: Fordow enrichment facility, Natanz enrichment complex, or Isfahan nuclear technology center — between 2026-07-04 and 2026-07-25.",
+      "resolution_source_rule": "IAEA official statement (primary) OR two independent TIER1 sources (Reuters/AP/AFP/CNN/Al Jazeera).",
+      "ambiguity_rule": "Remote or satellite monitoring without on-site inspector access = NO; IAEA access to already-permitted Bushehr or Tehran research reactor does not qualify; an 'in principle' agreement without confirmed physical inspector deployment = AMBIGUOUS-RESOLVE-AS-NO.",
+      "indicators": [
+        {
+          "name": "Qalibaf or MFA formal reversal of the July 1, 2026 damaged-site access ban",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If confirmed, p rises to ~0.55; necessary prerequisite for near-term resolution"
+        },
+        {
+          "name": "IAEA announces physical inspector deployment to Fordow, Natanz, or Isfahan",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "Direct RESOLVE-YES upon IAEA official confirmation"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-04"
+    },
+    {
+      "id": "2026-07-04-iran-us-enrichment-agreement-by-aug-16",
+      "fnum": "F12",
+      "question": "Will the US and Iran reach a publicly confirmed agreement on uranium enrichment levels AND a disposition mechanism for HEU stockpiles before EOD 2026-08-16?",
+      "owner_category": "diplomacy",
+      "horizon_days": 43,
+      "horizon_date": "2026-08-16",
+      "created_at": "2026-07-04",
+      "expires_at": "2026-08-17",
+      "p": 0.33,
+      "p_prior": 0.33,
+      "prior_date": "2026-07-04",
+      "delta_reason": "Initial estimate. August 16 is the approximate 60-day endpoint of the Islamabad MOU (June 17 + 60 days). Nuclear Affairs working group had not yet formally convened as of July 4. Structural barriers: Qalibaf explicitly banned IAEA access to damaged sites July 1; Mojtaba Khamenei declared nuclear and missile programs 'national assets not subject to foreign negotiation'; the Doha session July 1-2 produced no enrichment-level language from either delegation. Enabling factors: 60-day MOU endpoint creates a structural pressure-point; Vance signaled nuclear track 'starting soon' (CNN, July 1); incremental frozen-asset progress ($6B first tranche agreed Doha) shows both sides invested in implementation.",
+      "resolution_criteria": "YES if a joint US-Iran statement OR two independent TIER1 sources confirm a publicly announced agreement specifying: (1) a maximum uranium enrichment percentage Iran will maintain, AND (2) a mechanism for disposition of existing HEU stockpiles — between 2026-07-04 and 2026-08-16.",
+      "resolution_source_rule": "Joint US-Iran official statement (primary) OR two independent TIER1 sources (Reuters/AP/AFP/CNN/Al Jazeera) confirming both elements.",
+      "ambiguity_rule": "Agreement on enrichment level alone without HEU disposition = AMBIGUOUS-RESOLVE-AS-NO; reaffirmation of existing MOU language without a new specific enrichment percentage = NOT qualifying; 'in principle' framework without a specified percentage = AMBIGUOUS-RESOLVE-AS-NO.",
+      "indicators": [
+        {
+          "name": "Nuclear Affairs working group formally convenes (F9 resolution event)",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If confirmed by July 18, p rises to ~0.48; necessary but not sufficient"
+        },
+        {
+          "name": "Enrichment level cap percentage publicly stated by US or Iran",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "If confirmed, p rises to ~0.60; direct progress toward YES"
+        },
+        {
+          "name": "HEU disposition mechanism publicly specified (down-blend vs export vs other)",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-04",
+          "expected_effect": "Combined with enrichment cap confirmation = direct RESOLVE-YES"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-04"
+    }
+  ]
+}
