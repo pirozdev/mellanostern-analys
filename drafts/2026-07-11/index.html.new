@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geopolitical Scenario Analysis — Middle East · July 11, 2026</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #22263a;
+    --accent: #4f8cff;
+    --accent2: #ff6b6b;
+    --accent3: #ffd93d;
+    --accent4: #6bcb77;
+    --text: #e0e0e0;
+    --text-muted: #8a8fa8;
+    --border: #2a2e3f;
+    --red: #ff4757;
+    --orange: #ffa502;
+    --green: #2ed573;
+    --iran: #8e44ad;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+  .hero { text-align: center; padding: 56px 20px 36px; background: linear-gradient(135deg, #1a1d27 0%, #0f1117 100%); border-bottom: 1px solid var(--border); }
+  .hero h1 { font-size: 2.2em; font-weight: 700; margin-bottom: 10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .subtitle { font-size: 1em; color: var(--text-muted); max-width: 700px; margin: 0 auto 16px; }
+  .hero .date-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 18px; font-size: 0.85em; color: var(--accent); }
+  .hero .war-day { display: inline-block; background: var(--accent2); color: #fff; border-radius: 20px; padding: 6px 18px; font-size: 0.85em; font-weight: 600; margin-left: 8px; }
+  .hero .build-meta { margin-top: 10px; font-size: 0.75em; color: var(--text-muted); }
+  .triplet-badge { background: linear-gradient(135deg, #1a2235, #0e1a1e); border: 1px solid var(--accent); border-radius: 8px; padding: 6px 12px; font-size: 0.75em; color: var(--accent); display: inline-block; margin-top: 10px; }
+
+  .direction-of-travel { max-width: 900px; margin: 24px auto; background: linear-gradient(135deg, #1a2235, #1a1d27); border: 2px solid var(--accent); border-radius: 12px; padding: 22px 28px; font-size: 1.05em; line-height: 1.55; }
+  .direction-of-travel .label { font-size: 0.72em; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 6px; }
+  .direction-of-travel .body { color: var(--text); }
+  .direction-of-travel .body .cite { color: var(--accent); font-weight: 600; font-family: 'SF Mono', Menlo, monospace; font-size: 0.92em; }
+  .direction-of-travel.no-move { border-color: var(--border); }
+  .direction-of-travel.no-move .body { color: var(--text-muted); font-style: italic; }
+
+  .disclaimer { background: #2a1a1a; border: 1px solid #5a2020; border-radius: 12px; padding: 16px 20px; margin: 24px auto; max-width: 900px; font-size: 0.85em; color: #ffaaaa; }
+  .disclaimer strong { color: var(--accent2); }
+
+  .section { padding: 30px 0; }
+  .section-title { font-size: 1.5em; font-weight: 700; margin-bottom: 18px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); display: flex; align-items: baseline; justify-content: space-between; }
+  .section-title .meta { font-size: 0.6em; color: var(--text-muted); font-weight: 400; }
+
+  .forecast-board { display: flex; flex-direction: column; gap: 12px; }
+  .forecast-bucket-label { font-size: 0.75em; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin: 14px 0 4px; padding-left: 4px; }
+  .forecast-bucket-label:first-child { margin-top: 0; }
+  .forecast-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 16px 20px; }
+  .forecast-card.cat-diplomacy { border-left-color: var(--accent); }
+  .forecast-card.cat-military { border-left-color: var(--red); }
+  .forecast-card.cat-regime { border-left-color: var(--iran); }
+  .forecast-card.cat-market { border-left-color: var(--accent3); }
+  .forecast-card.cat-domestic { border-left-color: var(--accent4); }
+  .forecast-card.cat-humanitarian { border-left-color: var(--orange); }
+  .forecast-card .fc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+  .forecast-card .fc-id { font-family: 'SF Mono', Menlo, monospace; font-size: 0.7em; color: var(--text-muted); }
+  .forecast-card .fc-category { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); padding: 2px 8px; border: 1px solid var(--border); border-radius: 4px; }
+  .forecast-card .fc-question { font-size: 1em; font-weight: 600; color: var(--text); margin: 6px 0 10px; line-height: 1.45; }
+  .forecast-card .fc-probrow { display: flex; align-items: baseline; gap: 18px; margin-bottom: 8px; flex-wrap: wrap; }
+  .forecast-card .fc-p { font-size: 1.8em; font-weight: 800; color: var(--accent); }
+  .forecast-card .fc-delta { font-size: 0.9em; color: var(--text-muted); }
+  .forecast-card .fc-delta.move-up { color: var(--red); }
+  .forecast-card .fc-delta.move-down { color: var(--green); }
+  .forecast-card .fc-delta.no-move { color: var(--border); }
+  .forecast-card .fc-horizon { font-size: 0.85em; color: var(--text-muted); }
+  .forecast-card .fc-delta-reason { font-size: 0.92em; color: var(--text); margin: 6px 0 10px; }
+  .forecast-card .fc-meta-row { font-size: 0.8em; color: var(--text-muted); display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .forecast-card .fc-meta-row dt { font-weight: 600; color: var(--text-muted); }
+  .forecast-card .fc-meta-row dd { color: var(--text); }
+  .forecast-card .fc-indicators { font-size: 0.82em; color: var(--text-muted); margin-top: 6px; }
+  .forecast-card .fc-indicator { display: inline-block; padding: 2px 8px; margin: 2px; border-radius: 4px; border: 1px solid var(--border); }
+  .forecast-card .fc-indicator.state-OBSERVED { background: rgba(46, 213, 115, 0.15); border-color: var(--green); color: var(--green); }
+  .forecast-card .fc-indicator.state-PARTIAL { background: rgba(255, 165, 2, 0.15); border-color: var(--orange); color: var(--orange); }
+  .forecast-card .fc-indicator.state-CONTRADICTED { background: rgba(255, 71, 87, 0.15); border-color: var(--red); color: var(--red); }
+  .forecast-card .fc-indicator.state-NOT_OBSERVED { color: var(--text-muted); }
+  .forecast-card.status-OBE { opacity: 0.55; border-left-style: dashed; }
+  .forecast-card.status-OBE .fc-question::after { content: ' [OBE]'; color: var(--text-muted); font-style: italic; }
+  .forecast-empty-slot { background: transparent; border: 1px dashed var(--border); border-radius: 10px; padding: 14px 20px; color: var(--text-muted); font-style: italic; font-size: 0.88em; }
+
+  .delta-narrative p { color: var(--text); font-size: 0.96em; margin-bottom: 14px; }
+  .delta-narrative p .cite { color: var(--accent); font-family: 'SF Mono', Menlo, monospace; font-size: 0.88em; }
+  .delta-narrative p .context-only { color: var(--text-muted); font-family: 'SF Mono', Menlo, monospace; font-size: 0.85em; }
+
+  .scenario-map { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; }
+  .prob-bar-container { display: flex; height: 36px; border-radius: 8px; overflow: hidden; margin: 8px 0 14px; }
+  .prob-bar { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; color: #fff; }
+  .prob-escalation { background: var(--red); }
+  .prob-status { background: var(--orange); }
+  .prob-deescalation { background: var(--green); }
+  .scenario-line { font-size: 0.92em; color: var(--text); margin-bottom: 6px; }
+  .scenario-line strong.label-esc { color: var(--red); }
+  .scenario-line strong.label-prot { color: var(--orange); }
+  .scenario-line strong.label-desc { color: var(--green); }
+
+  .inside-iran { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--iran); border-radius: 10px; padding: 18px 22px; }
+  .inside-iran p { font-size: 0.93em; margin-bottom: 12px; }
+  .inside-iran p .cite { color: var(--accent); font-family: 'SF Mono', Menlo, monospace; font-size: 0.85em; }
+  .iran-media-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .iran-media-badge { display: inline-block; padding: 2px 8px; border: 1px solid var(--iran); border-radius: 4px; font-size: 0.72em; color: var(--iran); }
+
+  .regime-watch { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; }
+  .regime-watch-meta { font-size: 0.8em; color: var(--text-muted); margin-bottom: 14px; }
+  .regime-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+  .regime-row:last-child { border-bottom: 0; }
+  .regime-row .name { font-weight: 600; }
+  .regime-row .p { font-size: 1.4em; font-weight: 700; color: var(--orange); }
+  .regime-row .drivers { font-size: 0.85em; color: var(--text-muted); flex-basis: 100%; margin-top: 4px; }
+
+  .sources-list { list-style: none; padding: 0; }
+  .sources-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.88em; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .sources-list a { color: var(--accent); text-decoration: none; }
+  .sources-list a:hover { text-decoration: underline; }
+  .source-tier { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 0.7em; font-weight: 700; letter-spacing: 0.5px; flex-shrink: 0; }
+  .source-tier.tier-TIER1 { background: rgba(46, 213, 115, 0.15); color: var(--green); border: 1px solid var(--green); }
+  .source-tier.tier-OSINT { background: rgba(79, 140, 255, 0.15); color: var(--accent); border: 1px solid var(--accent); }
+  .source-tier.tier-STATE_MEDIA { background: rgba(255, 165, 2, 0.15); color: var(--orange); border: 1px solid var(--orange); }
+  .source-tier.tier-EXPERT { background: rgba(155, 89, 182, 0.15); color: #9b59b6; border: 1px solid #9b59b6; }
+
+  .expert-appendix { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-top: 18px; }
+  .expert-appendix summary { padding: 14px 20px; cursor: pointer; font-weight: 600; color: var(--text-muted); font-size: 0.92em; user-select: none; }
+  .expert-appendix summary:hover { color: var(--text); }
+  .expert-appendix[open] summary { border-bottom: 1px solid var(--border); }
+  .expert-appendix .expert-body { padding: 14px 20px 18px; }
+  .expert-quote { padding: 10px 14px; border-left: 3px solid #9b59b6; margin-bottom: 12px; font-size: 0.9em; }
+  .expert-quote .expert-name { font-weight: 700; color: #9b59b6; margin-bottom: 4px; }
+  .expert-empty { color: var(--text-muted); font-style: italic; font-size: 0.88em; }
+
+  footer { text-align: center; padding: 32px 20px; color: var(--text-muted); font-size: 0.8em; border-top: 1px solid var(--border); margin-top: 32px; }
+  footer .next-update { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .hero { padding: 36px 16px 24px; }
+    .hero h1 { font-size: 1.5em; line-height: 1.3; }
+    .container { padding: 12px; }
+    .direction-of-travel { margin: 16px 12px; padding: 16px 18px; font-size: 0.95em; }
+    .disclaimer { margin: 16px 12px; padding: 12px; font-size: 0.8em; }
+    .section-title { font-size: 1.2em; }
+    .forecast-card { padding: 14px 16px; }
+    .forecast-card .fc-p { font-size: 1.5em; }
+    .scenario-map, .inside-iran, .regime-watch, .expert-appendix .expert-body { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Geopolitical Scenario Analysis — Middle East</h1>
+  <p class="subtitle">Forecast board + descriptive delta. Predictions are time-bounded and scored; descriptions are sourced and verb-disciplined.</p>
+  <span class="date-badge">July 11, 2026</span>
+  <span class="war-day">Day 134</span>
+  <div class="build-meta">Published: <span id="pub-ts">2026-07-11T07:00:00Z</span> · Build <span id="build-id" style="font-family:monospace;opacity:0.6;">v48.0</span></div>
+  <div class="triplet-badge">⚖ Triple-blind: Analyst + Devil's Advocate + Judge · forecast-board v45</div>
+</div>
+
+<div class="container">
+
+  <div class="direction-of-travel">
+    <div class="label">Where this is heading</div>
+    <div class="body">
+      The collapse of the Islamabad Memorandum into a US Saturday deadline and Araghchi's Muscat mission defines the next seven days as a binary fork: either <span class="cite">F9</span> (Iranian renunciation, p=22%) and <span class="cite">F11</span> (new ceasefire framework, p=38%) chain toward a replacement agreement within the coming weeks, or the Hormuz confrontation deepens toward renewed conflict (Esc 33%); while <span class="cite">F10</span> (Knesset dissolution, p=74%) and <span class="cite">F7</span> (Netanyahu coalition collapse, p=90%) confirm Israeli domestic politics advances toward early elections on a timeline independent of the strait.
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>⚠ DISCLAIMER:</strong> This analysis relies on open sources (OSINT) and AI-generated assessments. Probabilities are time-bounded forecasts with resolution criteria; track record visible internally until ≥20 forecasts resolve. Descriptive sections enforce verb discipline — any causal/directional claim must cite a forecast or be marked context-only.
+  </div>
+
+  <!-- ========== FORECAST BOARD ========== -->
+  <div class="section" id="forecast-board">
+    <h2 class="section-title">
+      Forecast Board
+      <span class="meta">7 active · last reasoned 2026-07-11 · 31-day catch-up run</span>
+    </h2>
+
+    <div class="forecast-board">
+
+      <div class="forecast-bucket-label">NEAR-TERM · resolves ≤72h</div>
+
+      <!-- F8 -->
+      <div class="forecast-card cat-diplomacy status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F8 · 2026-07-11-araghchi-oman-meeting-by-july-13</span>
+          <span class="fc-category">diplomacy</span>
+        </div>
+        <div class="fc-question">Will Iranian FM Abbas Araghchi hold a publicly confirmed in-person meeting with Omani FM Sayyid Badr al-Busaidi in Muscat before EOD 2026-07-13?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">82%</span>
+          <span class="fc-delta no-move">Δ 0pp from 82% (2026-07-11)</span>
+          <span class="fc-horizon">→ resolves by 2026-07-13</span>
+        </div>
+        <div class="fc-delta-reason">IRNA (July 11) confirmed Araghchi is traveling to Oman for talks on the Strait of Hormuz and shipping safety. Xinhua (July 11) corroborated. Omani FM Busaidi confirmed as counterpart. Trip in progress as of July 11 morning. Risk of cancellation if US Saturday deadline triggers military action before meeting concludes or before joint readout is published.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES = TIER1 or Iranian state media confirms an in-person meeting between Araghchi and Busaidi in Muscat before EOD July 13. Phone or virtual contact does NOT count.</dd>
+          <dt>Sources OK</dt><dd>IRNA, Arab News, Omani state media (ONA), Reuters, AP, AFP.</dd>
+          <dt>Ambiguity</dt><dd>If Busaidi replaced by a lower-ranking official = NO. If meeting occurs July 14 or later = NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-OBSERVED">IRNA confirms Araghchi departure for Muscat</span>
+          <span class="fc-indicator state-NOT_OBSERVED">Joint Oman-Iran readout or ONA confirmation of meeting</span>
+        </div>
+      </div>
+
+      <div class="forecast-bucket-label">7–30 DAYS</div>
+
+      <!-- F6 -->
+      <div class="forecast-card cat-domestic status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F6 · 2026-06-02-knesset-sets-early-election-date-by-july-15</span>
+          <span class="fc-category">domestic</span>
+        </div>
+        <div class="fc-question">Will the Knesset pass the dissolution bill's final reading with a fixed election date earlier than 2026-10-27 before EOD 2026-07-15?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">10%</span>
+          <span class="fc-delta move-down">Δ −35pp from 45% (2026-06-10)</span>
+          <span class="fc-horizon">→ resolves by 2026-07-15</span>
+        </div>
+        <div class="fc-delta-reason">Second and third readings not yet scheduled as of July 11. Legal adviser Sagit Afik recommended July 17 as dissolution date — two days after the F6 horizon. Expected election date is October 27 (latest permissible under Israeli law), which per ambiguity rule resolves F6 NO ("if a fixed date on/after Oct 27 is set, resolve NO"). For F6 YES: need (a) final reading before EOD July 15 AND (b) election date &lt; Oct 27. Neither condition achievable at current trajectory.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if the Knesset passes the dissolution bill in final (third) reading AND that passage specifies a fixed election date earlier than 2026-10-27, before EOD 2026-07-15.</dd>
+          <dt>Sources OK</dt><dd>Two TIER1 (Times of Israel/Reuters/AP/JPost) citing the Knesset plenum vote record.</dd>
+          <dt>Ambiguity</dt><dd>Preliminary/first/second readings without final passage do NOT count; if a fixed date on/after Oct 27 is set, resolve NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">Plenum third-reading dissolution vote with fixed date &lt; Oct 27</span>
+          <span class="fc-indicator state-NOT_OBSERVED">Haredi-coalition agreement on September/Oct-20 date</span>
+        </div>
+      </div>
+
+      <!-- F9 -->
+      <div class="forecast-card cat-diplomacy status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F9 · 2026-07-11-iran-renounces-hormuz-attacks-by-july-17</span>
+          <span class="fc-category">diplomacy</span>
+        </div>
+        <div class="fc-question">Will Iran issue a publicly confirmed statement on Iranian state media renouncing the July 6-7 Hormuz commercial-shipping attacks and declaring the strait unconditionally open to all vessels before EOD 2026-07-17?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">22%</span>
+          <span class="fc-delta no-move">Δ 0pp from 22% (2026-07-11)</span>
+          <span class="fc-horizon">→ resolves by 2026-07-17</span>
+        </div>
+        <div class="fc-delta-reason">US issued Saturday July 12 deadline — confirmed by three US officials per Axios July 10 — demanding Iran renounce the July 6–7 attacks and declare the strait open. Iran FM Spokesperson Baghaei stated July 10 Tehran "has not requested negotiations" and characterized the attacks as "sovereign navigation rights." Araghchi Oman trip is an implicit face-saving path but the gap between Iranian sovereignty framing and the US demand for unconditional renunciation is wide.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES = IRNA or PressTV publishes statement attributed to Araghchi, Baghaei, or Pezeshkian explicitly renouncing July 6-7 maritime attacks AND declaring the strait open to all vessels without conditions, before EOD July 17.</dd>
+          <dt>Sources OK</dt><dd>IRNA, PressTV, Tasnim — must be Iranian state media, not third-party paraphrase.</dd>
+          <dt>Ambiguity</dt><dd>Broadly conciliatory statement without specific renunciation of July 6-7 attacks = AMBIGUOUS-RESOLVE-AS-NO. Mediator summaries without Iranian confirmation = NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">IRNA publishes explicit renunciation of July 6-7 attacks</span>
+          <span class="fc-indicator state-NOT_OBSERVED">US extends Saturday deadline or stands down military posture</span>
+        </div>
+      </div>
+
+      <!-- F10 -->
+      <div class="forecast-card cat-domestic status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F10 · 2026-07-11-knesset-formally-dissolves-by-july-19</span>
+          <span class="fc-category">domestic</span>
+        </div>
+        <div class="fc-question">Will the Knesset pass the final readings of the dissolution bill and formally dissolve itself before EOD 2026-07-19?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">74%</span>
+          <span class="fc-delta no-move">Δ 0pp from 74% (2026-07-11)</span>
+          <span class="fc-horizon">→ resolves by 2026-07-19</span>
+        </div>
+        <div class="fc-delta-reason">Legal adviser Sagit Afik recommended July 17 as formal dissolution date; Speaker Ohana and Coalition Whip Katz both confirmed July 17 timetable publicly. Coalition in "pre-summer blitz" (Haaretz July 5) rushing legislation before dissolution. Second and third readings not yet scheduled as of July 11 but procedurally straightforward once coalition agrees on election date (expected Oct 27). The 0.74 reflects ~26% risk of brief delay past July 19 due to last-minute coalition bargaining.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES = Knesset Speaker formally declares Knesset dissolved and dissolution vote passes final reading before EOD July 19, 2026.</dd>
+          <dt>Sources OK</dt><dd>Haaretz, Times of Israel, Jerusalem Post, Knesset official records.</dd>
+          <dt>Ambiguity</dt><dd>Dissolution vote passes but Speaker declaration postponed by legal challenge = AMBIGUOUS-YES. Coalition passes a one-week continuance = NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">Second reading scheduled in Knesset calendar</span>
+          <span class="fc-indicator state-NOT_OBSERVED">Knesset Speaker formal dissolution declaration</span>
+        </div>
+      </div>
+
+      <div class="forecast-bucket-label">30–90 DAYS</div>
+
+      <!-- F11 -->
+      <div class="forecast-card cat-diplomacy status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F11 · 2026-07-11-us-iran-new-ceasefire-framework-by-sept-9</span>
+          <span class="fc-category">diplomacy</span>
+        </div>
+        <div class="fc-question">Will the United States and Iran sign or formally announce a new written ceasefire or operational pause framework (replacing or extending the Islamabad Memorandum) before EOD 2026-09-09?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">38%</span>
+          <span class="fc-delta no-move">Δ 0pp from 38% (2026-07-11)</span>
+          <span class="fc-horizon">→ resolves by 2026-09-09</span>
+        </div>
+        <div class="fc-delta-reason">The Islamabad Memorandum was effectively voided by the July 6-7 exchange and Trump's July 8 declaration that the ceasefire is "OVER." Pakistani and Qatari intermediaries remain active post-collapse. Iranian intermediaries communicated to US counterparts "we want to keep talking" (Axios July 10). Base rate for a new framework within 60 days when mutual interest exists but trust is broken: ~35–40%.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES = new written agreement or publicly co-announced framework by named US and Iranian principals, confirmed by both governments, formally ending or pausing active US-Iran military operations, before EOD September 9, 2026.</dd>
+          <dt>Sources OK</dt><dd>Reuters, AP, AFP (primary wire), White House and Iranian presidency press offices.</dd>
+          <dt>Ambiguity</dt><dd>"Agreement to continue talks" without formal halt to hostilities = NO. Unilateral de-escalation without bilateral written confirmation = NO. Islamabad Memorandum, if formally reaffirmed, counts YES.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">Pakistan/Qatar convene new mediation round in Switzerland or Doha</span>
+          <span class="fc-indicator state-NOT_OBSERVED">Trump and Pezeshkian both publicly confirm new written framework</span>
+        </div>
+      </div>
+
+      <!-- F12 -->
+      <div class="forecast-card cat-regime status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F12 · 2026-07-11-mojtaba-khamenei-public-appearance-by-oct-9</span>
+          <span class="fc-category">regime</span>
+        </div>
+        <div class="fc-question">Will Iran's Supreme Leader Mojtaba Khamenei make a publicly verified appearance (video footage, authenticated photograph, or confirmed in-person at an official event) before EOD 2026-10-09?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">42%</span>
+          <span class="fc-delta no-move">Δ 0pp from 42% (2026-07-11)</span>
+          <span class="fc-horizon">→ resolves by 2026-10-09</span>
+        </div>
+        <div class="fc-delta-reason">Mojtaba elected Supreme Leader March 9 after Ali Khamenei was assassinated February 28. Defense Secretary Hegseth (March 2026): "wounded and likely disfigured." Reuters (April 2026): severe facial and leg injuries confirmed. During his father's state funeral July 3–10 — the highest-priority public event available — Mojtaba was absent. Time July 5: "Iran's new leader has yet to appear." CNN July 4: "unknown whereabouts." Governance via written directives through IRNA only. The 0.42 reflects a 90-day window during which medical recovery remains possible but is not evidenced.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES = TIER1 or OSINT-verified video footage, authenticated photograph, or witnessed in-person appearance at a named event before EOD October 9, 2026, confirmed by ≥2 independent non-Iranian sources.</dd>
+          <dt>Sources OK</dt><dd>Reuters, AP, BBC, AFP, Iran International. Iranian state media alone insufficient — must be confirmed by ≥2 independent non-Iranian TIER1 sources.</dd>
+          <dt>Ambiguity</dt><dd>IRNA-attributed written statements without visual confirmation = NO. Audio-only = AMBIGUOUS-RESOLVE-AS-NO. Blurry unverified footage without independent confirmation = AMBIGUOUS-RESOLVE-AS-NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-OBSERVED">Mojtaba absent from Ali Khamenei state funeral July 3–10 (negative indicator)</span>
+          <span class="fc-indicator state-NOT_OBSERVED">TIER1-verified video or photograph by non-Iranian source</span>
+        </div>
+      </div>
+
+      <div class="forecast-bucket-label">3–6 MONTHS</div>
+
+      <!-- F7 -->
+      <div class="forecast-card cat-regime status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F7 · 2026-05-11-netanyahu-coalition-collapse-by-oct-27</span>
+          <span class="fc-category">regime</span>
+        </div>
+        <div class="fc-question">Will Netanyahu's coalition lose its Knesset majority or dissolve early before 2026-10-27?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">90%</span>
+          <span class="fc-delta move-up">Δ +55pp from 35% (2026-05-19)</span>
+          <span class="fc-horizon">→ resolves by 2026-10-27</span>
+        </div>
+        <div class="fc-delta-reason">Force-updated off weekly cadence (53-day gap; material change). Dissolution bill first reading 106-0 June 2. Legal adviser Sagit Afik recommended July 17; Speaker Ohana and Coalition Whip Katz confirmed publicly. Resolution rests on first branch: "Netanyahu announces early dissolution before Oct 27 horizon." July 17 dissolution = dissolves early before Oct 27 = YES path. Residual 10% = risk of dramatic reversal before July 17. Second branch ("election date earlier than Oct 27") is a dead path when expected date = Oct 27.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if a Knesset roll-call vote confirms coalition loss of majority (61 seats), OR if Netanyahu announces early dissolution and the Knesset formally dissolves before 2026-10-27. NO if coalition survives to mandatory election date with 61+ seats intact.</dd>
+          <dt>Sources OK</dt><dd>Knesset official record + Reuters/Haaretz/Times of Israel. Polling alone does not resolve.</dd>
+          <dt>Ambiguity</dt><dd>If coalition drops below 61 but Netanyahu remains caretaker PM: YES. If single party departs but coalition retains 61+: NO. Election date = Oct 27 does NOT satisfy "earlier than Oct 27"; resolution via dissolution itself.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-PARTIAL">Smotrich formally departed coalition (coalition voted 106-0 for dissolution bill June 2)</span>
+          <span class="fc-indicator state-PARTIAL">Degel HaTorah dissolution pressure (legal adviser recommended July 17; Haredi revolt drove timing)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== DELTA ========== -->
+  <div class="section" id="delta">
+    <h2 class="section-title">
+      What Moved (Last 24-48h)
+      <span class="meta">Descriptive · banned-verb lint enforced · each paragraph cites a forecast or is marked context-only</span>
+    </h2>
+    <div class="delta-narrative">
+      <p>The United States issued a Saturday deadline (July 12 EOD, confirmed by three senior US officials per Axios July 10) demanding Iran renounce the July 6–7 Hormuz commercial-shipping attacks and declare the strait unconditionally open to all vessels. Iranian FM Abbas Araghchi landed in Muscat on July 11 for scheduled talks with Omani FM Sayyid Badr al-Busaidi — IRNA and Xinhua both confirmed the trip active as of July 11 morning, with the agenda described as "shipping safety and regional security." → moved <span class="cite">F8</span>, <span class="cite">F9</span></p>
+
+      <p>The Islamabad Memorandum — initialled June 14 with Witkoff (US) and Araghchi (Iran), confirmed by VP Vance June 15, and elaborated at the Lucerne Summit June 21–22 — was declared void by Trump on July 8 following Iranian naval and drone attacks on three commercial vessels in the strait July 6–7, per Reuters and AFP. Iranian FM Spokesperson Baghaei stated July 10 that Tehran "has not requested negotiations" and characterized the attacks as a matter of "sovereign navigation rights." Pakistani and Qatari intermediaries remained in contact after the collapse; Axios July 10 reported Iranian diplomatic sources communicated to US counterparts that Tehran "wants to keep talking." → moved <span class="cite">F11</span></p>
+
+      <p>Knesset legal adviser Sagit Afik formally recommended July 17 as the Knesset's dissolution date; Speaker Ohana and Coalition Whip Katz both confirmed the July 17 timetable in separate public statements to Israeli media by July 11. The coalition completed a legislative sprint through July 10 — haredi-linked exemption bills and judicial appointments — racing to close the pre-dissolution agenda (Haaretz, July 5). All coalition parties and the legal adviser publicly confirmed the expected election date as October 27, the latest permissible date under Israeli electoral law. → moved <span class="cite">F7</span>, <span class="cite">F10</span></p>
+
+      <p>Supreme Leader Mojtaba Khamenei — elevated March 9 after his father's assassination February 28 — was absent from Ali Khamenei's state funeral July 3–10, the highest-obligation public event for a sitting Supreme Leader by political convention. Time (July 5) reported "Iran's new leader has yet to appear publicly"; CNN July 4 live funeral coverage cited "unknown whereabouts." Iranian governance since February has been conducted via written directives circulated through IRNA, with no visual or in-person confirmation of the new Supreme Leader at any public event during 134 days of the crisis. → moved <span class="cite">F12</span></p>
+
+      <p>CENTCOM MCM (mine-countermeasure) vessels were reported by Bloomberg (July 7) as making measurable progress in strait clearance before the July 6–7 attacks disrupted the clearance corridor. IMF PortWatch data confirms a single-day transit peak of 54 on June 24 — the only day approaching the threshold that would have resolved F4 YES — but no 7-day average reached 50 within any consecutive window before July 2; post-July 6 transit counts retreated to approximately 22/day per July 9 tracking, with the clearance corridor disrupted by renewed Iranian interdiction. → <span class="context-only">context only</span></p>
+    </div>
+  </div>
+
+  <!-- ========== SCENARIO MAP ========== -->
+  <div class="section" id="scenario-map">
+    <h2 class="section-title">
+      Scenario Map
+      <span class="meta">Computed from Forecast Board · 1 sentence per scenario</span>
+    </h2>
+    <div class="scenario-map">
+      <div class="prob-bar-container">
+        <div class="prob-bar prob-escalation" style="width:33%;">Escalation 33%</div>
+        <div class="prob-bar prob-status" style="width:43%;">Protracted 43%</div>
+        <div class="prob-bar prob-deescalation" style="width:24%;">De-esc 24%</div>
+      </div>
+      <p class="scenario-line"><strong class="label-esc">Escalation path (33%):</strong> Iranian non-compliance with Saturday deadline triggers US military response, Hormuz becomes a contested warzone, oil shock deepens, and Iran strikes regional US bases — driven by F9 failing (p=78%) combined with the US maintaining its ultimatum posture.</p>
+      <p class="scenario-line"><strong class="label-prot">Protracted path (43%):</strong> Araghchi Muscat mediation produces an ambiguous de-escalation that falls short of explicit renunciation — buying days but not resolution — leaving Hormuz transits suppressed below 30/day for months while F11 remains unresolved through September.</p>
+      <p class="scenario-line"><strong class="label-desc">De-escalation path (24%):</strong> Iran issues compliant state-media statement before July 17, Muscat talks produce an interim framework (F8 YES + F9 YES), Pakistan/Qatar convene a replacement Lucerne-type round (F11 building), and transit recovery begins within two weeks.</p>
+    </div>
+  </div>
+
+  <!-- ========== INSIDE IRAN ========== -->
+  <div class="section" id="inside-iran">
+    <h2 class="section-title">
+      Inside Iran
+      <span class="meta">State-media decode · ~200 words · verb-ban + forecast-cite rule applies</span>
+    </h2>
+    <div class="inside-iran">
+      <div class="iran-media-badges">
+        <span class="iran-media-badge">IRNA</span>
+        <span class="iran-media-badge">IRIB</span>
+        <span class="iran-media-badge">Press TV</span>
+        <span class="iran-media-badge">Fars</span>
+        <span class="iran-media-badge">Tasnim</span>
+        <span class="iran-media-badge">Kayhan</span>
+      </div>
+      <p>IRNA and Tasnim July 10–11 coverage of the Araghchi Oman visit frames the trip as a "good-will initiative on shipping safety" — the standard Iranian state-media vocabulary for bilateral talks conducted under diplomatic pressure. No IRNA bulletin in the last 48 hours references the US Saturday deadline or the July 6–7 attacks by name; the closest public acknowledgment was FM Spokesperson Baghaei's July 10 presser characterizing Iran's Hormuz posture as "one of sovereign navigation rights, consistent with international law." → supports <span class="cite">F9</span> without move</p>
+
+      <p>IRIB (state television) and Press TV coverage of Ali Khamenei's state funeral July 3–10 ran 96-hour ceremonial programming: narratives of "steadfastness" (استواری) and "continuity of the revolutionary path" dominated editorial framing across all state channels. No IRIB broadcast or state-media outlet mentioned Mojtaba Khamenei's location or absence from the proceedings; Kayhan (July 8) characterized the funeral as "a testament to the Islamic Republic's institutional resilience," deploying the event as a frame for the new Supreme Leader's legitimacy without any physical appearance by him. → supports <span class="cite">F12</span> without move</p>
+
+      <p>Fars News July 9 published a feature on "Strait sovereignty" citing an unnamed IRGC source claiming "the defensive Hormuz operations were fully in accordance with international law and were provoked by unlawful US naval presence." No Iranian state outlet reported the July 6–7 attacks as a violation of the Islamabad Memorandum; IRNA last characterized that agreement on June 16 as "still the framework for negotiations." The 25-day gap between IRNA's June 16 framing and Baghaei's July 10 statement that Tehran "has not requested negotiations" marks a structural break in the official Iranian diplomatic communication track, without an intermediary public explanation offered by any state outlet. → supports <span class="cite">F11</span> without move</p>
+    </div>
+  </div>
+
+  <!-- ========== REGIME CHANGE WATCH ========== -->
+  <div class="section" id="regime-change">
+    <h2 class="section-title">
+      Regime Change Watch
+      <span class="meta">12-month horizon · weekly review only (Sundays) · no intra-week deltas</span>
+    </h2>
+    <div class="regime-watch">
+      <div class="regime-watch-meta">Last reviewed: <strong>2026-07-05</strong> · Next review: <strong>2026-07-12</strong></div>
+
+      <div class="regime-row">
+        <span class="name">🇮🇷 Iran (Regime Collapse)</span>
+        <span class="p">5–15%</span>
+        <div class="drivers">Mojtaba Khamenei's verified absence from his father's state funeral at Day 134 of the war is the first persistent concrete indicator of succession stress at the top of the regime; IRGC and technocrat factions are managing governance through written IRNA directives with no verified Supreme Leader appearances at any public event since the assassination in February.</div>
+      </div>
+
+      <div class="regime-row">
+        <span class="name">🇮🇱 Israel (Netanyahu Steps Down)</span>
+        <span class="p">75–85%</span>
+        <div class="drivers">Coalition dissolution confirmed for July 17 via legal adviser recommendation and Speaker/Whip public statements; Netanyahu transitions to caretaker PM role through October 27 elections; effective political authority transfers to caretaker status regardless of whether he leads the Likud list into October.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SOURCES ========== -->
+  <div class="section" id="sources">
+    <h2 class="section-title">
+      Sources
+      <span class="meta">Last 7 days · typed [TIER1 / STATE_MEDIA / OSINT / EXPERT]</span>
+    </h2>
+    <ul class="sources-list">
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        Axios (2026-07-10) — "Three senior US officials: Trump gave Iran until Saturday to stand down Hormuz operations"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        Reuters (2026-07-10) — "US sets July 12 deadline for Iran to renounce Hormuz shipping attacks"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        IRNA (2026-07-11) — "Araghchi departs for Muscat for talks on shipping safety and regional security"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        Xinhua (2026-07-11) — "Iranian FM Araghchi to hold talks with Omani FM Busaidi in Muscat"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        AFP (2026-07-08) — "Trump declares Islamabad ceasefire 'over' after Iranian Hormuz attacks"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        Reuters (2026-07-06) — "Iranian forces attack three commercial vessels in Strait of Hormuz"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        Bloomberg (2026-07-07) — "Mine-clearing progress in Hormuz disrupted by Iranian naval incidents"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        Axios (2026-07-10) — "Iranian diplomatic sources: 'We want to keep talking' after Islamabad collapse"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        Time (2026-07-05) — "Khamenei's Funeral Is Meant to Project Strength. But Iran's new leader has yet to appear."
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        CNN (2026-07-04) — "Ali Khamenei state funeral: live coverage — Mojtaba's whereabouts remain unknown"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        Haaretz (2026-07-05) — "Knesset pre-dissolution legislative blitz accelerates heading into July 17 date"
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        Times of Israel (2026-07-11) — "Speaker Ohana, Coalition Whip Katz confirm July 17 dissolution timetable"
+      </li>
+      <li>
+        <span class="source-tier tier-STATE_MEDIA">STATE_MEDIA</span>
+        IRNA (2026-07-10) — "Baghaei: Iran has not requested negotiations; Hormuz operations lawful, within sovereign rights"
+      </li>
+      <li>
+        <span class="source-tier tier-STATE_MEDIA">STATE_MEDIA</span>
+        Fars News (2026-07-09) — "IRGC source: Hormuz operations within international law, provoked by US naval presence"
+      </li>
+      <li>
+        <span class="source-tier tier-STATE_MEDIA">STATE_MEDIA</span>
+        Kayhan (2026-07-08) — "State funeral as testament to Islamic Republic's institutional resilience"
+      </li>
+    </ul>
+
+    <details class="expert-appendix">
+      <summary>Expert citations from today's Delta &nbsp;·&nbsp; <span style="color:var(--text-muted);font-weight:400;font-size:0.9em;">no quotes today</span></summary>
+      <div class="expert-body">
+        <p class="expert-empty">No expert citations in today's Delta.</p>
+      </div>
+    </details>
+  </div>
+
+</div>
+
+<footer>
+  Geopolitical Scenario Analysis — Multi-Source OSINT Synthesis<br>
+  Generated July 11, 2026 (v48.0) · forecast-board architecture · triple-blind triplet · based on open sources, not intelligence analysis<br>
+  <span class="next-update">Next automatic update: July 12, 2026 at 07:00 UTC (09:00 Stockholm)</span>
+</footer>
+
+<!-- GoatCounter analytics - privacy-friendly, no cookies, GDPR compliant -->
+<script data-goatcounter="https://mellanostern.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
