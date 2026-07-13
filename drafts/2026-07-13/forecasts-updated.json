@@ -1,0 +1,261 @@
+{
+  "schema_version": "v45.0",
+  "seeded_at": "2026-05-19",
+  "seeded_from": "v47.0 (Day 103, 2026-06-10)",
+  "last_updated": "2026-07-13",
+  "note": "v48.0 Day 136 (2026-07-13). F1–F6 resolved: F1 YES (Iran resumed talks, MOU June 15), F2 YES (Lake Lucerne + MOU signing June 17), F3 NO (no bilateral direct exchange June 10–24), F4 NO (7-day MA peaked ~32, never crossed 50), F5 YES (MCM operations commenced June 16), F6 NO (election date=Oct 27, not earlier; vote July 17 after deadline — double fail). F7→F1 Sunday catch-up: p 0.35→0.15 (8 Sundays missed; coalition on orderly Oct 27 path; no qualifying event). 5 new forecasts for July re-escalation. MOU collapsed July 8. Active US-Iran conflict as of July 13. Scenario: Esc 60 / Prot 25 / De-esc 15.",
+  "forecasts": [
+    {
+      "id": "2026-05-11-netanyahu-coalition-collapse-by-oct-27",
+      "fnum": "F1",
+      "question": "Will Netanyahu's coalition lose its Knesset majority or dissolve early before 2026-10-27?",
+      "owner_category": "regime",
+      "horizon_days": 169,
+      "horizon_date": "2026-10-27",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-10-28",
+      "p": 0.15,
+      "p_prior": 0.35,
+      "prior_date": "2026-05-11",
+      "delta_reason": "Sunday catch-up (8 Sundays missed; last reasoned 2026-05-19). Coalition voted 106-0 to advance dissolution bill on 2026-06-02, with Oct 27 confirmed as election date — F6 resolved NO (election date=Oct 27, ambiguity rule: fixed date on/after Oct 27 resolves NO). No Knesset roll-call majority loss confirmed in the 62-day gap. No election date set earlier than 2026-10-27. Wartime posture has benefited coalition consolidation. Orderly path to Oct 27 with no qualifying event. Reduced from 0.35.",
+      "resolution_criteria": "YES if a Knesset roll-call vote confirms coalition loss of majority (61 seats), OR if Netanyahu announces early dissolution and election date moves earlier than 2026-10-27. NO if coalition survives to mandatory election date with 61+ seats intact.",
+      "resolution_source_rule": "Knesset official record + Reuters/Haaretz/Times of Israel. Polling alone does not resolve.",
+      "ambiguity_rule": "If coalition drops below 61 but Netanyahu remains caretaker PM until election: YES. If a single party departs but coalition retains 61+: NO. Reviewed weekly only (Sundays); no intra-week deltas.",
+      "indicators": [
+        {
+          "name": "Coalition partner formally withdraws support, confirmed by roll-call vote",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "+15pp toward YES"
+        },
+        {
+          "name": "Election date rescheduled to date earlier than 2026-10-27",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "+20pp toward YES"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-13"
+    },
+    {
+      "id": "2026-07-13-hormuz-zero-transit-24h-by-july-16",
+      "fnum": "F2",
+      "question": "Will Iran enforce a complete Hormuz commercial shipping halt — zero confirmed commercial vessel transits for a continuous 24-hour period — before EOD 2026-07-16?",
+      "owner_category": "market",
+      "horizon_days": 3,
+      "horizon_date": "2026-07-16",
+      "created_at": "2026-07-13",
+      "expires_at": "2026-07-17",
+      "p": 0.40,
+      "p_prior": 0.40,
+      "prior_date": "2026-07-13",
+      "delta_reason": "Iran's Persian Gulf Strait Authority declared commercial transit 'not possible at present' on July 12; the IRGC attacked a Cyprus-flagged container vessel July 11, prompting CENTCOM to strike approximately 140 Iranian targets July 11–13. CENTCOM simultaneously reported the strait open under active US naval presence, creating a disputed-closure situation as of July 13 morning. MarineTraffic recorded approximately 13 transits per day on July 13 (versus approximately 94 pre-war). US naval posture constrains Iranian capacity to enforce a complete halt. Probability of 0.40 reflects substantial Iranian intent against significant US counterpressure within a 3-day window.",
+      "resolution_criteria": "YES if at least one TIER1 maritime intelligence source (Lloyd's List, Kpler, IHS Markit/MarineTraffic, IMF PORTWATCH) records zero commercially tracked vessel transits through the Strait of Hormuz for any continuous 24-hour calendar period before EOD 2026-07-16.",
+      "resolution_source_rule": "Kpler or Lloyd's List daily transit data; CENTCOM operational reporting; IMF PORTWATCH 24h count. Minimum two independent TIER1 sources to confirm.",
+      "ambiguity_rule": "If transit data is unavailable or AIS signals are jammed and no confirmed transits can be verified, resolve AMBIGUOUS-AS-NO. Military vessel transits do not count. Iranian IRGC escort vessels do not count.",
+      "indicators": [
+        {
+          "name": "Iran PGSA closure declaration",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-12",
+          "expected_effect": "+20pp toward YES"
+        },
+        {
+          "name": "CENTCOM FONOPS denial of closure",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "-15pp toward YES (countervailing)"
+        },
+        {
+          "name": "IRGC attack on Cyprus-flagged container ship",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-11",
+          "expected_effect": "+10pp toward YES"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-13"
+    },
+    {
+      "id": "2026-07-13-us-iran-ceasefire-or-pause-by-july-25",
+      "fnum": "F3",
+      "question": "Will the US and Iran publicly announce a new formal ceasefire, or a mutually acknowledged pause in strikes lasting at least 72 hours, before EOD 2026-07-25?",
+      "owner_category": "diplomacy",
+      "horizon_days": 12,
+      "horizon_date": "2026-07-25",
+      "created_at": "2026-07-13",
+      "expires_at": "2026-07-26",
+      "p": 0.45,
+      "p_prior": 0.45,
+      "prior_date": "2026-07-13",
+      "delta_reason": "Trump declared the June 17 MOU ceasefire 'over' on July 8 after IRGC attacks on a Cyprus-flagged vessel July 7 terminated the Doha process. On July 10 Trump stated US negotiators would continue engagement in a new Swiss channel. Qatar and Pakistan relaunched mediation contacts by July 10. The June 17 MOU lasted 21 days before the IRGC resumed attacks; the Swiss channel pattern recalls the June escalation-to-MOU arc, but the structural obstacles — Mojtaba Khamenei absent from public broadcast since March, no named IRGC representative in any tracked diplomatic session — remained in place as of July 13.",
+      "resolution_criteria": "YES if both the US government (CENTCOM, State Dept, or White House) AND Iran's government (MOFA, IRGC, or presidential office) publicly acknowledge a halt to offensive strikes and characterise it as a ceasefire or agreed pause of at least 72 hours' duration, before EOD 2026-07-25.",
+      "resolution_source_rule": "Requires simultaneous or near-simultaneous public statements from both governments; unilateral 'pause' by one side does not qualify. TIER1 confirmation (Reuters, AP, AFP).",
+      "ambiguity_rule": "If one side declares a pause and the other neither confirms nor publicly contradicts within 12 hours, resolve AMBIGUOUS-AS-NO. A 'humanitarian window' of less than 72 hours resolves NO. Qatar or Oman relay of oral agreement without written confirmation resolves AMBIGUOUS-AS-NO.",
+      "indicators": [
+        {
+          "name": "Qatar mediation back-channel active",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-10",
+          "expected_effect": "+10pp toward YES"
+        },
+        {
+          "name": "Trump 'talks continue' statement",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-10",
+          "expected_effect": "+8pp toward YES"
+        },
+        {
+          "name": "Switzerland channel 'next week' signal",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-10",
+          "expected_effect": "+8pp toward YES"
+        },
+        {
+          "name": "Mojtaba Khamenei retribution narrative in state media",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "-12pp toward YES (countervailing)"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-13"
+    },
+    {
+      "id": "2026-07-13-israel-strikes-iranian-territory-by-july-25",
+      "fnum": "F4",
+      "question": "Will Israel publicly acknowledge conducting direct offensive strikes on Iranian territory (Iranian mainland, IRGC facilities, or Iranian naval assets in the Persian Gulf) between 2026-07-13 and EOD 2026-07-25?",
+      "owner_category": "military",
+      "horizon_days": 12,
+      "horizon_date": "2026-07-25",
+      "created_at": "2026-07-13",
+      "expires_at": "2026-07-26",
+      "p": 0.30,
+      "p_prior": 0.30,
+      "prior_date": "2026-07-13",
+      "delta_reason": "Israel has not joined US strikes on Iranian targets during the July 8–13 campaign; the IDF's last publicly acknowledged strike on Iranian territory was June 8. No US request for Israeli participation in the current campaign reached public confirmation. Netanyahu faces an Oct 27 election, which reduces incentive for unilateral escalation. A conservative Iranian newspaper published on July 13 a named retribution list targeting US, Israeli, and EU heads of state — evidence of Iranian threat escalation that could shift Israeli threat calculations. No US invitation to Israeli participation in current strikes was publicly extended.",
+      "resolution_criteria": "YES if the IDF, Israeli Prime Minister's office, or Defence Ministry publicly acknowledge in an official statement that Israeli forces struck Iranian territory, IRGC naval assets in the Gulf, or IRGC-controlled air-defence sites inside Iran between July 13 and July 25, 2026.",
+      "resolution_source_rule": "IDF official statement or PMO press conference; corroborated by at least one TIER1 (Reuters, AP). Iranian confirmation alone does not suffice.",
+      "ambiguity_rule": "Israeli strikes on Lebanon, Syria, Yemen, or Gaza do not resolve YES regardless of whether targets are IRGC-linked. Only strikes on Iranian soil or Iranian naval assets in the Persian Gulf proper qualify.",
+      "indicators": [
+        {
+          "name": "IDF public restraint posture maintained",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "-15pp toward YES (countervailing)"
+        },
+        {
+          "name": "Active US-Iran strikes ongoing without Israeli involvement",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "-5pp toward YES (countervailing)"
+        },
+        {
+          "name": "Iranian retribution list naming Israeli leaders published",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "+8pp toward YES"
+        },
+        {
+          "name": "US-Israel coordination on Iran strikes",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "+20pp toward YES"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-13"
+    },
+    {
+      "id": "2026-07-13-mojtaba-khamenei-public-appearance-by-aug-13",
+      "fnum": "F5",
+      "question": "Will Mojtaba Khamenei make a live, publicly broadcast appearance — audio or video — before EOD 2026-08-13?",
+      "owner_category": "regime",
+      "horizon_days": 31,
+      "horizon_date": "2026-08-13",
+      "created_at": "2026-07-13",
+      "expires_at": "2026-08-14",
+      "p": 0.45,
+      "p_prior": 0.45,
+      "prior_date": "2026-07-13",
+      "delta_reason": "Mojtaba Khamenei has communicated only via written statements since assuming the Supreme Leader position on March 9; reports from March cited facial injuries. His father's funeral and burial concluded at Imam Reza shrine in Mashhad on July 9, after a four-month delay attributed to security conditions. Iranian state media ran framing of Mojtaba's written communiqués as principled, decisive leadership. Active US strikes on approximately 140 Iranian targets as of July 13 elevated security risk around any live public appearance. The 31-day window provides sufficient time for some form of broadcast if security conditions allow; the legitimacy-building narrative in state media suggests intent toward an eventual appearance.",
+      "resolution_criteria": "YES if Mojtaba Khamenei appears in a publicly broadcast audio or video recording that includes his own unedited voice or image in real-time (live or same-day broadcast), authenticated as him by Iranian state media, before EOD 2026-08-13. Written statements read by third parties do not qualify.",
+      "resolution_source_rule": "Press TV, IRIB successor outlet, or Khamenei.ir; corroborated by at least one TIER1 (Reuters, AP, BBC Persian).",
+      "ambiguity_rule": "Pre-recorded video released with significant delay resolves YES only if Iranian state media describes it as a live or same-day address. Audio-only recordings with uncertain authenticity resolve AMBIGUOUS-AS-NO.",
+      "indicators": [
+        {
+          "name": "Ali Khamenei burial completed",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-09",
+          "expected_effect": "+10pp toward YES (removes protocol constraint)"
+        },
+        {
+          "name": "Mojtaba absent from public broadcast since March",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "-10pp toward YES (ongoing absence pattern)"
+        },
+        {
+          "name": "State media legitimacy-building narrative active",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "+8pp toward YES"
+        },
+        {
+          "name": "Active US strikes elevating security risk",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "-8pp toward YES (countervailing)"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-13"
+    },
+    {
+      "id": "2026-07-13-iaea-inspection-iran-nuclear-site-by-oct-10",
+      "fnum": "F6",
+      "question": "Will IAEA inspectors complete at least one on-site inspection at a declared Iranian nuclear facility before EOD 2026-10-10?",
+      "owner_category": "diplomacy",
+      "horizon_days": 89,
+      "horizon_date": "2026-10-10",
+      "created_at": "2026-07-13",
+      "expires_at": "2026-10-11",
+      "p": 0.30,
+      "p_prior": 0.30,
+      "prior_date": "2026-07-13",
+      "delta_reason": "The Iranian parliament enacted a national security law on July 11 barring IAEA inspector access. The June 17 MOU text required IAEA supervision, but Iran's MOFA conditioned physical access on completion of a final comprehensive deal. The MOU ceasefire collapsed July 8. Iran's enriched uranium stockpile was assessed at approximately 440.9 kg at 60% enrichment as of the most recent IAEA estimate. The 89-day window spans the October 27 Israeli election and a potential new ceasefire window; the 0.30 probability reflects the realistic possibility of a second ceasefire generating renewed IAEA access negotiations, against the parliamentary bar and Iran's stated sequencing condition.",
+      "resolution_criteria": "YES if the IAEA Director General or Board of Governors publicly confirms that IAEA inspectors have physically accessed and conducted monitoring or verification activities at any declared Iranian nuclear facility (Natanz, Fordow, Isfahan, Arak or equivalent) before EOD 2026-10-10.",
+      "resolution_source_rule": "IAEA official press release or DG statement; corroborated by Reuters or AP. Iranian MOFA confirmation alone does not suffice.",
+      "ambiguity_rule": "IAEA remote monitoring (cameras, seals) without physical inspector presence resolves NO. A scheduled visit cancelled before completion resolves NO. 'Technical discussion' without physical site access resolves NO.",
+      "indicators": [
+        {
+          "name": "IAEA access barred by parliamentary national security law",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-11",
+          "expected_effect": "-20pp toward YES (primary constraint)"
+        },
+        {
+          "name": "MOU text requires IAEA supervision",
+          "state": "OBSERVED",
+          "observed_at": "2026-06-17",
+          "expected_effect": "+10pp toward YES (framework obligation if deal revives)"
+        },
+        {
+          "name": "Iran 'only after final deal' access condition stated",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-13",
+          "expected_effect": "-10pp toward YES"
+        },
+        {
+          "name": "MOU ceasefire collapsed",
+          "state": "OBSERVED",
+          "observed_at": "2026-07-08",
+          "expected_effect": "-8pp toward YES"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-07-13"
+    }
+  ]
+}
