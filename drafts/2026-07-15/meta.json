@@ -1,0 +1,31 @@
+{
+  "version": "v48.0",
+  "date": "2026-07-15",
+  "war_day": 138,
+  "publish_ts": "2026-07-15T07:00:00Z",
+  "pipeline": "daily-update-draft",
+  "triplet": {
+    "analyst": "claude-sonnet-4-6",
+    "devil_advocate": "claude-sonnet-4-6",
+    "judge": "claude-sonnet-4-6"
+  },
+  "forecasts_inherited": "forecasts/active.json (last_updated: 2026-06-10, 35-day gap corrected)",
+  "forecasts_resolved": ["F1", "F2", "F3", "F4", "F5", "F6"],
+  "forecasts_active": ["F7", "F8", "F9", "F10", "F11", "F12"],
+  "scenario": {
+    "escalation_pct": 35,
+    "protracted_pct": 60,
+    "deescalation_pct": 5,
+    "derivation": "Esc = P(F10=YES)*P(F9=NO) = 0.50*0.70 = 0.35; De-esc = P(F9=YES)*P(F8=YES)*P(F10=NO) = 0.30*0.30*0.50 = 0.045 ≈ 0.05; Prot = residual 0.60"
+  },
+  "opposing_narrative_triggered": true,
+  "opposing_narrative_triggers": [
+    "F7: 25pp move (0.35→0.10)",
+    "5 new forecasts added (F8-F12)",
+    "F7 was stale 56 days (last_reasoned_at 2026-05-19)"
+  ],
+  "sources_count": 15,
+  "sources_breakdown": {"TIER1": 14, "STATE_MEDIA": 1},
+  "lint_status": "pending",
+  "push_branch": "claude/daily-draft-2026-07-15"
+}
