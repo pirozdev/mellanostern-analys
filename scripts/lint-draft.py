@@ -89,10 +89,10 @@ BANNED_RE = re.compile("|".join(BANNED_PATTERNS), re.IGNORECASE)
 # Required closure: every <p> in linted sections must end with one of these markers.
 # Markers are HTML-rendered spans; we look for them as text patterns near the </p>.
 REQUIRED_CLOSURE_PATTERNS = [
-    r"→\s*moved\s+<span[^>]*class=[\"']cite[\"'][^>]*>F\d+",
-    r"→\s*moved\s+F\d+",
-    r"→\s*supports\s+<span[^>]*class=[\"']cite[\"'][^>]*>F\d+",
-    r"→\s*supports\s+F\d+",
+    r"→\s*moved\s+<span[^>]*class=[\"']cite[\"'][^>]*>[A-Z]\d+",
+    r"→\s*moved\s+[A-Z]\d+",
+    r"→\s*supports\s+<span[^>]*class=[\"']cite[\"'][^>]*>[A-Z]\d+",
+    r"→\s*supports\s+[A-Z]\d+",
     r"→\s*<span[^>]*class=[\"']context-only[\"'][^>]*>context only",
     r"→\s*context only",
 ]
