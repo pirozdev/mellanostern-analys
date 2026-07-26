@@ -1,0 +1,49 @@
+{
+  "date": "2026-07-26",
+  "war_day": 149,
+  "version": "v48.0",
+  "schema_version": "v45.0",
+  "operation": "Operation Epic Fury",
+  "operation_start": "2026-02-28",
+  "generated_at": "2026-07-26T07:00:00Z",
+  "pipeline": "daily-update-draft",
+  "triplet": {
+    "analyst": "ran",
+    "devil_advocate": "ran",
+    "judge": "ran"
+  },
+  "cold_start_audit": true,
+  "cold_start_note": "Sunday — cold-start audit required and executed. F7 had 30pp gap (p_inherited=0.35, p_cold=0.05); Judge applied explicit ambiguity rule (coalition fell below 61, Netanyahu caretaker PM → YES) and flagged for human review.",
+  "gap_days": 46,
+  "forecasts_inherited": 7,
+  "forecasts_resolved": 7,
+  "forecasts_resolved_yes": 3,
+  "forecasts_resolved_no": 3,
+  "forecasts_resolved_ambiguous": 1,
+  "forecasts_active_new": 6,
+  "forecasts_active_total": 6,
+  "human_review_flags": [
+    {
+      "forecast_id": "2026-05-11-netanyahu-coalition-collapse-by-oct-27",
+      "fnum": "F7",
+      "flag": "Managed-dissolution verdict: coalition fell to 48 seats (UTJ/Shas departure), Knesset voted 62-0 to dissolve with Netanyahu voting YES. Judge applied ambiguity rule ('If coalition drops below 61 but Netanyahu remains caretaker PM until election: YES'). Neither named indicator triggered; actual mechanism was UTJ/Shas departure, not Smotrich or Degel HaTorah. Human reviewer should confirm whether the ambiguity rule overrides both main criteria. Cold-start gap: p_inherited=0.35, p_cold=0.05, gap=30pp."
+    }
+  ],
+  "da_opposing_narrative_triggered": true,
+  "da_opposing_narrative_file": "opposing-narrative.md",
+  "scenario_map": {
+    "escalation_pct": 40,
+    "protracted_pct": 40,
+    "deescalation_pct": 20,
+    "derivation": "F9 p=0.70 (escalation driver, near-term) × F13 p=0.35 (de-escalation sole path) × F8 p=0.10 (strong de-escalation). Esc=40, Prot=40, De-esc=20."
+  },
+  "regime_change": {
+    "iran_collapse_range": "30-40%",
+    "netanyahu_steps_down_range": "55-65%",
+    "last_reviewed": "2026-07-26",
+    "next_review": "2026-08-02"
+  },
+  "lint_result": "lint OK — publishable",
+  "lint_exit_code": 0,
+  "status": "human_review_required"
+}
