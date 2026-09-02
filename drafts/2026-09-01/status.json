@@ -1,0 +1,54 @@
+{
+  "date": "2026-09-01",
+  "version": "v50.0",
+  "day": 186,
+  "status": "human_review_required",
+  "flags": [
+    {
+      "id": "F9-may-be-resolved",
+      "severity": "HIGH",
+      "message": "F9 (IRGC retaliation by Sep 7, p=0.68) was opened on Sep 1, but Iran launched operations against US interests in Aqaba, Jordan on the same day. If IRGC attribution against a confirmed US military installation is verified by CENTCOM or two independent TIER1 sources, F9 should immediately be transitioned to RESOLVED-YES. Owner must confirm attribution before the next scheduled run."
+    },
+    {
+      "id": "F1-expires-tomorrow",
+      "severity": "LOW",
+      "message": "F1 (Iran MFA Hormuz conditions by EOD Sep 2) expires tomorrow. Probability at 0.06 (near-floor). No further Analyst action required unless an MFA statement is observed before EOD Sep 2. If no statement is confirmed, transition to RESOLVED-NO at next run."
+    },
+    {
+      "id": "DA-agent-unavailable",
+      "severity": "INFO",
+      "message": "DA subagent was unavailable for the third consecutive session due to container restarts (agents lost: a6f68ee375c970156, a3c9ab318df288f48, a9449d8004803d10c). Inline DA verification was performed via 5 independent WebSearch calls. This is a process deviation logged in meta.json and archive/judge-notes/2026-09-01.md. If container restarts continue to affect DA availability, consider scheduling DA as a separate workflow step."
+    }
+  ],
+  "lint": {
+    "result": "pass",
+    "exit_code": 0,
+    "mode": "full",
+    "html": "drafts/2026-09-01/index.html.new",
+    "forecasts": "drafts/2026-09-01/forecasts-updated.json"
+  },
+  "size_gate": {
+    "result": "pass",
+    "bytes": 44818,
+    "limit_bytes": 153600,
+    "margin": "71% under limit"
+  },
+  "structure_gate": {
+    "result": "pass",
+    "div_opens": 74,
+    "div_closes": 74,
+    "balance": 0
+  },
+  "scenario": {
+    "escalation": 0.62,
+    "protracted": 0.28,
+    "deescalation": 0.10
+  },
+  "judge_corrections": [
+    "F2.p: 0.03 → 0.05 (Codex floor)",
+    "F9.owner_category: US-IRAN-DIRECT → military (invalid enum)",
+    "F9.expires_at: 2026-09-07 → 2026-09-08 (horizon+1 convention)",
+    "F6.p: 0.41 → 0.39 (poll divergence; +4pp not +6pp)"
+  ],
+  "generated_at": "2026-09-02T07:00:00Z"
+}

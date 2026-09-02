@@ -1,0 +1,37 @@
+{
+  "date": "2026-09-01",
+  "version": "v50.0",
+  "day": 186,
+  "run_type": "scheduled",
+  "pipeline": "daily-update-draft v45",
+  "branch": "claude/daily-draft-2026-09-01",
+  "triplet": {
+    "analyst": "completed (container restart survived; second Analyst agent a69f4ae1c38794c0c)",
+    "devil_advocate": "inline-fallback (3 consecutive container restarts killed DA agents a6f68ee375c970156, a3c9ab318df288f48, a9449d8004803d10c)",
+    "judge": "completed (inline synthesis after inline DA verification)"
+  },
+  "process_deviation": "DA-agent unavailable: 3 consecutive container restarts. Orchestrating agent performed inline DA verification via 5 independent WebSearch calls covering: (1) F8 resolution confirmation, (2) F9 Iran Sep 1 strike attribution, (3) F3 IAEA access position, (4) F6 Israel poll evidence, (5) F2 mediator channel status. DA opposing narrative written by orchestrating agent in DA role. Judge synthesis applied normally.",
+  "forecasts_active": 6,
+  "forecasts_resolved_today": ["F8"],
+  "forecasts_new_today": ["F9"],
+  "forecasts_expiring_soon": ["F1 expires EOD 2026-09-02"],
+  "scenario": {
+    "escalation": 0.62,
+    "protracted": 0.28,
+    "deescalation": 0.10,
+    "derivation": "F8 RESOLVED-NO + F9=0.68 (high retaliation probability) + F2/F4/F1 at probability floor = escalation-dominant"
+  },
+  "flags": [
+    "HUMAN REVIEW REQUIRED: F9 may be immediately RESOLVED-YES. Sep 1 Iran strikes reported over Aqaba, Jordan (targeting US interests) — if IRGC-attributed against a confirmed US military installation per CENTCOM or two independent TIER1 sources, F9 resolution criteria are satisfied before EOD Sep 7. Owner must review and resolve if confirmed.",
+    "F1 expires EOD 2026-09-02: probability at 0.06 (near-floor). No further Analyst action required unless MFA statement observed before EOD."
+  ],
+  "judge_corrections": [
+    {"field": "F2.p", "from": 0.03, "to": 0.05, "reason": "Codex 5-95% rule: minimum p=0.05"},
+    {"field": "F9.owner_category", "from": "US-IRAN-DIRECT", "to": "military", "reason": "Not a valid enum value; corrected to closest valid category"},
+    {"field": "F9.expires_at", "from": "2026-09-07", "to": "2026-09-08", "reason": "expires_at must be horizon_date + 1 day per schema convention"},
+    {"field": "F6.p", "from": 0.41, "to": 0.39, "reason": "Analyst proposed +6pp on Haaretz poll; Judge adjusted to +4pp given JPost poll divergence and coalition arithmetic uncertainty"}
+  ],
+  "lint_gate": "pending",
+  "size_gate": "pending",
+  "generated_at": "2026-09-02T07:00:00Z"
+}
