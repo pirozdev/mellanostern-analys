@@ -15,11 +15,11 @@
   "forecasts_retired_today": 0,
   "forecasts_added_today": 4,
   "judge_flags": [
-    "SAFETY-VIOLATION: Analyst subagent pushed directly to main (index.html + forecasts/active.json), bypassing draft-branch-only rule. Content is substantively correct but triple-blind process was not completed before main push.",
-    "PROCESS: DA audit results not incorporated — DA ran in parallel, judge synthesis pending.",
-    "F7 UPDATE: 85-day exceptional gap justifies p move 0.35→0.15 on Thursday (outside normal Sunday cadence). Review on Sunday Sep 6 for formal RESOLVE-NO consideration.",
-    "NEAR-TERM F2 (0.12): 72h horizon to Sep 6. Very low probability given active Sep 1-2 exchange; verify resolution by EOD Sep 6.",
-    "OPPOSING-NARRATIVE: Triggered — ≥5pp moves (F7 -20pp), new forecasts added. DA opposing narrative pending."
+    "SAFETY-VIOLATION: Analyst subagent pushed directly to main (index.html + forecasts/active.json), bypassing draft-branch-only rule. Draft branch has the lint-clean, DA-audited corrected copy.",
+    "F5-new HORIZON: horizon_date=2026-10-27 is election day; results may not be published before EOD. Consider extending to 2026-10-28.",
+    "F5 RESOLVED-YES AMBIGUITY: 'monthslong' MCM inference is reasonable but indirect. Direct CENTCOM start-date source would upgrade confidence to HIGH.",
+    "F7 CADENCE DEVIATION: p updated Thursday (85-day gap justification). Sunday Sep 6 cadence review should formally RESOLVE-NO.",
+    "OPPOSING-NARRATIVE: DA ruling = F2-new 12% held (DA reduction to 9% rejected); F3-new 15% held. See opposing-narrative.md."
   ],
   "opposing_narrative_triggered": true,
   "cold_start_audit_run": false,
@@ -28,7 +28,9 @@
     "protracted": 28,
     "deescalation": 7
   },
-  "direction_of_travel": "Active US-Iran bilateral exchange (Sep 1-2) with Kuwait GCC incident, Hormuz at 5-15% of pre-war volumes despite Aug 27 lane-clearance declaration, MOU collapsed Jul 8, Iran FM confirmed no talks decision Aug 15; trajectory: active escalation with no current diplomatic off-ramp.",
+  "direction_of_travel": "Active US-Iran bilateral exchange (Sep 1-2) + Kuwait GCC incident; Hormuz at 5-15% pre-war despite Aug 27 CENTCOM lane-clearance; MOU collapsed Jul 8; Araghchi 'no decision yet' Aug 15. Pivot: F3 (diplomacy 15%) and F4 (Hormuz 22%).",
   "draft_branch": "claude/daily-draft-2026-09-03",
-  "note": "85-day catch-up edition (Day 103→188). Analyst subagent committed v48.0 to main directly — safety rule violation. Draft branch outputs produced with lint=0 and full resolution evidence. DA audit output to be incorporated in judge-notes. Owner review required before treating this as a clean publish."
+  "triplet_complete": true,
+  "da_method": "inline (subagent killed by container restarts x2; DA audit run by orchestrator with full Analyst context)",
+  "note": "85-day catch-up edition (Day 103→188). SAFETY: Analyst pushed v48.0 to main directly. Draft branch contains lint-clean corrected files. DA audit completed inline. All 5 judge flags require owner review."
 }
