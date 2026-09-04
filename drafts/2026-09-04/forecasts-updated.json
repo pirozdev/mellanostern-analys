@@ -1,0 +1,225 @@
+{
+  "schema_version": "v45.0",
+  "seeded_at": "2026-05-19",
+  "seeded_from": "v47.0 (Day 103, 2026-06-10)",
+  "last_updated": "2026-09-04",
+  "note": "v49.0 Day 189 (triplet-validated, cloud routine). F2 p 0.12→0.08 (Trump deal-waveoff Sep 2; 2 days to horizon). F3 p 0.15→0.10 (MOU void, contacts halted Aug 18, Sep 2 waveoff). F4 p 0.22→0.15 (Hormuz traffic 8 vessels/day, insurance freeze). F5 p 0.42→0.32 (Yashar 26 vs Likud 22 in Channel 13 poll). F7 KEEP 0.15 (Thursday cadence). F6 NEW (CENTCOM strikes on Iran by Sep 11, p=0.62). Active: 6. Esc 65/Prot 25/De-esc 10.",
+  "forecasts": [
+    {
+      "id": "2026-09-03-iran-ceasefire-announcement-by-sep6",
+      "fnum": "F2",
+      "question": "Will Iran publicly commit to resuming mediated ceasefire negotiations (a named Iranian official or MFA announces readiness for talks) before EOD 2026-09-06?",
+      "owner_category": "diplomacy",
+      "horizon_days": 3,
+      "horizon_date": "2026-09-06",
+      "created_at": "2026-09-03",
+      "expires_at": "2026-09-07",
+      "p": 0.08,
+      "p_prior": 0.12,
+      "prior_date": "2026-09-03",
+      "delta_reason": "UPDATE DOWN. Trump explicitly waved off any deal on Sep 2, stating 'we are done talking; Iran will be hit far harder if it tries that again' (Al Jazeera Sep 2). The June 17 Islamabad memorandum expired unextended on Aug 17; US halted envoy contacts on Aug 18. Iran's Araghchi sent a letter to the UN Security Council condemning US strikes but made no commitment to talks. Iran's SNSC conditional offer ('if attacks are halted, Iran's Armed Forces will cease defensive operations') is preconditioned — per the ambiguity_rule, counted as AMBIGUOUS-RESOLVE-AS-NO unless the US publicly accepts the condition, which it has not. Only 2 days remain to horizon (Sep 6). Base rate for Iranian public commitment to mediated talks within 48h of active bilateral kinetic exchange and explicit US deal-waveoff: below 5%.",
+      "resolution_criteria": "YES if, before EOD 2026-09-06, a named Iranian official (FM Araghchi, Supreme National Security Council, or IRNA/Tasnim/Press TV quoting an official) issues a public statement committing to resuming or entering mediated ceasefire negotiations with the United States. A 'readiness for talks' declaration counts; mere written-message relay does NOT count.",
+      "resolution_source_rule": "One TIER1 (Reuters/AP/AFP/Al Jazeera) citing the named Iranian official, OR Iranian state media (IRNA/Tasnim) carrying the official statement.",
+      "ambiguity_rule": "Conditional or preconditioned offers ('will talk if US stops strikes') = AMBIGUOUS-RESOLVE-AS-NO unless the US publicly accepts the condition; a mediator asserting Iran is 'open' without a named Iranian official statement = AMBIGUOUS-RESOLVE-AS-NO.",
+      "indicators": [
+        {
+          "name": "Araghchi or SNSC public statement committing to talks",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+60pp toward YES"
+        },
+        {
+          "name": "Oman or Qatar mediator readout citing named Iranian acceptance",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+35pp toward YES"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-04"
+    },
+    {
+      "id": "2026-09-04-centcom-iran-strikes-by-sep11",
+      "fnum": "F6",
+      "question": "Will US CENTCOM announce additional kinetic strikes on IRGC targets inside Iran before EOD 2026-09-11?",
+      "owner_category": "military",
+      "horizon_days": 7,
+      "horizon_date": "2026-09-11",
+      "created_at": "2026-09-04",
+      "expires_at": "2026-09-12",
+      "p": 0.62,
+      "p_prior": 0.62,
+      "prior_date": "2026-09-04",
+      "delta_reason": "New 7-day military forecast. US strikes on Sep 1 were the largest CENTCOM action since Jul 29, targeting ~100 IRGC sites including mine-laying vessels, radar arrays, and anti-ship launchers. CENTCOM stated the package 'bought at least a month' of lowered maritime threat levels. However, Iran's Sep 2 ballistic missile retaliation against Jordan/Kuwait bases and drone strikes on Bahrain may trigger a US counter-response. Trump's Sep 2 statement ('we'll hit them far harder') establishes a public deterrence threshold. US strike cadence has been roughly 1-4 weeks throughout the conflict. Base rate for additional CENTCOM strikes inside Iran within 7 days given active bilateral exchange: moderately high at 62%.",
+      "resolution_criteria": "YES if US CENTCOM or DoD issues a press release or named official statement confirming kinetic strikes (missiles, bombs, or drones) against IRGC targets physically located inside Iran between 2026-09-04 and 2026-09-11 inclusive. Strikes on IRGC assets in Gulf waters or third countries do not count.",
+      "resolution_source_rule": "One TIER1 (Reuters/AP/AFP/Bloomberg) citing named US DoD/CENTCOM official OR CENTCOM official press release. Iranian claims alone do not resolve.",
+      "ambiguity_rule": "Air-launched missiles striking a vessel in the Strait = NO (not inside Iran). A US drone flight over Iran without confirmed weapon release = NO. Naval gunfire on Iranian vessels = NO. If CENTCOM confirms strikes but declines to specify location: AMBIGUOUS-RESOLVE-AS-NO unless a second independent TIER1 source geolocates the strike inside Iranian territory.",
+      "indicators": [
+        {
+          "name": "CENTCOM press release or named DoD official confirms new strikes inside Iran",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+80pp toward YES — direct resolution-class signal"
+        },
+        {
+          "name": "Iranian state media (IRNA/IRIB) reports US strikes and names Iranian territory",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+40pp toward YES if accompanied by independent TIER1 confirmation"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-04"
+    },
+    {
+      "id": "2026-09-03-iran-us-indirect-session-by-sep17",
+      "fnum": "F3",
+      "question": "Will a confirmed Iran-US indirect negotiating session (mediated, senior officials, named principals) occur before EOD 2026-09-17?",
+      "owner_category": "diplomacy",
+      "horizon_days": 14,
+      "horizon_date": "2026-09-17",
+      "created_at": "2026-09-03",
+      "expires_at": "2026-09-18",
+      "p": 0.10,
+      "p_prior": 0.15,
+      "prior_date": "2026-09-03",
+      "delta_reason": "UPDATE DOWN. Trump explicitly waved off any deal on Sep 2, stating the exchange was 'over.' US halted envoy contacts Aug 18 after the June 17 Islamabad memorandum expired unextended on Aug 17. Tehran publicly rejected direct talks through July; Iran's deputy FM declared the MOU void on Jul 14. Iran's President Pezeshkian publicly offered to reciprocate a US return to the MOU framework, but this offer stands unanswered by both Washington and Iran's own military establishment. Pakistan/Qatar/Iraq message-relay channels continue but no session has been convened or scheduled. With active kinetic exchange on Sep 1-2 and 13 days remaining to horizon, the timeline for a formally convened indirect session is extremely compressed.",
+      "resolution_criteria": "YES if a TIER1 source reports a face-to-face or formally convened indirect negotiating session (not mere message relay) between named US and Iranian senior officials/envoys, hosted by a named mediator (Oman/Pakistan/Qatar/Switzerland), between 2026-09-03 and 2026-09-17.",
+      "resolution_source_rule": "Two independent TIER1 OR one TIER1 + official mediator readout.",
+      "ambiguity_rule": "Message relay through intermediaries without a convened session = AMBIGUOUS-RESOLVE-AS-NO. Trump assertions of 'semi-negotiating' without Iranian or mediator confirmation of a held session = AMBIGUOUS-RESOLVE-AS-NO.",
+      "indicators": [
+        {
+          "name": "Oman/Qatar/Pakistan mediator readout of a convened session",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+50pp toward YES"
+        },
+        {
+          "name": "Iran MFA confirms re-engagement or talks readiness",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+30pp toward YES"
+        },
+        {
+          "name": "US-Iran bilateral halt in strikes for 72h+ (precondition)",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+15pp toward YES"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-04"
+    },
+    {
+      "id": "2026-09-03-hormuz-30-transits-by-oct3",
+      "fnum": "F4",
+      "question": "Will commercial shipping through the Strait of Hormuz reach >=30 vessels/day (7-day rolling average) before EOD 2026-10-03?",
+      "owner_category": "market",
+      "horizon_days": 30,
+      "horizon_date": "2026-10-03",
+      "created_at": "2026-09-03",
+      "expires_at": "2026-10-04",
+      "p": 0.15,
+      "p_prior": 0.22,
+      "prior_date": "2026-09-03",
+      "delta_reason": "UPDATE DOWN. Hormuz commercial traffic dropped further to approximately 8 vessels/day as of Sep 4 per Straits.live, representing ~5.8% of pre-war normal (138 vessels/day pre-war). US CENTCOM Sep 1 strikes targeted IRGC mine-laying vessels and anti-ship missile launchers, with officials stating the package 'bought at least a month' of lowered maritime threat. However, the insurance war-risk premium blockade remains in force — no named insurer has reinstated Hormuz cover — and IRGC was observed preparing additional mine deployments ahead of the Sep 1 strikes. Reaching 30 vessels/day (21.7% of pre-war) within 29 days requires a sustained halt in Iranian mine/attack activity, premium reinstatement, and commercial operator confidence that has not materialized in 6+ months of conflict.",
+      "resolution_criteria": "YES if any AIS-based ship-tracking source (IMF PortWatch, Straits.live, MarineTraffic, Lloyd's List Intelligence) records >=30 commercial transits/day as a 7-day rolling average at any point between 2026-09-03 and 2026-10-03.",
+      "resolution_source_rule": "AIS-based tracker + one TIER1 or OSINT confirmation (Bloomberg/Reuters/Lloyd's List).",
+      "ambiguity_rule": "Naval escort vessels and warships do not count toward commercial transit; if trackers diverge by >20%, flag AMBIGUOUS.",
+      "indicators": [
+        {
+          "name": "Sustained 72h halt in Iranian mine/vessel-attack activity in the Strait",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+20pp toward YES"
+        },
+        {
+          "name": "P&I war-risk cover reinstated by a named insurer for Hormuz passage",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+25pp toward YES"
+        },
+        {
+          "name": "CENTCOM or mediator-confirmed Iranian commitment to halt mine deployment",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+20pp toward YES"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-04"
+    },
+    {
+      "id": "2026-09-03-likud-plurality-oct27-election",
+      "fnum": "F5",
+      "question": "Will Likud win the most Knesset seats (seat plurality) in the October 27, 2026 Israeli election?",
+      "owner_category": "domestic",
+      "horizon_days": 54,
+      "horizon_date": "2026-10-27",
+      "created_at": "2026-09-03",
+      "expires_at": "2026-10-28",
+      "p": 0.32,
+      "p_prior": 0.42,
+      "prior_date": "2026-09-03",
+      "delta_reason": "UPDATE DOWN. A Channel 13 poll reported by Jerusalem Post (Sep 3) shows Yashar at 26 seats, Likud at 22 seats — a 4-seat Yashar lead. A separate Haaretz/poll snapshot (Aug 6) had placed them closer at 23-22 but with Yashar already ahead. Eisenkot widened his PM-preference lead over Netanyahu to 14 percentage points (49% to 38%). Likud's coalition bloc tracks at 48-52 seats, well below the 61-seat governing threshold. The consistent polling trend now favors Yashar over Likud by 3-4 seats across multiple pollsters. P=0.32 reflects a meaningful Likud plurality disadvantage with 53 days to election, accounting for high electoral volatility in wartime Israel.",
+      "resolution_criteria": "YES if official Knesset election results published by the Israeli Central Elections Committee show Likud winning more seats than any other single party in the October 27, 2026 election.",
+      "resolution_source_rule": "Israeli Central Elections Committee official results, carried by Times of Israel/Haaretz/Reuters/AP.",
+      "ambiguity_rule": "If Likud and one other party tie on seats: AMBIGUOUS-RESOLVE-AS-NO (no plurality). Exit polls alone do not resolve; official preliminary results suffice if published before EOD Oct 27.",
+      "indicators": [
+        {
+          "name": "Polls showing Likud >=23 seats, ahead of Yashar",
+          "state": "CONTRADICTED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+8pp toward YES — poll reversal would suggest narrowing race"
+        },
+        {
+          "name": "Likud bloc forms coalition-eligible alliance pre-election",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+10pp toward YES"
+        },
+        {
+          "name": "Eisenkot/Yashar polling surge >25 seats",
+          "state": "OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "-15pp toward YES (observed — drives current p reduction)"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-04"
+    },
+    {
+      "id": "2026-05-11-netanyahu-coalition-collapse-by-oct-27",
+      "fnum": "F7",
+      "question": "Will Netanyahu's coalition lose its Knesset majority or dissolve early before 2026-10-27?",
+      "owner_category": "regime",
+      "horizon_days": 169,
+      "horizon_date": "2026-10-27",
+      "created_at": "2026-05-11",
+      "expires_at": "2026-10-28",
+      "p": 0.15,
+      "p_prior": 0.15,
+      "prior_date": "2026-09-03",
+      "delta_reason": "KEEP. No material movement. Knesset dissolved naturally Jul 17 — the first natural-term completion since 1988. The 'dissolve early' YES pathway is operationally closed (dissolution already occurred at natural term). The 'lose Knesset majority' pathway is also closed (61-seat majority held through dissolution). The caretaker government under Netanyahu nominally holds executive authority until election on Oct 27. Judge deferred OBE retirement to horizon (Oct 28) per rule that forecasts should not be resolved before their stated horizon without a definitive triggering event. Thursday weekly cadence — no intra-week delta.",
+      "resolution_criteria": "YES if a Knesset roll-call vote confirms coalition loss of majority (61 seats), OR if Netanyahu announces early dissolution and election date moves earlier than 2026-10-27. NO if coalition survives to mandatory election date with 61+ seats intact.",
+      "resolution_source_rule": "Knesset official record + Reuters/Haaretz/Times of Israel. Polling alone does not resolve.",
+      "ambiguity_rule": "If coalition drops below 61 but Netanyahu remains caretaker PM until election: YES. If a single party departs but coalition retains 61+: NO. Reviewed weekly only (Sundays); no intra-week deltas.",
+      "indicators": [
+        {
+          "name": "Smotrich formally departs coalition",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "+20pp toward YES"
+        },
+        {
+          "name": "Degel HaTorah files formal dissolution motion in Knesset",
+          "state": "CONTRADICTED",
+          "observed_at": "2026-09-04",
+          "expected_effect": "Knesset already dissolved naturally Jul 17; this pathway is closed"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-04"
+    }
+  ]
+}

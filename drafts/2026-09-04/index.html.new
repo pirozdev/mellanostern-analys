@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geopolitical Scenario Analysis — Middle East</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #22263a;
+    --accent: #4f8cff;
+    --accent2: #ff6b6b;
+    --accent3: #ffd93d;
+    --accent4: #6bcb77;
+    --text: #e0e0e0;
+    --text-muted: #8a8fa8;
+    --border: #2a2e3f;
+    --red: #ff4757;
+    --orange: #ffa502;
+    --green: #2ed573;
+    --iran: #8e44ad;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+  .hero { text-align: center; padding: 56px 20px 36px; background: linear-gradient(135deg, #1a1d27 0%, #0f1117 100%); border-bottom: 1px solid var(--border); }
+  .hero h1 { font-size: 2.2em; font-weight: 700; margin-bottom: 10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .subtitle { font-size: 1em; color: var(--text-muted); max-width: 700px; margin: 0 auto 16px; }
+  .hero .date-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 18px; font-size: 0.85em; color: var(--accent); }
+  .hero .war-day { display: inline-block; background: var(--accent2); color: #fff; border-radius: 20px; padding: 6px 18px; font-size: 0.85em; font-weight: 600; margin-left: 8px; }
+  .hero .build-meta { margin-top: 10px; font-size: 0.75em; color: var(--text-muted); }
+  .triplet-badge { background: linear-gradient(135deg, #1a2235, #0e1a1e); border: 1px solid var(--accent); border-radius: 8px; padding: 6px 12px; font-size: 0.75em; color: var(--accent); display: inline-block; margin-top: 10px; }
+
+  .direction-of-travel { max-width: 900px; margin: 24px auto; background: linear-gradient(135deg, #1a2235, #1a1d27); border: 2px solid var(--accent); border-radius: 12px; padding: 22px 28px; font-size: 1.05em; line-height: 1.55; }
+  .direction-of-travel .label { font-size: 0.72em; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 6px; }
+  .direction-of-travel .body { color: var(--text); }
+  .direction-of-travel .body .cite { color: var(--accent); font-weight: 600; font-family: 'SF Mono', Menlo, monospace; font-size: 0.92em; }
+  .direction-of-travel.no-move { border-color: var(--border); }
+  .direction-of-travel.no-move .body { color: var(--text-muted); font-style: italic; }
+
+  .disclaimer { background: #2a1a1a; border: 1px solid #5a2020; border-radius: 12px; padding: 16px 20px; margin: 24px auto; max-width: 900px; font-size: 0.85em; color: #ffaaaa; }
+  .disclaimer strong { color: var(--accent2); }
+
+  .section { padding: 30px 0; }
+  .section-title { font-size: 1.5em; font-weight: 700; margin-bottom: 18px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); display: flex; align-items: baseline; justify-content: space-between; }
+  .section-title .meta { font-size: 0.6em; color: var(--text-muted); font-weight: 400; }
+
+  /* === FORECAST BOARD === */
+  .forecast-board { display: flex; flex-direction: column; gap: 12px; }
+  .forecast-bucket-label { font-size: 0.75em; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin: 14px 0 4px; padding-left: 4px; }
+  .forecast-bucket-label:first-child { margin-top: 0; }
+  .forecast-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 16px 20px; }
+  .forecast-card.cat-diplomacy { border-left-color: var(--accent); }
+  .forecast-card.cat-military { border-left-color: var(--red); }
+  .forecast-card.cat-regime { border-left-color: var(--iran); }
+  .forecast-card.cat-market { border-left-color: var(--accent3); }
+  .forecast-card.cat-domestic { border-left-color: var(--accent4); }
+  .forecast-card.cat-humanitarian { border-left-color: var(--orange); }
+  .forecast-card .fc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+  .forecast-card .fc-id { font-family: 'SF Mono', Menlo, monospace; font-size: 0.7em; color: var(--text-muted); }
+  .forecast-card .fc-category { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); padding: 2px 8px; border: 1px solid var(--border); border-radius: 4px; }
+  .forecast-card .fc-question { font-size: 1em; font-weight: 600; color: var(--text); margin: 6px 0 10px; line-height: 1.45; }
+  .forecast-card .fc-probrow { display: flex; align-items: baseline; gap: 18px; margin-bottom: 8px; flex-wrap: wrap; }
+  .forecast-card .fc-p { font-size: 1.8em; font-weight: 800; color: var(--accent); }
+  .forecast-card .fc-delta { font-size: 0.9em; color: var(--text-muted); }
+  .forecast-card .fc-delta.move-up { color: var(--red); }
+  .forecast-card .fc-delta.move-down { color: var(--green); }
+  .forecast-card .fc-delta.no-move { color: var(--border); }
+  .forecast-card .fc-horizon { font-size: 0.85em; color: var(--text-muted); }
+  .forecast-card .fc-delta-reason { font-size: 0.92em; color: var(--text); margin: 6px 0 10px; }
+  .forecast-card .fc-meta-row { font-size: 0.8em; color: var(--text-muted); display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .forecast-card .fc-meta-row dt { font-weight: 600; color: var(--text-muted); }
+  .forecast-card .fc-meta-row dd { color: var(--text); }
+  .forecast-card .fc-indicators { font-size: 0.82em; color: var(--text-muted); margin-top: 6px; }
+  .forecast-card .fc-indicator { display: inline-block; padding: 2px 8px; margin: 2px; border-radius: 4px; border: 1px solid var(--border); }
+  .forecast-card .fc-indicator.state-OBSERVED { background: rgba(46, 213, 115, 0.15); border-color: var(--green); color: var(--green); }
+  .forecast-card .fc-indicator.state-PARTIAL { background: rgba(255, 165, 2, 0.15); border-color: var(--orange); color: var(--orange); }
+  .forecast-card .fc-indicator.state-CONTRADICTED { background: rgba(255, 71, 87, 0.15); border-color: var(--red); color: var(--red); }
+  .forecast-card .fc-indicator.state-NOT_OBSERVED { color: var(--text-muted); }
+  .forecast-card.status-OBE { opacity: 0.55; border-left-style: dashed; }
+  .forecast-card.status-OBE .fc-question::after { content: ' [OBE]'; color: var(--text-muted); font-style: italic; }
+  .forecast-empty-slot { background: transparent; border: 1px dashed var(--border); border-radius: 10px; padding: 14px 20px; color: var(--text-muted); font-style: italic; font-size: 0.88em; }
+
+  /* === DELTA SECTION === */
+  .delta-narrative p { color: var(--text); font-size: 0.96em; margin-bottom: 14px; }
+  .delta-narrative p .cite { color: var(--accent); font-family: 'SF Mono', Menlo, monospace; font-size: 0.88em; }
+  .delta-narrative p .context-only { color: var(--text-muted); font-family: 'SF Mono', Menlo, monospace; font-size: 0.85em; }
+
+  /* === SCENARIO MAP === */
+  .scenario-map { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; }
+  .prob-bar-container { display: flex; height: 36px; border-radius: 8px; overflow: hidden; margin: 8px 0 14px; }
+  .prob-bar { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; color: #fff; }
+  .prob-escalation { background: var(--red); }
+  .prob-status { background: var(--orange); }
+  .prob-deescalation { background: var(--green); }
+  .scenario-line { font-size: 0.92em; color: var(--text); margin-bottom: 6px; }
+  .scenario-line strong.label-esc { color: var(--red); }
+  .scenario-line strong.label-prot { color: var(--orange); }
+  .scenario-line strong.label-desc { color: var(--green); }
+
+  /* === INSIDE IRAN === */
+  .inside-iran { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--iran); border-radius: 10px; padding: 18px 22px; }
+  .inside-iran p { font-size: 0.93em; margin-bottom: 12px; }
+  .inside-iran p .cite { color: var(--accent); font-family: 'SF Mono', Menlo, monospace; font-size: 0.85em; }
+  .iran-media-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .iran-media-badge { display: inline-block; padding: 2px 8px; border: 1px solid var(--iran); border-radius: 4px; font-size: 0.72em; color: var(--iran); }
+
+  /* === REGIME CHANGE WATCH === */
+  .regime-watch { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; }
+  .regime-watch-meta { font-size: 0.8em; color: var(--text-muted); margin-bottom: 14px; }
+  .regime-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+  .regime-row:last-child { border-bottom: 0; }
+  .regime-row .name { font-weight: 600; }
+  .regime-row .p { font-size: 1.4em; font-weight: 700; color: var(--orange); }
+  .regime-row .drivers { font-size: 0.85em; color: var(--text-muted); flex-basis: 100%; margin-top: 4px; }
+
+  /* === SOURCES === */
+  .sources-list { list-style: none; padding: 0; }
+  .sources-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.88em; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .sources-list a { color: var(--accent); text-decoration: none; }
+  .sources-list a:hover { text-decoration: underline; }
+  .source-tier { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 0.7em; font-weight: 700; letter-spacing: 0.5px; flex-shrink: 0; }
+  .source-tier.tier-TIER1 { background: rgba(46, 213, 115, 0.15); color: var(--green); border: 1px solid var(--green); }
+  .source-tier.tier-OSINT { background: rgba(79, 140, 255, 0.15); color: var(--accent); border: 1px solid var(--accent); }
+  .source-tier.tier-STATE_MEDIA { background: rgba(255, 165, 2, 0.15); color: var(--orange); border: 1px solid var(--orange); }
+  .source-tier.tier-EXPERT { background: rgba(155, 89, 182, 0.15); color: #9b59b6; border: 1px solid #9b59b6; }
+
+  /* === EXPERT APPENDIX === */
+  .expert-appendix { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-top: 18px; }
+  .expert-appendix summary { padding: 14px 20px; cursor: pointer; font-weight: 600; color: var(--text-muted); font-size: 0.92em; user-select: none; }
+  .expert-appendix summary:hover { color: var(--text); }
+  .expert-appendix[open] summary { border-bottom: 1px solid var(--border); }
+  .expert-appendix .expert-body { padding: 14px 20px 18px; }
+  .expert-quote { padding: 10px 14px; border-left: 3px solid #9b59b6; margin-bottom: 12px; font-size: 0.9em; }
+  .expert-quote .expert-name { font-weight: 700; color: #9b59b6; margin-bottom: 4px; }
+  .expert-empty { color: var(--text-muted); font-style: italic; font-size: 0.88em; }
+
+  /* === FOOTER === */
+  footer { text-align: center; padding: 32px 20px; color: var(--text-muted); font-size: 0.8em; border-top: 1px solid var(--border); margin-top: 32px; }
+  footer .next-update { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .hero { padding: 36px 16px 24px; }
+    .hero h1 { font-size: 1.5em; line-height: 1.3; }
+    .container { padding: 12px; }
+    .direction-of-travel { margin: 16px 12px; padding: 16px 18px; font-size: 0.95em; }
+    .disclaimer { margin: 16px 12px; padding: 12px; font-size: 0.8em; }
+    .section-title { font-size: 1.2em; }
+    .forecast-card { padding: 14px 16px; }
+    .forecast-card .fc-p { font-size: 1.5em; }
+    .scenario-map, .inside-iran, .regime-watch, .expert-appendix .expert-body { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Geopolitical Scenario Analysis — Middle East</h1>
+  <p class="subtitle">Forecast board + descriptive delta. Predictions are time-bounded and scored; descriptions are sourced and verb-disciplined.</p>
+  <span class="date-badge">September 4, 2026</span>
+  <span class="war-day">Day 189 of the Iran War</span>
+  <div class="build-meta">Published: <span id="pub-ts">2026-09-04T07:00:00Z</span> · Build <span id="build-id" style="font-family:monospace;opacity:0.6;">v49.0</span></div>
+  <div class="triplet-badge">⚖ Triple-blind: Analyst + Devil's Advocate + Judge · forecast-board v45</div>
+</div>
+
+<div class="container">
+
+  <!-- ========== 1. DIRECTION OF TRAVEL (written LAST by Judge) ========== -->
+  <div class="direction-of-travel">
+    <div class="label">Where this is heading</div>
+    <div class="body">
+      Active kinetic exchange through Day 189 (US strikes Sep 1, Iranian retaliation Sep 2) extends the Escalation scenario at 65%, with <span class="cite">F6</span> (new US strikes by Sep 11, 62%) now dominating the near-term board, while <span class="cite">F4</span> (Hormuz reopening by Oct 3) fell to 15% as traffic dropped to 8 vessels/day and <span class="cite">F5</span> (Likud plurality Oct 27) dropped to 32% on Yashar's widening polling lead.
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>⚠ DISCLAIMER:</strong> This analysis relies on open sources (OSINT) and AI-generated assessments. Probabilities are time-bounded forecasts with resolution criteria; track record visible internally until ≥20 forecasts resolve. Descriptive sections enforce verb discipline — any causal/directional claim must cite a forecast or be marked context-only.
+  </div>
+
+  <!-- ========== 2. FORECAST BOARD ========== -->
+  <div class="section" id="forecast-board">
+    <h2 class="section-title">
+      Forecast Board
+      <span class="meta">6 active · last reasoned 2026-09-04 · F6 new</span>
+    </h2>
+
+    <div class="forecast-board">
+
+      <!-- NEAR-TERM (≤72h) -->
+      <div class="forecast-bucket-label">NEAR-TERM — resolves ≤72h</div>
+
+      <!-- F2: Iran ceasefire announcement by Sep 6 -->
+      <div class="forecast-card cat-diplomacy status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F2</span>
+          <span class="fc-category">diplomacy</span>
+        </div>
+        <div class="fc-question">Will Iran publicly commit to resuming mediated ceasefire negotiations (a named Iranian official or MFA announces readiness for talks) before EOD 2026-09-06?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">8%</span>
+          <span class="fc-delta move-down">↓ −4pp from 12% (2026-09-03)</span>
+          <span class="fc-horizon">→ resolves by 2026-09-06</span>
+        </div>
+        <div class="fc-delta-reason">Trump explicitly waved off any deal on Sep 2; June MOU expired Aug 17; US halted envoy contacts Aug 18. Iran's SNSC conditional offer counts as AMBIGUOUS-RESOLVE-AS-NO per ambiguity rule. 2 days remain.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if named Iranian official (FM Araghchi, SNSC, or IRNA/Tasnim/Press TV quoting official) commits publicly to resuming mediated talks before EOD Sep 6.</dd>
+          <dt>Sources OK</dt><dd>TIER1 (Reuters/AP/AFP/Al Jazeera) citing named official, OR IRNA/Tasnim carrying official statement.</dd>
+          <dt>Ambiguity</dt><dd>Conditional/preconditioned offers ('will talk if US stops strikes') = AMBIGUOUS-RESOLVE-AS-NO; mediator 'open' assertion without named Iranian official = AMBIGUOUS-RESOLVE-AS-NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">Araghchi/SNSC public commitment to talks</span>
+          <span class="fc-indicator state-NOT_OBSERVED">Oman/Qatar mediator readout of Iranian acceptance</span>
+        </div>
+      </div>
+
+      <!-- 7-30 DAYS -->
+      <div class="forecast-bucket-label">7–30 DAYS</div>
+
+      <!-- F6: CENTCOM strikes on Iran by Sep 11 (NEW) -->
+      <div class="forecast-card cat-military status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F6 <span style="color:var(--accent3);font-size:0.85em;">NEW</span></span>
+          <span class="fc-category">military</span>
+        </div>
+        <div class="fc-question">Will US CENTCOM announce additional kinetic strikes on IRGC targets inside Iran before EOD 2026-09-11?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">62%</span>
+          <span class="fc-delta no-move">NEW · no prior</span>
+          <span class="fc-horizon">→ resolves by 2026-09-11</span>
+        </div>
+        <div class="fc-delta-reason">Sep 1 strikes (~100 IRGC targets) were largest action since Jul 29. Iran retaliated Sep 2 with ~25 ballistic missiles on Jordan/Kuwait bases + drones on Bahrain. Trump: "We'll hit them far harder." Strike cadence 1–4 weeks throughout conflict.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if CENTCOM/DoD press release or named official confirms kinetic strikes against IRGC targets inside Iran, Sep 4–11 inclusive. Gulf waters or third-country strikes = NO.</dd>
+          <dt>Sources OK</dt><dd>TIER1 citing named US DoD/CENTCOM official, OR CENTCOM press release. Iranian claims alone do not resolve.</dd>
+          <dt>Ambiguity</dt><dd>Strike on vessel in Strait = NO. Drone over Iran without weapon release = NO. Unspecified location + single source = AMBIGUOUS-RESOLVE-AS-NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">CENTCOM press release confirms strikes inside Iran</span>
+          <span class="fc-indicator state-NOT_OBSERVED">IRNA/IRIB reports US strikes with named Iranian territory</span>
+        </div>
+      </div>
+
+      <!-- F3: Iran-US indirect session by Sep 17 -->
+      <div class="forecast-card cat-diplomacy status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F3</span>
+          <span class="fc-category">diplomacy</span>
+        </div>
+        <div class="fc-question">Will a confirmed Iran-US indirect negotiating session (mediated, senior officials, named principals) occur before EOD 2026-09-17?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">10%</span>
+          <span class="fc-delta move-down">↓ −5pp from 15% (2026-09-03)</span>
+          <span class="fc-horizon">→ resolves by 2026-09-17</span>
+        </div>
+        <div class="fc-delta-reason">June MOU void since Aug 17; US halted envoy contacts Aug 18; Trump waved off deal Sep 2. Iran's Pezeshkian offered MOU reciprocation — unanswered. Message relay continues; no session convened. 13 days remain.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if TIER1 reports a formally convened indirect session (not message relay) between named US/Iranian senior officials/envoys, hosted by named mediator (Oman/Pakistan/Qatar/Switzerland), Sep 3–17.</dd>
+          <dt>Sources OK</dt><dd>Two independent TIER1 OR one TIER1 + official mediator readout.</dd>
+          <dt>Ambiguity</dt><dd>Message relay without convened session = AMBIGUOUS-RESOLVE-AS-NO. Trump 'semi-negotiating' without Iranian/mediator confirmation of held session = AMBIGUOUS-RESOLVE-AS-NO.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">Oman/Qatar/Pakistan mediator readout of convened session</span>
+          <span class="fc-indicator state-NOT_OBSERVED">Iran MFA confirms re-engagement</span>
+          <span class="fc-indicator state-NOT_OBSERVED">US-Iran bilateral halt in strikes 72h+</span>
+        </div>
+      </div>
+
+      <!-- F4: Hormuz 30 transits by Oct 3 -->
+      <div class="forecast-card cat-market status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F4</span>
+          <span class="fc-category">market</span>
+        </div>
+        <div class="fc-question">Will commercial shipping through the Strait of Hormuz reach ≥30 vessels/day (7-day rolling average) before EOD 2026-10-03?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">15%</span>
+          <span class="fc-delta move-down">↓ −7pp from 22% (2026-09-03)</span>
+          <span class="fc-horizon">→ resolves by 2026-10-03</span>
+        </div>
+        <div class="fc-delta-reason">Traffic dropped to ~8 vessels/day (5.8% of pre-war normal). Sep 1 strikes degraded IRGC mine-laying capacity; CENTCOM claims "a month" of lowered threat. Insurance war-risk premiums remain prohibitive; no insurer has reinstated Hormuz cover.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if AIS tracker (IMF PortWatch, Straits.live, MarineTraffic, Lloyd's List Intelligence) records ≥30 commercial transits/day as 7-day rolling average, Sep 3–Oct 3.</dd>
+          <dt>Sources OK</dt><dd>AIS-based tracker + one TIER1 or OSINT confirmation (Bloomberg/Reuters/Lloyd's List).</dd>
+          <dt>Ambiguity</dt><dd>Naval/warship transits excluded. If trackers diverge by >20%: AMBIGUOUS.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">Sustained 72h halt in Iranian mine/vessel-attack activity</span>
+          <span class="fc-indicator state-NOT_OBSERVED">P&amp;I war-risk cover reinstated by named insurer</span>
+          <span class="fc-indicator state-NOT_OBSERVED">CENTCOM/mediator-confirmed Iranian mine-halt commitment</span>
+        </div>
+      </div>
+
+      <!-- 30-90 DAYS -->
+      <div class="forecast-bucket-label">30–90 DAYS</div>
+
+      <!-- F5: Likud plurality Oct 27 -->
+      <div class="forecast-card cat-domestic status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F5</span>
+          <span class="fc-category">domestic</span>
+        </div>
+        <div class="fc-question">Will Likud win the most Knesset seats (seat plurality) in the October 27, 2026 Israeli election?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">32%</span>
+          <span class="fc-delta move-down">↓ −10pp from 42% (2026-09-03)</span>
+          <span class="fc-horizon">→ resolves by 2026-10-27</span>
+        </div>
+        <div class="fc-delta-reason">Channel 13 poll (Jerusalem Post, ~Sep 3): Yashar 26 seats, Likud 22. Eisenkot leads Netanyahu in PM preference by 14pp (49% vs 38%). Coalition bloc at 48–52 seats (well below 61). Consistent multi-pollster trend now favors Yashar by 3–4 seats.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if Israeli Central Elections Committee official results show Likud winning more seats than any other single party on Oct 27, 2026.</dd>
+          <dt>Sources OK</dt><dd>Central Elections Committee results carried by Times of Israel/Haaretz/Reuters/AP.</dd>
+          <dt>Ambiguity</dt><dd>Likud–other party tie on seats = AMBIGUOUS-RESOLVE-AS-NO. Exit polls alone do not resolve; official preliminary results suffice if published before EOD Oct 27.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-CONTRADICTED">Polls: Likud ≥23 seats ahead of Yashar (contradicted: Yashar 26, Likud 22)</span>
+          <span class="fc-indicator state-NOT_OBSERVED">Likud bloc forms coalition-eligible alliance pre-election</span>
+          <span class="fc-indicator state-OBSERVED">Yashar polling surge &gt;25 seats (Channel 13: 26 seats)</span>
+        </div>
+      </div>
+
+      <!-- 6-12 MONTHS -->
+      <div class="forecast-bucket-label">6–12 MONTHS</div>
+
+      <!-- F7: Netanyahu coalition collapse by Oct 27 -->
+      <div class="forecast-card cat-regime status-ACTIVE">
+        <div class="fc-head">
+          <span class="fc-id">F7</span>
+          <span class="fc-category">regime</span>
+        </div>
+        <div class="fc-question">Will Netanyahu's coalition lose its Knesset majority or dissolve early before 2026-10-27?</div>
+        <div class="fc-probrow">
+          <span class="fc-p">15%</span>
+          <span class="fc-delta no-move">= 0pp (Thu cadence, no intra-week move)</span>
+          <span class="fc-horizon">→ resolves by 2026-10-27</span>
+        </div>
+        <div class="fc-delta-reason">KEEP. Knesset dissolved naturally Jul 17 (first natural-term completion since 1988). Both YES pathways — lose majority or dissolve early — are operationally closed before Oct 27. Caretaker government holds executive authority until election. Thursday weekly cadence; no intra-week delta.</div>
+        <dl class="fc-meta-row">
+          <dt>Resolution</dt><dd>YES if Knesset roll-call confirms loss of majority (61 seats), OR Netanyahu announces early dissolution with election date earlier than Oct 27. NO if coalition survives to mandatory election date.</dd>
+          <dt>Sources OK</dt><dd>Knesset official record + Reuters/Haaretz/Times of Israel. Polling alone does not resolve.</dd>
+          <dt>Ambiguity</dt><dd>Coalition drops below 61 but Netanyahu stays caretaker PM = YES. Single party departs but 61+ retained = NO. Sunday weekly cadence only.</dd>
+        </dl>
+        <div class="fc-indicators">
+          <span class="fc-indicator state-NOT_OBSERVED">Smotrich formally departs coalition</span>
+          <span class="fc-indicator state-CONTRADICTED">Degel HaTorah dissolution motion (Knesset dissolved Jul 17 — pathway closed)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 3. 24-48H DELTA (descriptive, verb-disciplined) ========== -->
+  <div class="section" id="delta">
+    <h2 class="section-title">
+      What Moved (Last 24-48h)
+      <span class="meta">Descriptive · banned-verb lint enforced · each paragraph cites a forecast or is marked context-only</span>
+    </h2>
+    <div class="delta-narrative">
+      <p>US CENTCOM struck approximately 100 IRGC targets on September 1, including air defense sites, radar arrays, mine-laying vessels, anti-ship missile launchers, and for the first time two Iranian government tankers under an emerging "tanker-for-tanker" doctrine. Iranian authorities reported 18 killed including civilians at a wedding in Sirik county (Al Jazeera, Sep 1). Iran answered the same day with approximately 25 ballistic missiles at US military bases in Jordan and Kuwait, and two dozen drones at Bahrain; US officials reported no American casualties. → moved <span class="cite">F6</span></p>
+      <p>Trump responded to Iran's Sep 2 retaliation by publicly refusing any negotiated deal: "We are done talking. Iran will be hit far harder if it tries that again." US halted envoy contacts August 18 after the June 17 Islamabad memorandum expired unextended on August 17. Iran's President Pezeshkian publicly offered to reciprocate a US return to the MOU framework, but the offer remained unanswered by both Washington and Iran's own military establishment. → supports <span class="cite">F3</span> without move</p>
+      <p>Hormuz commercial traffic was recorded at approximately 8 vessels per day as of September 4 per Straits.live, representing roughly 5.8% of pre-war normal (138 vessels/day). CENTCOM stated the September 1 strikes against IRGC mine-laying capability had "bought at least a month" of lowered threat levels to commercial shipping; no named insurer has reinstated Hormuz war-risk cover as of September 4. → moved <span class="cite">F4</span></p>
+      <p>Israeli election polls published around September 3 (Channel 13, Jerusalem Post) showed Yashar at 26 seats and Likud at 22 seats, with Eisenkot leading Netanyahu in PM preference by 14 percentage points (49% to 38%). A separate Haaretz poll (Aug 6) had placed the parties closer (23–22) but also with Yashar ahead. The right-wing coalition bloc tracked at 48–52 seats, well below the 61-seat governing threshold. → moved <span class="cite">F5</span></p>
+      <p>Putin met Iran's President Pezeshkian in Bishkek on the sidelines of an SCO summit in early September; the Russian president described the June ceasefire as "too fragile" and Iran characterized the bilateral relationship as "strategic." No Russian mediation offer was announced at the meeting. → <span class="context-only">context only</span></p>
+    </div>
+  </div>
+
+  <!-- ========== 4. SCENARIO MAP (computed summary) ========== -->
+  <div class="section" id="scenario-map">
+    <h2 class="section-title">
+      Scenario Map
+      <span class="meta">Computed from Forecast Board · 1 sentence per scenario</span>
+    </h2>
+    <div class="scenario-map">
+      <div class="prob-bar-container">
+        <div class="prob-bar prob-escalation" style="width:65%;">Escalation 65%</div>
+        <div class="prob-bar prob-status" style="width:25%;">Protracted 25%</div>
+        <div class="prob-bar prob-deescalation" style="width:10%;">De-esc 10%</div>
+      </div>
+      <p class="scenario-line"><strong class="label-esc">Escalation path:</strong> F6 (62%) plus Iran's established retaliation pattern across the Sep 1–2 exchange drives continued US-Iran kinetic cycling with no diplomatic circuit-breaker in range.</p>
+      <p class="scenario-line"><strong class="label-prot">Protracted path:</strong> CENTCOM's claimed "month of lowered threat" from Sep 1 strike package plus Iran's message-relay engagement produces a de facto pause without a formal ceasefire or session (F3 at 10%).</p>
+      <p class="scenario-line"><strong class="label-desc">De-escalation path:</strong> Iran's public MOU reciprocation offer — if accepted by Washington before Sep 6 (F2, 8%) — could open a compressed diplomatic lane, but Trump's Sep 2 waveoff makes this a low-probability pathway.</p>
+    </div>
+  </div>
+
+  <!-- ========== 5. INSIDE IRAN (descriptive, ~200 words) ========== -->
+  <div class="section" id="inside-iran">
+    <h2 class="section-title">
+      Inside Iran
+      <span class="meta">State-media decode · 200 words · verb-ban + forecast-cite rule applies</span>
+    </h2>
+    <div class="inside-iran">
+      <div class="iran-media-badges">
+        <span class="iran-media-badge">IRNA</span>
+        <span class="iran-media-badge">IRIB</span>
+        <span class="iran-media-badge">Press TV</span>
+        <span class="iran-media-badge">Fars</span>
+        <span class="iran-media-badge">Tasnim</span>
+        <span class="iran-media-badge">Kayhan</span>
+      </div>
+      <p>Iranian state media covered the September 1–2 exchange under a uniform "defensive operations" frame. IRNA quoted IRGC commander Hossein Salami calling the ballistic missile strikes on Jordan and Kuwait bases "a natural response to aggression against Iranian sovereignty." Tasnim carried a translated version of Araghchi's letter to the UN Security Council, foregrounding Article 51 self-defense language. Kayhan ran a front-page editorial declaring the "era of strategic patience is over" and called for expanded targeting of US logistics infrastructure. Press TV broadcast footage described as missile launches and credited the IRGC Aerospace Force without independent verification. No Iranian state outlet acknowledged military casualties from the Sirik wedding strike; civilian death claims were attributed to "enemy propaganda" by Tasnim (Sep 1). → <span class="context-only">context only</span></p>
+      <p>Araghchi's public output maintained two simultaneous tracks: a UN condemnation letter condemning the Sep 1 strikes and a separate SNSC statement offering cessation of operations if US attacks stop. This dual-channel pattern — legal condemnation plus a preconditioned de-escalatory offer — has appeared in previous Iranian diplomatic phases without leading to a convened session. Neither IRNA nor Tasnim quoted any official committing to mediated talks without conditions. → supports <span class="cite">F2</span> without move</p>
+    </div>
+  </div>
+
+  <!-- ========== 6. REGIME CHANGE WATCH (weekly cadence) ========== -->
+  <div class="section" id="regime-change">
+    <h2 class="section-title">
+      Regime Change Watch
+      <span class="meta">12-month horizon · weekly review only (Sundays) · no intra-week deltas</span>
+    </h2>
+    <div class="regime-watch">
+      <div class="regime-watch-meta">Last reviewed: <strong>2026-09-03</strong> · Next review: <strong>2026-09-06</strong></div>
+
+      <div class="regime-row">
+        <span class="name">🇮🇷 Iran (Regime Collapse)</span>
+        <span class="p">15–25%</span>
+        <div class="drivers">IRGC credibility has absorbed repeated US strikes without internal collapse; fuel shortages and economic deterioration remain structurally destabilizing; Supreme Leader's public messaging emphasizes resilience. Drivers are chronic, not acute.</div>
+      </div>
+
+      <div class="regime-row">
+        <span class="name">🇮🇱 Israel (Netanyahu Steps Down)</span>
+        <span class="p">20–30%</span>
+        <div class="drivers">Netanyahu trails Eisenkot by 14pp in PM-preference polling; indictment proceedings continue; coalition bloc at 48–52 seats well below governing threshold. Wartime security narrative remains Netanyahu's primary asset.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 7. SOURCES (typed tiers) ========== -->
+  <div class="section" id="sources">
+    <h2 class="section-title">
+      Sources
+      <span class="meta">Last 7 days · typed [TIER1/OSINT/STATE_MEDIA/EXPERT]</span>
+    </h2>
+    <ul class="sources-list">
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://www.aljazeera.com/news/2026/9/1/us-military-says-launching-new-attacks-on-iran" target="_blank">Al Jazeera (Sep 1, 2026)</a>
+        — Iran claims attacks on Bahrain, Jordan, Iraq after US strikes kill 11
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://www.aljazeera.com/news/liveblog/2026/9/1/iran-war-live-trump-vows-to-hit-iran-following-first-clash-in-a-month" target="_blank">Al Jazeera liveblog (Sep 1–2, 2026)</a>
+        — Iran War live: Trump vows to hit Iran far harder following bilateral exchange
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://www.globalsecurity.org/military/ops/iran-war-oprep.htm" target="_blank">GlobalSecurity.org OPREP (Sep 2, 2026)</a>
+        — Iran War Day 187 update: full operational summary
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10637/" target="_blank">UK House of Commons Library (Sep 2026)</a>
+        — US-Iran ceasefire and nuclear talks in 2026: timeline and status
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://iranwarlive.com/diplomacy" target="_blank">IranWarLive diplomacy tracker (Sep 4, 2026)</a>
+        — No session scheduled; live deal tracker shows all channels inactive
+      </li>
+      <li>
+        <span class="source-tier tier-OSINT">OSINT</span>
+        <a href="https://straits.live/" target="_blank">Straits.live (Sep 4, 2026)</a>
+        — Hormuz live tracker: ~8 vessels/day; 94% below pre-war normal
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://www.unitedagainstnucleariran.com/analysis/iran-shipping-update-september-2-2026" target="_blank">UANI Iran Shipping Update (Sep 2, 2026)</a>
+        — Hormuz transit data; CENTCOM redirected 84 vessels; 2 boarded
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://www.unitedagainstnucleariran.com/analysis/iran-shipping-update-september-1-2026" target="_blank">UANI Iran Shipping Update (Sep 1, 2026)</a>
+        — IRGC mine-laying preparations observed ahead of Sep 1 US strikes
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://www.jpost.com/israel-election-2026/article-906183" target="_blank">Jerusalem Post (Sep 3, 2026)</a>
+        — Yashar pulls further ahead in pre-election poll; Channel 13: Yashar 26, Likud 22
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://www.jpost.com/israel-election-2026/article-906367" target="_blank">Jerusalem Post analysis (Sep 3, 2026)</a>
+        — Yashar surges ahead of Likud; Eisenkot widens PM-preference lead to 14pp
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://www.haaretz.com/israel-news/elections/2026-08-06/ty-article/poll-opposition-bloc-slips-to-58-seats-as-zionist-home-misses-threshold/0000019f-d5ca-d315-a1df-ffeedf480000" target="_blank">Haaretz (Aug 6, 2026)</a>
+        — Poll: Yashar leads Likud by one seat; coalition bloc at 58 seats
+      </li>
+      <li>
+        <span class="source-tier tier-TIER1">TIER1</span>
+        <a href="https://www.britannica.com/event/2026-Israeli-Elections" target="_blank">Britannica — 2026 Israeli Elections</a>
+        — Election overview: parties, candidates, election date Oct 27
+      </li>
+      <li>
+        <span class="source-tier tier-EXPERT">EXPERT</span>
+        <a href="https://x.com/IRIMFA_EN/status/2027806442372182129" target="_blank">Iran MFA English (@IRIMFA_EN, Sep 2026)</a>
+        — Araghchi letter to UN Security Council condemning US strikes; Article 51 framing
+      </li>
+    </ul>
+
+    <!-- ========== 8. EXPERT APPENDIX (collapsible, only quotes cited in Delta) ========== -->
+    <details class="expert-appendix">
+      <summary>Expert citations from today's Delta &nbsp;·&nbsp; <span style="color:var(--text-muted);font-weight:400;font-size:0.9em;">no quotes today</span></summary>
+      <div class="expert-body">
+        <p class="expert-empty">No expert citations in today's Delta.</p>
+      </div>
+    </details>
+  </div>
+
+</div>
+
+<footer>
+  Geopolitical Scenario Analysis — Multi-Source OSINT Synthesis<br>
+  Generated 2026-09-04 (v49.0) · forecast-board architecture · triple-blind triplet · based on open sources, not intelligence analysis<br>
+  <span class="next-update">Next automatic update: 2026-09-05 at 07:00 UTC (09:00 Stockholm)</span>
+</footer>
+
+<!-- GoatCounter analytics - privacy-friendly, no cookies, GDPR compliant -->
+<script data-goatcounter="https://mellanostern.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
