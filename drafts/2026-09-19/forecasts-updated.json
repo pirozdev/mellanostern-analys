@@ -1,0 +1,198 @@
+{
+  "schema_version": "v45.0",
+  "seeded_at": "2026-05-19",
+  "seeded_from": "v47.0 (Day 103, 2026-06-10)",
+  "last_updated": "2026-09-19",
+  "note": "v49.0 Day 204 (Saturday, regular update). F7 RESOLVED-NO (coalition held ≥61 seats through mandatory Knesset dissolution Jul 17; both YES prongs permanently foreclosed). F2 RESOLVED-NO (Sep 6 horizon passed, no qualifying unconditional commitment). F3 RESOLVED-NO (Sep 17 horizon passed, no qualifying formal session). F4 p 0.22→0.05 (Salalah indefinitely postponed; AIS ~10–12/day vs 30 threshold; no mechanism within 15 days). F5 p 0.42→0.35 (4 of 5 polls show Yashar leading). 3 new forecasts: N1 (Iran confirms US contact by Sep 22), N2 (Hormuz Gulf meeting by Oct 3), N3 (Netanyahu bloc ≥61 seats Oct 27). Active: F4, F5, N1, N2, N3. Scenario: Esc 40 / Prot 48 / De-esc 12.",
+  "forecasts": [
+    {
+      "id": "2026-09-03-hormuz-30-transits-by-oct3",
+      "fnum": "F4",
+      "question": "Will commercial shipping through the Strait of Hormuz reach >=30 vessels/day (7-day rolling average) before EOD 2026-10-03?",
+      "owner_category": "market",
+      "horizon_days": 30,
+      "horizon_date": "2026-10-03",
+      "created_at": "2026-09-03",
+      "expires_at": "2026-10-04",
+      "p": 0.05,
+      "p_prior": 0.22,
+      "prior_date": "2026-09-03",
+      "delta_reason": "The Salalah multilateral meeting — the primary near-term mechanism for formalizing a shipping lane — was postponed indefinitely September 13 due to Saudi Arabia's objections to wording that would encode an unacceptable new status quo. Hormuz daily traffic remained in the 6–13 vessel range (7-day rolling average ~10–12) through September 18 against a pre-war baseline of ~85. Despite the undeclared fire pause since September 9, traffic has not responded. FM Araghchi stated September 13 that the US must fulfill ceasefire obligations before Hormuz reopens. Reaching 30 vessels/day by October 3 requires a rescheduled multilateral meeting, a shipping lanes agreement, an insurance market response, and a sustained ramp in transits — all within 15 days, with no step in this sequence having an active schedule.",
+      "resolution_criteria": "YES if any AIS-based ship-tracking source records >=30 commercial transits/day as a 7-day rolling average at any point between 2026-09-03 and 2026-10-03.",
+      "resolution_source_rule": "Primary tracker: IMF PortWatch (portwatch.imf.org). Secondary: MarineTraffic or VesselsValue AIS data. Primary tracker reading + one TIER1 or OSINT confirmation (Bloomberg/Reuters/Lloyd's List) required.",
+      "ambiguity_rule": "Naval escort vessels and warships do not count toward commercial transit. If IMF PortWatch and a secondary AIS tracker diverge by more than 20% on the rolling average, resolve AMBIGUOUS. Deadline pass at <=30 vessels/day = NO.",
+      "indicators": [
+        {
+          "name": "Hormuz 7-day rolling average ~10–12 vessels/day Sep 18 (threshold: 30)",
+          "state": "CONTRADICTED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Current reading ~10–12 against 30 threshold; trajectory would need to triple in 15 days with no mechanism in place — eliminates realistic YES path"
+        },
+        {
+          "name": "Salalah Iran-Gulf meeting postponed indefinitely due to Saudi objections (Sep 13)",
+          "state": "CONTRADICTED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Removes primary mechanism for multilateral shipping lane formalization; no rescheduled date exists"
+        },
+        {
+          "name": "Araghchi: US must fulfill ceasefire obligations before Hormuz reopens (Sep 13)",
+          "state": "CONTRADICTED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Iranian precondition not met; US rejected Iranian conditional offer Sep 2; structural block on reopening within forecast window"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-19"
+    },
+    {
+      "id": "2026-09-03-likud-plurality-oct27-election",
+      "fnum": "F5",
+      "question": "Will Likud win the most Knesset seats (seat plurality) in the October 27, 2026 Israeli election?",
+      "owner_category": "domestic",
+      "horizon_days": 54,
+      "horizon_date": "2026-10-27",
+      "created_at": "2026-09-03",
+      "expires_at": "2026-10-28",
+      "p": 0.35,
+      "p_prior": 0.42,
+      "prior_date": "2026-09-03",
+      "delta_reason": "A Channel 13/Haaretz poll published September 17 put Yashar (Eisenkot) at 22 seats and Likud at 18, Likud's lowest recorded figure in the campaign. Across five polls in the September 3–17 cycle, four placed Yashar as the largest single party. The undeclared fire pause since September 9 — if sustained — removes some of the security-emergency dynamic that historically benefits the prime minister at the individual-party level. Thirty-eight days remain; Israeli wartime polling exhibits sharp reversals.",
+      "resolution_criteria": "YES if official Knesset election results published by the Israeli Central Elections Committee show Likud winning more seats than any other single party in the October 27, 2026 election.",
+      "resolution_source_rule": "Israeli Central Elections Committee official preliminary results, or TIER1 news agency (Times of Israel/Haaretz/Reuters/AP) citing those results. Exit polls do not qualify; official preliminary count required.",
+      "ambiguity_rule": "If Likud and one other party tie on seats: AMBIGUOUS-RESOLVE-AS-NO (no plurality). If official results not published before November 30, 2026, resolve AMBIGUOUS.",
+      "indicators": [
+        {
+          "name": "Channel 13 poll Sep 17: Yashar 22 seats, Likud 18 — Likud at campaign low",
+          "state": "CONTRADICTED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Most recent single datapoint; Yashar leads by 4 seats; adverse for Likud plurality"
+        },
+        {
+          "name": "4 of 5 polls Sep 3–17: Yashar leads individual-party contest",
+          "state": "CONTRADICTED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Aggregate trend adverse for Likud plurality; moderate weight given 38 days remaining and wartime polling volatility"
+        },
+        {
+          "name": "Undeclared fire pause since Sep 9 (10 days as of Sep 19)",
+          "state": "PARTIAL",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Observed for 10 days; removes security-emergency dynamic that historically benefits Likud; electoral effect uncertain given undeclared nature and unknown duration"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-19"
+    },
+    {
+      "id": "2026-09-19-iran-confirms-us-contact-by-sep22",
+      "fnum": "N1",
+      "question": "Will a named senior Iranian official publicly confirm any form of direct or indirect formal diplomatic contact with the United States before EOD 2026-09-22?",
+      "owner_category": "diplomacy",
+      "horizon_days": 3,
+      "horizon_date": "2026-09-22",
+      "created_at": "2026-09-19",
+      "expires_at": "2026-09-23",
+      "p": 0.15,
+      "p_prior": 0.15,
+      "prior_date": "2026-09-19",
+      "delta_reason": "Trump stated September 16–17 that Iran made 'direct contact' seeking a deal; Iran's SNSC denied any negotiations September 15; no Iranian official confirmed contact through September 18. UNGA sidelines (September 22–26) create a structural window. Iran's public posture — channeling diplomacy through China and Oman rather than acknowledging US engagement — makes public confirmation unlikely unless both sides agreed to announce a formal process.",
+      "resolution_criteria": "YES if, before EOD Sep 22, a named senior Iranian official at the level of FM Araghchi, SNSC Secretary Rezaei, President Pezeshkian, or Supreme Leader's office issues a statement through an authoritative Iranian channel (IRNA, Tasnim, MFA press briefing) explicitly confirming that direct or indirect formal diplomatic contact with US officials occurred. Conditional language or statements about willingness to talk do not qualify; the statement must acknowledge contact as a fact.",
+      "resolution_source_rule": "TIER1 news agency (Reuters, AP, AFP) or Iran state media (IRNA, Tasnim, Press TV) quoting or citing a named Iranian official at FM Araghchi level or above.",
+      "ambiguity_rule": "If Iran issues a statement that neither confirms nor denies contact ('there are channels'), resolve AMBIGUOUS. Deadline pass without confirmation = NO.",
+      "indicators": [
+        {
+          "name": "IRNA/Tasnim report of Araghchi UNGA bilateral contact with US counterpart",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Direct YES trigger if confirmed with named counterpart at appropriate seniority level"
+        },
+        {
+          "name": "Iranian MFA press briefing acknowledging message exchange with Washington",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Possible YES trigger if framing explicitly acknowledges contact as fact rather than conditional willingness"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-19"
+    },
+    {
+      "id": "2026-09-19-hormuz-gulf-meeting-held-by-oct3",
+      "fnum": "N2",
+      "question": "Will the Iran-Gulf states regional meeting on Hormuz shipping lanes (postponed September 13) be rescheduled and convened before EOD 2026-10-03?",
+      "owner_category": "diplomacy",
+      "horizon_days": 14,
+      "horizon_date": "2026-10-03",
+      "created_at": "2026-09-19",
+      "expires_at": "2026-10-04",
+      "p": 0.22,
+      "p_prior": 0.22,
+      "prior_date": "2026-09-19",
+      "delta_reason": "Iran and Oman hold a bilateral agreement on Hormuz lanes; the failure at Salalah was Saudi objections at the multilateral level. A 14-day window is operationally feasible if the Saudi wording dispute is resolved on UNGA sidelines. The structural constraint — Saudi Arabia's unwillingness to legitimize a deal excluding the US — has not changed, and no Saudi-Iranian contact on this specific dispute is reported.",
+      "resolution_criteria": "YES if a multilateral meeting between Iran and at least two Gulf Arab states on the Hormuz shipping lane question is formally convened (attendees and location confirmed by named host or Oman's foreign ministry) before EOD October 3, regardless of whether a final agreement is reached. A bilateral Iran-Oman working session without third-party Gulf states does not qualify.",
+      "resolution_source_rule": "TIER1 news agency or Oman foreign ministry official statement confirming meeting convened with named attendees.",
+      "ambiguity_rule": "If meeting announced but postponed again before convening, resolve NO. If convened after EOD October 3, resolve NO. Any AIS data cited in relation to this forecast: IMF PortWatch (portwatch.imf.org) is the designated primary tracker; divergence >20% between trackers = flag AMBIGUOUS on the AIS component.",
+      "indicators": [
+        {
+          "name": "Saudi-Iranian bilateral contact on Salalah wording dispute",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Removes primary blocking factor; positive for YES — without this, Saudi objection remains the standing veto"
+        },
+        {
+          "name": "Oman foreign ministry announces new meeting date",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Direct YES leading indicator; Oman as host must confirm rescheduling for YES to be possible"
+        },
+        {
+          "name": "Informal fire pause continues through Sep 23 (14-day mark)",
+          "state": "OBSERVED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Necessary but not sufficient for Gulf states to agree; positive for YES but does not resolve Saudi wording dispute"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-19"
+    },
+    {
+      "id": "2026-09-19-netanyahu-bloc-majority-oct27",
+      "fnum": "N3",
+      "question": "Will the electoral bloc aligned with Benjamin Netanyahu (Likud, Religious Zionism, Haredi parties, and allied right-wing lists) secure 61 or more Knesset seats in the October 27, 2026 election?",
+      "owner_category": "domestic",
+      "horizon_days": 38,
+      "horizon_date": "2026-10-27",
+      "created_at": "2026-09-19",
+      "expires_at": "2026-10-28",
+      "p": 0.32,
+      "p_prior": 0.32,
+      "prior_date": "2026-09-19",
+      "delta_reason": "September 17 Channel 13 poll gives the Netanyahu bloc 54 seats — 7 short of a majority. Earlier polls showed blocs tied or the Eisenkot bloc slightly ahead. A 7-seat gap over 38 days is wide but not insurmountable: plausible paths include an Eisenkot-bloc threshold party failing to clear 3.25%, a security incident, or differential turnout. The war context has given Netanyahu sustained media exposure but also exhausted his security narrative with a divided electorate.",
+      "resolution_criteria": "YES if, in the official October 27 Knesset election results, the combined seat total of Netanyahu-allied parties (Likud, Religious Zionism/Smotrich, United Torah Judaism, Shas, Amcha Yisrael/Winter, and any list Netanyahu publicly declares as a coalition partner before election day) equals or exceeds 61 seats.",
+      "resolution_source_rule": "Israel Central Elections Committee official preliminary results, or TIER1 news agency citing those results.",
+      "ambiguity_rule": "If official results not declared before December 31, 2026 due to legal challenge, resolve AMBIGUOUS. Resolves on election night seat count, not confidence vote outcome.",
+      "indicators": [
+        {
+          "name": "Poll showing Netanyahu bloc >=58 seats (within 3-seat polling margin of majority)",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Positive for N3; would signal path to majority within polling margin of error"
+        },
+        {
+          "name": "Small Eisenkot-bloc party polling below 3.25% threshold",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Would shift 4–6 seats to Netanyahu bloc if such a party fails to clear threshold; positive for N3"
+        },
+        {
+          "name": "Major security incident or Iranian escalation in October",
+          "state": "NOT_OBSERVED",
+          "observed_at": "2026-09-19",
+          "expected_effect": "Historical rally effect benefits security-right parties; positive for N3"
+        }
+      ],
+      "status": "ACTIVE",
+      "last_reasoned_at": "2026-09-19"
+    }
+  ]
+}
